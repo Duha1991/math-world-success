@@ -69,7 +69,20 @@
 .adventure-pills{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.adventure-pill{border-radius:999px;background:#ffffffb8;padding:4px 10px;font-size:13px;font-weight:bold}
 .adventure-launch{width:100%;border:0;border-radius:16px;padding:13px 16px;background:#18395d;color:#fff;font:inherit;font-weight:bold;font-size:17px;cursor:pointer;box-shadow:0 5px 0 #0d2844;transition:transform .15s}
 .adventure-launch:active,.adventure-answer:active{transform:translateY(2px)}
-.adventure-map{padding:18px;background:linear-gradient(145deg,#e7f8e9,#e8f4ff);border:2px solid #c9e8d3;border-radius:20px}.adventure-map-title{display:flex;align-items:center;gap:12px}.adventure-map-title>span{font-size:42px}.adventure-map-title h3{margin:0;font-size:22px}.adventure-map-title p{margin:3px 0;color:#486277}.adventure-route{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 0}.adventure-place{display:flex;flex:1;min-width:0;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:12px 7px;background:#fff;border:2px solid #7ac9a4;border-radius:17px;box-shadow:0 4px 0 #c3e8d5}.adventure-place>span{font-size:38px}.adventure-place strong{font-size:14px}.adventure-place small{font-size:11px;color:#526780}.adventure-place.locked{filter:grayscale(.8);opacity:.55;border-color:#b9c5d0;box-shadow:none}.adventure-path{font-size:20px;color:#57806a}.adventure-map-status{background:#fff;border-radius:12px;padding:10px;margin:0 0 12px;font-weight:bold;text-align:center}.adventure-game-content{margin-top:14px}.adventure-game-content.hide{display:none!important}.adventure-map.hide{display:none!important}@media(max-width:560px){.adventure-route{gap:4px}.adventure-place{padding:9px 3px}.adventure-place>span{font-size:30px}.adventure-place strong{font-size:12px}.adventure-path{font-size:15px}.adventure-map{padding:12px}}
+.adventure-map{padding:18px;background:linear-gradient(145deg,#e7f8e9,#e8f4ff);border:2px solid #c9e8d3;border-radius:20px}
+.adventure-landscape{height:330px;position:relative;overflow:hidden;border:3px solid #fff;border-radius:22px;margin:18px 0;background:linear-gradient(#9de4ff 0%,#d9f7ff 43%,#a8e7a0 44%,#65c87b 100%);box-shadow:inset 0 0 0 2px #b3dfb0}
+.map-sun{position:absolute;top:12px;right:22px;font-size:31px}.map-cloud{position:absolute;font-size:27px;opacity:.9}.cloud-one{top:28px;left:25%}.cloud-two{top:55px;left:54%}
+.map-hill{position:absolute;border-radius:50%;background:#72cf7c}.hill-back{width:80%;height:145px;left:-15%;top:115px;background:#9be08c}.hill-front{width:90%;height:130px;right:-18%;top:160px;background:#6bc77a}
+.map-river{position:absolute;left:0;right:0;top:220px;height:75px;background:repeating-linear-gradient(0deg,#4bbde9 0 13px,#8ce0ff 14px 20px);border-top:4px solid #d4f8ff;border-bottom:4px solid #d4f8ff;transform:rotate(-2deg)}
+.map-dirt-road{position:absolute;left:8%;right:8%;top:158px;height:52px;border-radius:50%;border-top:13px dashed #d8a65e;transform:rotate(-8deg)}
+.map-stop{position:absolute;z-index:2;display:flex;align-items:center;flex-direction:column;text-align:center;gap:3px;min-width:100px}.map-stop small{font-size:11px;font-weight:bold;color:#234d36;text-shadow:0 1px #fff}
+.forest-stop{left:4%;top:104px}.bridge-stop{left:39%;top:177px}.castle-stop{right:4%;top:75px}
+.map-forest-art{font-size:29px;line-height:1.08;filter:drop-shadow(0 3px 1px #347d44)}
+.map-label{background:#fffdf0;border:2px solid #e4c47d;border-radius:12px;padding:5px 8px;font-size:13px;font-weight:900;color:#344b2e;box-shadow:0 3px 0 #c8d9a7;white-space:nowrap}
+.map-bridge-art{position:relative;height:67px;min-width:100px;display:flex;align-items:center;justify-content:center}.bridge-water{position:absolute;bottom:0;font-size:20px;color:#fff}.bridge-icon{font-size:51px;filter:drop-shadow(0 3px 1px #437c8d);position:relative}
+.map-castle-art{font-size:65px;position:relative;filter:drop-shadow(0 4px 1px #7666a2);line-height:1.05}.castle-lock{position:absolute;font-size:22px;right:-5px;top:0;background:#fff;border-radius:50%;padding:3px}
+.map-stop.locked{filter:grayscale(.9);opacity:.68}.map-star{position:absolute;z-index:3;font-size:22px;filter:drop-shadow(0 2px 1px #fff)}.star-one{left:31%;top:124px}.star-two{right:29%;top:150px}.map-sign{position:absolute;z-index:3;bottom:10px;left:50%;transform:translateX(-50%);background:#fff8dc;border:2px solid #d9b66b;padding:5px 12px;border-radius:10px;font-size:12px;font-weight:bold;color:#725019;white-space:nowrap}
+.adventure-map-title{display:flex;align-items:center;gap:12px}.adventure-map-title>span{font-size:42px}.adventure-map-title h3{margin:0;font-size:22px}.adventure-map-title p{margin:3px 0;color:#486277}.adventure-route{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 0}.adventure-place{display:flex;flex:1;min-width:0;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:12px 7px;background:#fff;border:2px solid #7ac9a4;border-radius:17px;box-shadow:0 4px 0 #c3e8d5}.adventure-place>span{font-size:38px}.adventure-place strong{font-size:14px}.adventure-place small{font-size:11px;color:#526780}.adventure-place.locked{filter:grayscale(.8);opacity:.55;border-color:#b9c5d0;box-shadow:none}.adventure-path{font-size:20px;color:#57806a}.adventure-map-status{background:#fff;border-radius:12px;padding:10px;margin:0 0 12px;font-weight:bold;text-align:center}.adventure-game-content{margin-top:14px}.adventure-game-content.hide{display:none!important}.adventure-map.hide{display:none!important}@media(max-width:560px){.adventure-map{padding:12px}.adventure-landscape{height:300px}.forest-stop{left:1%;top:105px}.bridge-stop{left:35%;top:175px}.castle-stop{right:1%;top:76px}.map-stop{min-width:86px}.map-forest-art{font-size:24px}.map-castle-art{font-size:52px}.bridge-icon{font-size:43px}.map-label{font-size:11px;padding:4px 5px}.map-stop small{font-size:9px}.map-sign{font-size:10px}.map-dirt-road{left:3%;right:3%}.map-river{top:215px}.star-one{left:28%;top:130px}.star-two{right:24%;top:154px}}
 .drag-fruit-pool{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:18px 0}.drag-fruit{font-size:35px;min-width:58px;min-height:58px;border:2px solid #dce7f0;border-radius:14px;background:#fff;touch-action:none;cursor:grab}.drag-fruit.selected{border-color:#1876c9;background:#eaf4ff}.drag-fruit.used{opacity:.25;cursor:default}.apple-basket{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;min-height:125px;padding:14px;border:3px dashed #c38b47;border-radius:18px;background:#fff6e6;text-align:center;font-size:28px;touch-action:manipulation}.apple-basket strong,.apple-basket span{font-size:15px}.apple-basket #basketItems{font-size:25px;min-height:28px}.adventure-game{margin-top:16px;padding:clamp(14px,3vw,24px);border:2px solid #dcebf7;border-radius:23px;background:#fff;box-shadow:0 8px 22px #19324d0d}
 .adventure-game.hide{display:none!important}.adventure-game-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .adventure-progress{height:10px;border-radius:99px;background:#edf2f8;overflow:hidden;flex:1;min-width:120px}.adventure-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#21b7a5,#f5c342);border-radius:99px;transition:width .35s}
@@ -224,12 +237,14 @@
 <div id="numberAdventure" class="adventure-game hide" aria-live="polite">
   <section id="adventureMap" class="adventure-map">
     <div class="adventure-map-title"><span>🗺️</span><div><h3>خريطة مغامرات حسّوب</h3><p>اجتز التحديات لتفتح الطريق من الغابة إلى الجسر ثم القلعة!</p></div></div>
-    <div class="adventure-route" aria-label="مراحل المغامرة">
-      <div class="adventure-place" id="placeForest"><span>🌳</span><strong>غابة الأرقام</strong><small>المرحلة 1</small></div>
-      <div class="adventure-path">➜</div>
-      <div class="adventure-place locked" id="placeBridge"><span>🌉</span><strong>جسر الأعداد</strong><small>يفتح بعد 2 تحديين</small></div>
-      <div class="adventure-path">➜</div>
-      <div class="adventure-place locked" id="placeCastle"><span>🏰</span><strong>قلعة الكنز</strong><small>المرحلة الأخيرة</small></div>
+    <div class="adventure-landscape" aria-label="خريطة مصورة من الغابة إلى الجسر ثم القلعة">
+      <div class="map-sun">☀️</div><div class="map-cloud cloud-one">☁️</div><div class="map-cloud cloud-two">☁️</div>
+      <div class="map-hill hill-back"></div><div class="map-hill hill-front"></div>
+      <div class="map-river"></div><div class="map-dirt-road"></div>
+      <div class="map-stop forest-stop"><div class="map-forest-art">🌲🌳🌲<br>🌳🌿🌳</div><div class="map-label">🌳 غابة الأرقام</div><small>نقطة البداية</small></div>
+      <div class="map-stop bridge-stop"><div class="map-bridge-art"><span class="bridge-water">〰️〰️〰️</span><span class="bridge-icon" id="bridgeMapIcon">🌉</span></div><div class="map-label">جسر الأعداد</div><small id="bridgeMapCaption">🔒 اجمع نجمتين</small></div>
+      <div class="map-stop castle-stop"><div class="map-castle-art" id="castleMapArt">🏰<span class="castle-lock">🔒</span></div><div class="map-label">قلعة الكنز</div><small id="castleMapCaption">🔒 اجمع 4 نجوم</small></div>
+      <div class="map-star star-one">⭐</div><div class="map-star star-two">✨</div><div class="map-sign">طريق الكنز ➜</div>
     </div>
     <p id="adventureMapStatus" class="adventure-map-status">ابدأ من الغابة، واجمع النجوم حتى تفتح الطريق التالي.</p>
     <button id="adventureMapStart" class="adventure-launch" onclick="beginAdventureChallenges()">ابدأ المغامرة من الغابة 🌳</button>
@@ -517,7 +532,17 @@ function updateAdventureMap(){
  const bridge=document.getElementById('placeBridge'),castle=document.getElementById('placeCastle');
  bridge.classList.toggle('locked',adventureStars<2);
  castle.classList.toggle('locked',adventureStars<4);
- document.getElementById('adventureMapStatus').textContent=adventureStars<2?'الطريق إلى الجسر يفتح بعد جمع نجمتين. نجومك الآن: '+adventureStars+' ⭐':adventureStars<4?'أحسنت! فُتح الجسر 🌉. اجمع 4 نجوم لفتح القلعة. نجومك: '+adventureStars+' ⭐':'رائع! أصبحت القلعة مفتوحة، اقتربت من الكنز! 🏰';
+ const bridgeIcon=document.getElementById('bridgeMapIcon'),castleArt=document.getElementById('castleMapArt');
+ const bridgeCaption=document.getElementById('bridgeMapCaption'),castleCaption=document.getElementById('castleMapCaption');
+ if(bridgeIcon)bridgeIcon.textContent=adventureStars>=2?'🌉':'🌉';
+ if(bridgeCaption)bridgeCaption.textContent=adventureStars>=2?'✅ الجسر مفتوح!':'🔒 اجمع نجمتين';
+ if(castleArt){const lock=castleArt.querySelector('.castle-lock');if(lock)lock.textContent=adventureStars>=4?'✨':'🔒';}
+ if(castleCaption)castleCaption.textContent=adventureStars>=4?'✨ القلعة مفتوحة!':'🔒 اجمع 4 نجوم';
+ const forest=document.querySelector('.forest-stop'),bridgeStop=document.querySelector('.bridge-stop'),castleStop=document.querySelector('.castle-stop');
+ if(forest)forest.classList.remove('locked');
+ if(bridgeStop)bridgeStop.classList.toggle('locked',adventureStars<2);
+ if(castleStop)castleStop.classList.toggle('locked',adventureStars<4);
+ document.getElementById('adventureMapStatus').textContent=adventureStars<2?'ابدأ من الغابة الخضراء! اجمع نجمتين ليُفتح الجسر فوق النهر. نجومك: '+adventureStars+' ⭐':adventureStars<4?'أحسنت! الجسر فوق النهر مفتوح 🌉. اجمع 4 نجوم لتفتح بوابة القلعة. نجومك: '+adventureStars+' ⭐':'رائع! القلعة مفتوحة، والكنز بانتظارك! 🏰';
 }
 function renderAdventureChallenge(){
  const q=numberAdventureChallenges[adventureIndex];
