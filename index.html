@@ -97,6 +97,9 @@
 .adventure-feedback{min-height:54px;padding:12px 14px;border-radius:15px;background:#f7faff;margin-top:14px;font-weight:bold;text-align:center;color:#40566c}
 .adventure-feedback.good{background:#e4fbef;color:#12653f;animation:adventurePop .35s ease}.adventure-feedback.try{background:#fff4d9;color:#805500}
 .adventure-next{display:block;width:100%;margin-top:12px;border:0;border-radius:15px;padding:12px;background:#18a18f;color:#fff;font:inherit;font-weight:bold;font-size:16px;cursor:pointer}
+#adventureNext:not(.hide),#basketFinishBtn:not(.hide){display:block!important;visibility:visible!important;opacity:1!important;position:relative;z-index:20;pointer-events:auto;min-height:48px}
+#adventureAnswers button,#adventureMapStart,#adventureNext,#basketFinishBtn{pointer-events:auto;touch-action:manipulation}
+
 .adventure-reward{text-align:center;padding:18px 8px}.adventure-reward .trophy{font-size:66px;animation:adventurePop .5s ease}.adventure-reward h3{font-size:26px;margin:5px}.adventure-reward p{margin:8px 0 16px}
 .adventure-confetti{font-size:25px;letter-spacing:5px;animation:adventurePop .55s ease}
 @keyframes hassoubBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
@@ -552,7 +555,7 @@ function renderAdventureChallenge(){
  document.getElementById('adventureQuestion').textContent=q.question;
  document.getElementById('adventureFeedback').textContent='اختَر الإجابة التي تراها صحيحة يا بطل! 💛';
  document.getElementById('adventureFeedback').className='adventure-feedback';
- document.getElementById('adventureNext').classList.add('hide');
+ const nextButton=document.getElementById('adventureNext');nextButton.classList.add('hide');nextButton.style.display='';nextButton.disabled=false;
  const holder=document.getElementById('adventureAnswers');holder.innerHTML='';
  q.answers.forEach(answer=>{const b=document.createElement('button');b.type='button';b.className='adventure-answer';b.textContent=answer;b.setAttribute('aria-label','الإجابة '+answer);b.onclick=()=>answerAdventure(answer,b);holder.appendChild(b)});
  adventureLocked=false;
@@ -567,7 +570,12 @@ function answerAdventure(answer,button){
   feedback.className='adventure-feedback good';
   document.querySelectorAll('#adventureAnswers button').forEach(b=>{b.disabled=true;if(b.textContent===q.correct)b.style.borderColor='#20ad78'});
   document.getElementById('adventureProgress').style.width=((adventureIndex+1)/numberAdventureChallenges.length*100)+'%';
-  document.getElementById('adventureNext').classList.remove('hide');
+  const nextButton=document.getElementById('adventureNext');
+  nextButton.textContent=adventureIndex===numberAdventureChallenges.length-1?'انتقل إلى نشاط سلة التفاح 🍎':'تابع المغامرة ←';
+  nextButton.classList.remove('hide');
+  nextButton.style.display='block';
+  nextButton.style.visibility='visible';
+  nextButton.disabled=false;
   playAdventureTone(true);speakHassoub(feedback.textContent);
  }else{
   feedback.textContent='قريب جدًا! 💛 '+q.hint+' جرّب مرة ثانية.';
