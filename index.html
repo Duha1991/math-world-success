@@ -69,7 +69,8 @@
 .adventure-pills{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.adventure-pill{border-radius:999px;background:#ffffffb8;padding:4px 10px;font-size:13px;font-weight:bold}
 .adventure-launch{width:100%;border:0;border-radius:16px;padding:13px 16px;background:#18395d;color:#fff;font:inherit;font-weight:bold;font-size:17px;cursor:pointer;box-shadow:0 5px 0 #0d2844;transition:transform .15s}
 .adventure-launch:active,.adventure-answer:active{transform:translateY(2px)}
-.adventure-game{margin-top:16px;padding:clamp(14px,3vw,24px);border:2px solid #dcebf7;border-radius:23px;background:#fff;box-shadow:0 8px 22px #19324d0d}
+.adventure-map{padding:18px;background:linear-gradient(145deg,#e7f8e9,#e8f4ff);border:2px solid #c9e8d3;border-radius:20px}.adventure-map-title{display:flex;align-items:center;gap:12px}.adventure-map-title>span{font-size:42px}.adventure-map-title h3{margin:0;font-size:22px}.adventure-map-title p{margin:3px 0;color:#486277}.adventure-route{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 0}.adventure-place{display:flex;flex:1;min-width:0;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:12px 7px;background:#fff;border:2px solid #7ac9a4;border-radius:17px;box-shadow:0 4px 0 #c3e8d5}.adventure-place>span{font-size:38px}.adventure-place strong{font-size:14px}.adventure-place small{font-size:11px;color:#526780}.adventure-place.locked{filter:grayscale(.8);opacity:.55;border-color:#b9c5d0;box-shadow:none}.adventure-path{font-size:20px;color:#57806a}.adventure-map-status{background:#fff;border-radius:12px;padding:10px;margin:0 0 12px;font-weight:bold;text-align:center}.adventure-game-content{margin-top:14px}.adventure-game-content.hide{display:none!important}.adventure-map.hide{display:none!important}@media(max-width:560px){.adventure-route{gap:4px}.adventure-place{padding:9px 3px}.adventure-place>span{font-size:30px}.adventure-place strong{font-size:12px}.adventure-path{font-size:15px}.adventure-map{padding:12px}}
+.drag-fruit-pool{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:18px 0}.drag-fruit{font-size:35px;min-width:58px;min-height:58px;border:2px solid #dce7f0;border-radius:14px;background:#fff;touch-action:none;cursor:grab}.drag-fruit.selected{border-color:#1876c9;background:#eaf4ff}.drag-fruit.used{opacity:.25;cursor:default}.apple-basket{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;min-height:125px;padding:14px;border:3px dashed #c38b47;border-radius:18px;background:#fff6e6;text-align:center;font-size:28px;touch-action:manipulation}.apple-basket strong,.apple-basket span{font-size:15px}.apple-basket #basketItems{font-size:25px;min-height:28px}.adventure-game{margin-top:16px;padding:clamp(14px,3vw,24px);border:2px solid #dcebf7;border-radius:23px;background:#fff;box-shadow:0 8px 22px #19324d0d}
 .adventure-game.hide{display:none!important}.adventure-game-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .adventure-progress{height:10px;border-radius:99px;background:#edf2f8;overflow:hidden;flex:1;min-width:120px}.adventure-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#21b7a5,#f5c342);border-radius:99px;transition:width .35s}
 .adventure-level{font-weight:bold;color:#526780;font-size:14px}.adventure-sound{border:1px solid #dce7f0;border-radius:12px;padding:7px 10px;background:#f6fbff;font:inherit;cursor:pointer}
@@ -221,6 +222,19 @@
 <main class="wrap hide" id="gradePage"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الأول الأساسي</h2><p id="gradeBreadcrumb">اختاري الفصل الدراسي</p></div></div>
 <section id="gradeOverview" class="grade-overview"><h2>رحلتك في الصف الأول 🌟</h2><p>اضغطي على الفصل الدراسي الأول لتظهر قائمة الدروس مباشرة.</p><div class="semester-grid"><button class="semester-card sem-one" onclick="showSemester(1)"><span class="semester-icon">📘</span><strong>الفصل الدراسي الأول</strong><span>الوحدات والدروس</span><b>اضغطي لعرض الدروس ↓</b></button><div id="unitChooser" class="unit-chooser hide"><div id="unitsList"></div>
 <div id="numberAdventure" class="adventure-game hide" aria-live="polite">
+  <section id="adventureMap" class="adventure-map">
+    <div class="adventure-map-title"><span>🗺️</span><div><h3>خريطة مغامرات حسّوب</h3><p>اجتز التحديات لتفتح الطريق من الغابة إلى الجسر ثم القلعة!</p></div></div>
+    <div class="adventure-route" aria-label="مراحل المغامرة">
+      <div class="adventure-place" id="placeForest"><span>🌳</span><strong>غابة الأرقام</strong><small>المرحلة 1</small></div>
+      <div class="adventure-path">➜</div>
+      <div class="adventure-place locked" id="placeBridge"><span>🌉</span><strong>جسر الأعداد</strong><small>يفتح بعد 2 تحديين</small></div>
+      <div class="adventure-path">➜</div>
+      <div class="adventure-place locked" id="placeCastle"><span>🏰</span><strong>قلعة الكنز</strong><small>المرحلة الأخيرة</small></div>
+    </div>
+    <p id="adventureMapStatus" class="adventure-map-status">ابدأ من الغابة، واجمع النجوم حتى تفتح الطريق التالي.</p>
+    <button id="adventureMapStart" class="adventure-launch" onclick="beginAdventureChallenges()">ابدأ المغامرة من الغابة 🌳</button>
+  </section>
+  <div class="adventure-game-content hide" id="adventureGameContent">
   <div class="adventure-game-head"><span class="adventure-level" id="adventureLevel">التحدي 1 من 5</span><div class="adventure-progress" aria-label="تقدم المغامرة"><span id="adventureProgress"></span></div><button class="adventure-sound" id="adventureSound" onclick="toggleAdventureSound()" aria-pressed="true">🔊 الصوت</button><button class="adventure-sound" onclick="closeNumberAdventure()">إغلاق ✕</button></div>
   <div id="adventurePlay">
     <div class="adventure-scene"><div id="adventureScene" class="adventure-objects">🍎 🍎 🍎</div></div>
@@ -230,6 +244,7 @@
     <button class="adventure-next hide" id="adventureNext" onclick="nextAdventureChallenge()">تابع المغامرة ←</button>
   </div>
   <div id="adventureFinish" class="adventure-reward hide"></div>
+  </div>
 </div>
 </div><button class="semester-card sem-two" onclick="showSemester(2)"><span class="semester-icon">📗</span><strong>الفصل الدراسي الثاني</strong><span>سيُضاف المحتوى عند تجهيزه</span><b>عرض الفصل ←</b></button></div>
 
@@ -477,12 +492,32 @@ function closeNumberAdventure(){document.getElementById('numberAdventure').class
 function startNumberAdventure(){
  adventureIndex=0;adventureStars=0;adventureLocked=false;
  document.getElementById('numberAdventure').classList.remove('hide');
+ document.getElementById('adventureMap').classList.remove('hide');
+ document.getElementById('adventureGameContent').classList.add('hide');
+ document.getElementById('adventureMapStart').textContent='ابدأ المغامرة من الغابة 🌳';
+ document.getElementById('adventureMapStatus').textContent='ابدأ من الغابة، واجمع النجوم حتى تفتح الطريق التالي.';
+ updateAdventureMap();
+ document.getElementById('numberAdventure').scrollIntoView({behavior:'smooth',block:'nearest'});
+ speakHassoub('أهلًا يا بطل! خريطة المغامرة بانتظارك. لنبدأ من الغابة!');
+}
+function beginAdventureChallenges(){
+ const status=document.getElementById('adventureMapStart').textContent;
+ if(status.includes('الجسر'))adventureIndex=2;
+ else if(status.includes('القلعة'))adventureIndex=4;
+ else adventureIndex=0;
+ document.getElementById('adventureMap').classList.add('hide');
+ document.getElementById('adventureGameContent').classList.remove('hide');
  document.getElementById('adventurePlay').classList.remove('hide');
  document.getElementById('adventureFinish').classList.add('hide');
  document.getElementById('adventureSound').textContent=adventureSoundOn?'🔊 الصوت':'🔇 الصوت';
  renderAdventureChallenge();
- document.getElementById('numberAdventure').scrollIntoView({behavior:'smooth',block:'nearest'});
- speakHassoub('أهلًا يا بطل! هيا نبحث عن كنز الأرقام.');
+ speakHassoub(adventureIndex===0?'هيا نبدأ أول تحدٍ في غابة الأرقام!':adventureIndex===2?'أهلًا بك على جسر الأعداد!':'أهلًا بك في قلعة الكنز!');
+}
+function updateAdventureMap(){
+ const bridge=document.getElementById('placeBridge'),castle=document.getElementById('placeCastle');
+ bridge.classList.toggle('locked',adventureStars<2);
+ castle.classList.toggle('locked',adventureStars<4);
+ document.getElementById('adventureMapStatus').textContent=adventureStars<2?'الطريق إلى الجسر يفتح بعد جمع نجمتين. نجومك الآن: '+adventureStars+' ⭐':adventureStars<4?'أحسنت! فُتح الجسر 🌉. اجمع 4 نجوم لفتح القلعة. نجومك: '+adventureStars+' ⭐':'رائع! أصبحت القلعة مفتوحة، اقتربت من الكنز! 🏰';
 }
 function renderAdventureChallenge(){
  const q=numberAdventureChallenges[adventureIndex];
@@ -502,6 +537,7 @@ function answerAdventure(answer,button){
  const q=numberAdventureChallenges[adventureIndex],feedback=document.getElementById('adventureFeedback');
  if(answer===q.correct){
   adventureLocked=true;adventureStars++;
+  updateAdventureMap();
   feedback.textContent=['أحسنت يا بطل! ⭐','إجابة صحيحة! حسّوب فخور فيك! 🎉','رائع! نجمة جديدة لك! 🌟'][adventureIndex%3];
   feedback.className='adventure-feedback good';
   document.querySelectorAll('#adventureAnswers button').forEach(b=>{b.disabled=true;if(b.textContent===q.correct)b.style.borderColor='#20ad78'});
@@ -515,7 +551,13 @@ function answerAdventure(answer,button){
  }
 }
 function nextAdventureChallenge(){
- if(adventureIndex<numberAdventureChallenges.length-1){adventureIndex++;renderAdventureChallenge();return}
+ if(adventureIndex<numberAdventureChallenges.length-1){
+  adventureIndex++;
+  if(adventureIndex===2){document.getElementById('adventureMap').classList.remove('hide');document.getElementById('adventureGameContent').classList.add('hide');document.getElementById('adventureMapStart').textContent='تابع من الجسر 🌉';document.getElementById('adventureMapStatus').textContent='أحسنت! أنهيت تحديي الغابة. الجسر انفتح، تابع رحلتك!';updateAdventureMap();return;}
+  if(adventureIndex===4){document.getElementById('adventureMap').classList.remove('hide');document.getElementById('adventureGameContent').classList.add('hide');document.getElementById('adventureMapStart').textContent='ادخل القلعة 🏰';document.getElementById('adventureMapStatus').textContent='أنت قريب من الكنز! اجتز تحديات الجسر للدخول إلى القلعة.';updateAdventureMap();return;}
+  renderAdventureChallenge();return;
+ }
+ if(adventureIndex===numberAdventureChallenges.length-1){showAdventureBasketActivity();return;}
  document.getElementById('adventurePlay').classList.add('hide');
  document.getElementById('adventureFinish').classList.remove('hide');
  document.getElementById('adventureProgress').style.width='100%';
@@ -524,6 +566,25 @@ function nextAdventureChallenge(){
  finish.innerHTML='<div class="adventure-confetti">🎉 ✨ 🎊 ✨ 🎉</div><div class="trophy">🏆</div><h3>يا بطل الأرقام!</h3><p>أنهيت المغامرة وجمعت <strong>'+adventureStars+' من '+numberAdventureChallenges.length+'</strong> نجوم ⭐<br>حسّوب مبسوط بإنجازك، استمر بالتعلّم!</p><button class="adventure-launch" onclick="startNumberAdventure()">العب مرة ثانية 🔁</button>';
  playAdventureTone(true);speakHassoub('مبروك يا بطل! أنهيت مغامرة الأرقام. جمعت '+adventureStars+' نجوم.');
 }
+
+function showAdventureBasketActivity(){
+ const play=document.getElementById('adventurePlay');
+ play.innerHTML='<div class="adventure-scene"><div class="adventure-objects">🍎 🍌 🍎 🍌 🍎</div></div><h3 class="adventure-question">اسحب 3 تفاحات إلى السلة 🍎🧺</h3><p style="text-align:center">المس التفاحة واسحبها إلى السلة، أو انقر عليها ثم انقر السلة.</p><div id="dragFruitPool" class="drag-fruit-pool"><button class="drag-fruit" draggable="true" data-fruit="apple">🍎</button><button class="drag-fruit" draggable="true" data-fruit="banana">🍌</button><button class="drag-fruit" draggable="true" data-fruit="apple">🍎</button><button class="drag-fruit" draggable="true" data-fruit="banana">🍌</button><button class="drag-fruit" draggable="true" data-fruit="apple">🍎</button></div><div id="appleBasket" class="apple-basket" role="button" tabindex="0" aria-label="سلة التفاح">🧺<strong>سلة التفاح</strong><span id="basketCount">0 من 3</span><div id="basketItems"></div></div><div id="basketFeedback" class="adventure-feedback">اجمع التفاحات الثلاث فقط!</div><button id="basketFinishBtn" class="adventure-next hide" onclick="finishAdventureBasket()">أكمل إلى الكنز 🏆</button>';
+ const pool=document.getElementById('dragFruitPool'),basket=document.getElementById('appleBasket');
+ let selected=null,count=0;
+ function dropFruit(btn){if(!btn||btn.classList.contains('used'))return;if(btn.dataset.fruit!=='apple'){document.getElementById('basketFeedback').textContent='هذه موزة 🍌. ابحث عن تفاحة حمراء!';document.getElementById('basketFeedback').className='adventure-feedback try';return;}btn.classList.add('used');btn.disabled=true;count++;document.getElementById('basketItems').textContent+=' 🍎';document.getElementById('basketCount').textContent=count+' من 3';if(count===3){document.getElementById('basketFeedback').textContent='أحسنت! جمعت التفاحات الثلاث! ⭐';document.getElementById('basketFeedback').className='adventure-feedback good';document.getElementById('basketFinishBtn').classList.remove('hide');playAdventureTone(true);speakHassoub('أحسنت! جمعت ثلاث تفاحات في السلة!');}}
+ pool.querySelectorAll('.drag-fruit').forEach(btn=>{btn.addEventListener('dragstart',e=>{selected=btn;e.dataTransfer.setData('text/plain','fruit')});btn.addEventListener('click',()=>{selected=btn;pool.querySelectorAll('.drag-fruit').forEach(x=>x.classList.toggle('selected',x===btn));document.getElementById('basketFeedback').textContent='اختيارك '+btn.textContent+'. اضغط على السلة لإضافته.';});btn.addEventListener('pointerdown',()=>{selected=btn;});});
+ basket.addEventListener('dragover',e=>e.preventDefault());basket.addEventListener('drop',e=>{e.preventDefault();dropFruit(selected);});
+ basket.addEventListener('pointerup',()=>dropFruit(selected));basket.addEventListener('click',()=>dropFruit(selected));basket.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();dropFruit(selected);}});
+}
+function finishAdventureBasket(){
+ document.getElementById('adventurePlay').classList.add('hide');document.getElementById('adventureFinish').classList.remove('hide');
+ document.getElementById('adventureLevel').textContent='اكتملت المغامرة!';
+ document.getElementById('adventureProgress').style.width='100%';
+ document.getElementById('adventureFinish').innerHTML='<div class="adventure-confetti">🎉 ✨ 🎊 ✨ 🎉</div><div class="trophy">🏆</div><h3>فتحت كنز الأرقام!</h3><p>أكملت التحديات وجمعت التفاحات في السلة. حسّوب فخور فيك! ⭐</p><button class="adventure-launch" onclick="startNumberAdventure()">العب مرة ثانية 🔁</button>';
+ playAdventureTone(true);speakHassoub('مبروك! فتحت كنز الأرقام!');
+}
+
 function toggleAdventureSound(){
  adventureSoundOn=!adventureSoundOn;
  const b=document.getElementById('adventureSound');b.textContent=adventureSoundOn?'🔊 الصوت':'🔇 الصوت';b.setAttribute('aria-pressed',String(adventureSoundOn));
