@@ -230,7 +230,7 @@
   <p class="home-note">المرحلة الحالية: معاينة واجهة المكتبة وحساب وليّ الأمر. الحسابات الحقيقية وتكامل الدفع والتفعيل التلقائي وحماية الفيديوهات تحتاج إلى خادم وقاعدة بيانات وربط مزوّد دفع آمن.</p>
 </main>
 <main class="wrap hide" id="gradePage"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الأول الأساسي</h2><p id="gradeBreadcrumb">اختاري الفصل الدراسي</p></div></div>
-<section id="gradeOverview" class="grade-overview"><h2>رحلتك في الصف الأول 🌟</h2><p>اضغطي على الفصل الدراسي الأول لتظهر قائمة الدروس مباشرة.</p><div class="semester-grid"><button class="semester-card sem-one" onclick="showSemester(1)"><span class="semester-icon">📘</span><strong>الفصل الدراسي الأول</strong><span>الوحدات والدروس</span><b>اضغطي لعرض الدروس ↓</b></button><div id="unitChooser" class="unit-chooser hide"><div id="unitsList"></div></div><button class="semester-card sem-two" onclick="showSemester(2)"><span class="semester-icon">📗</span><strong>الفصل الدراسي الثاني</strong><span>سيُضاف المحتوى عند تجهيزه</span><b>عرض الفصل ←</b></button></div>
+<section id="gradeOverview" class="grade-overview"><h2>رحلتك في الصف الأول 🌟</h2><p>اضغطي على الفصل الدراسي الأول لتظهر قائمة الدروس مباشرة.</p><div class="semester-grid"><button class="semester-card sem-one" onclick="showSemester(1)"><span class="semester-icon">📘</span><strong>الفصل الدراسي الأول</strong><span>الوحدات والدروس</span><b>اضغطي لعرض الدروس ↓</b></button><div id="unitChooser" class="unit-chooser hide"><div id="unitsList"></div>
 <div id="numberAdventure" class="adventure-game hide" aria-live="polite">
   <div class="adventure-game-head"><span class="adventure-level" id="adventureLevel">التحدي 1 من 5</span><div class="adventure-progress" aria-label="تقدم المغامرة"><span id="adventureProgress"></span></div><button class="adventure-sound" id="adventureSound" onclick="toggleAdventureSound()" aria-pressed="true">🔊 الصوت</button><button class="adventure-sound" onclick="closeNumberAdventure()">إغلاق ✕</button></div>
   <div id="adventurePlay">
@@ -242,6 +242,8 @@
   </div>
   <div id="adventureFinish" class="adventure-reward hide"></div>
 </div>
+</div><button class="semester-card sem-two" onclick="showSemester(2)"><span class="semester-icon">📗</span><strong>الفصل الدراسي الثاني</strong><span>سيُضاف المحتوى عند تجهيزه</span><b>عرض الفصل ←</b></button></div>
+
 </section>
 <div id="lessonArea" class="hide"><div class="toptools"><button class="toggle" onclick="backToUnits()">← العودة إلى الوحدات</button><span class="scorepill" id="starCount">⭐ نجومي: 0</span><button class="toggle" id="soundToggle" onclick="toggleSound()">🔊 الصوت: يعمل</button><span class="mascot">🤖 حسّوب يشجّعك!</span></div><div class="counter"><span id="lessonCount">الدرس 1 من 7</span><span>تقدّمك في الوحدة</span></div><div class="progress"><div id="progressbar"></div></div><div class="layout" style="margin-top:16px"><aside class="panel"><h2>دروس الوحدة</h2><nav class="nav" id="nav"></nav><p class="footer">الدروس مرتبة وفق فهرس كتاب الطالب. الأنشطة والأسئلة هنا مُعدّة للتدريب والفهم.</p></aside><section class="lesson" id="lesson"></section></div><div class="footer">أنشطة تدريبية تفاعلية للصف الأول الأساسي.</div></div></main>
 <div id="hassoubTip" class="hassoub-tip" role="status" aria-live="polite"><div class="tip-head">🤖 حسّوب يذكّرك!</div><p id="hassoubTipText">خلّينا نتذكّر أهم فكرة في الدرس.</p><button onclick="closeHassoubTip()">تمام يا حسّوب ⭐</button></div>
@@ -479,7 +481,7 @@ const numberAdventureChallenges=[
  {scene:'6　7　❔　9',sceneClass:'adventure-numberline',question:'ساعد حسّوب يكمل العدّ: ما العدد التالي؟',answers:['8','5','10'],correct:'8',hint:'نعدّ بالترتيب: 6، 7، 8، 9.'}
 ];
 let adventureIndex=0,adventureStars=0,adventureSoundOn=true,adventureLocked=false;
-function openAdventureFromHome(){openGrade(1);document.getElementById('unitChooser').classList.add('hide');startNumberAdventure();}
+function openAdventureFromHome(){openGrade(1);const chooser=document.getElementById('unitChooser');if(chooser.classList.contains('hide')||chooser.dataset.semester!=='1'){chooser.classList.add('hide');chooser.dataset.semester='';showSemester(1);}startNumberAdventure();}
 function closeNumberAdventure(){document.getElementById('numberAdventure').classList.add('hide');}
 function startNumberAdventure(){
  adventureIndex=0;adventureStars=0;adventureLocked=false;
