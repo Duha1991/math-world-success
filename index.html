@@ -323,6 +323,7 @@ const introFinalExamQuestions=[
  {q:'أي عدد أكبر؟',choices:['6','9','كلاهما متساويان'],correct:1}
 ];
 function startIntroFinalExam(){
+ openLessonFromList(0,0);
  const area=document.getElementById('lessonArea');
  area.classList.remove('hide');
  area.querySelector('.counter').classList.add('hide');
