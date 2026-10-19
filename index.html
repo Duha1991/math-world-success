@@ -373,9 +373,16 @@ function submitIntroFinalExam(){
  result.classList.remove('hide');
  if(missing){result.textContent='بقي عليك الإجابة عن '+missing+' سؤال/أسئلة قبل عرض النتيجة. راجع إجاباتك يا بطل! 💛';return;}
  const stars=score>=9?'⭐⭐⭐':score>=7?'⭐⭐':'⭐';
- result.innerHTML='نتيجتك: '+score+' من '+introFinalExamQuestions.length+' '+stars+'<br>'+(score===10?'ممتاز! علامة كاملة، يا بطل الرياضيات! 🎉🏆':score>=7?'أحسنت! أداء رائع، راجع الأسئلة التي تحتاج إلى تدريب ثم جرّب مرة أخرى. 🌟':'بداية حلوة! راجع الدروس ثم أعد الاختبار، حسّوب يشجّعك! 💪')+'<div class="intro-exam-actions"><button type="button" onclick="renderIntroFinalExam()">إعادة الاختبار 🔄</button><button type="button" class="secondary" onclick="returnIntroLessons()">العودة إلى الدروس</button></div>';
+ const bot='<div class="hassoub-celebration-bot" role="img" aria-label="حسّوب يتحرك ويصفق بيديه"><div class="hassoub-bot-head"><div class="hassoub-bot-eyes"><i></i><i></i></div><div class="hassoub-bot-smile"></div></div><div class="hassoub-bot-body"></div><div class="hassoub-bot-arm left"><span class="hassoub-bot-hand"></span></div><div class="hassoub-bot-arm right"><span class="hassoub-bot-hand"></span></div><div class="hassoub-bot-leg left"></div><div class="hassoub-bot-leg right"></div></div>';
+ if(score===10){
+  result.innerHTML='<div style="text-align:center;padding:18px 10px;border:3px solid #ffd34d;border-radius:22px;background:linear-gradient(135deg,#fff8d9,#fff0fa,#e6f7ff)"><div style="font-size:36px">🎆 🌟 🎊 🌟 🎆</div>'+bot+'<h2 style="color:#b87500">يا سلام! العلامة الكاملة! 🏆</h2><p style="font-size:24px;font-weight:900">10 من 10 ⭐</p><p style="font-size:19px;font-weight:800">حسّوب يصفّق لك! 👏👏👏</p><p>🎁 هديتك: وسام بطل الرياضيات 🥇</p><div style="font-size:32px">✨ ⭐ 🎉 💥 🎉 ⭐ ✨</div><p>أنت بطل مبدع! حسّوب فخور فيك! 💛</p><div class="intro-exam-actions"><button type="button" onclick="renderIntroFinalExam()">إعادة الاختبار 🔄</button><button type="button" class="secondary" onclick="returnIntroLessons()">العودة إلى الدروس</button></div></div>';
+  if(typeof celebrate==='function')celebrate();
+  if(soundOn)speakHassoub('يا سلام! العلامة الكاملة! عشرة من عشرة! أحسنت يا بطل الرياضيات!');
+ }else{
+  result.innerHTML='نتيجتك: '+score+' من '+introFinalExamQuestions.length+' '+stars+'<br>'+(score>=7?'أحسنت! أداء رائع، راجع الأسئلة التي تحتاج إلى تدريب ثم جرّب مرة أخرى. 🌟':'بداية حلوة! راجع الدروس ثم أعد الاختبار، حسّوب يشجّعك! 💪')+'<div class="intro-exam-actions"><button type="button" onclick="renderIntroFinalExam()">إعادة الاختبار 🔄</button><button type="button" class="secondary" onclick="returnIntroLessons()">العودة إلى الدروس</button></div>';
+  if(score>=7){try{playAdventureTone(true);speakHassoub('أحسنت! نتيجتك '+score+' من 10')}catch(e){}}
+ }
  result.scrollIntoView({behavior:'smooth',block:'center'});
- if(score>=7){try{playAdventureTone(true);speakHassoub('أحسنت! نتيجتك '+score+' من 10')}catch(e){}}
 }
 function returnIntroLessons(){
  document.getElementById('introFinalExam').classList.add('hide');
