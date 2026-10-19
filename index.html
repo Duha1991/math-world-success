@@ -403,18 +403,45 @@ function renderUnit1FinalExam(){const exam=document.getElementById('introFinalEx
 function submitUnit1FinalExam(){const key=['b','a','b','a','c','b','b','b','b','c','a','b','b','c','b'];let n=0,answeredCount=0;key.forEach((correct,i)=>{const chosen=document.querySelector('input[name="unit1Q'+i+'"]:checked');if(chosen){answeredCount++;if(chosen.value===correct)n++;}});const out=document.getElementById('unit1FinalExamResult');out.classList.remove('hide');if(answeredCount===15)recordQuizStarsOnce(out,n);const scoreOutOf10=Math.round((n/15)*100)/10;const bot='<div class="hassoub-celebration-bot" role="img" aria-label="حسّوب الروبوت يصفق" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:auto;min-height:112px;margin:12px auto;position:relative;overflow:visible"><span style="display:inline-block;font-size:42px;line-height:1;animation:hassoub-clap-left .28s ease-in-out infinite alternate">👏</span><span style="display:inline-block;font-size:78px;line-height:1;animation:hassoub-bounce .42s ease-in-out infinite alternate">🤖</span><span style="display:inline-block;font-size:42px;line-height:1;animation:hassoub-clap-right .28s ease-in-out infinite alternate">👏</span></div>';if(n===15&&answeredCount===15){awardBadge('perfect_unit_1');out.innerHTML='<div style="text-align:center;padding:20px 10px;border:3px solid #ffd34d;border-radius:22px;background:linear-gradient(135deg,#fff8d9,#fff0fa,#e6f7ff);overflow:hidden"><div style="font-size:42px">🎆 🌟 🎊 🌟 🎆</div>'+bot+'<h2>يا سلام! العلامة الكاملة! 🏆</h2><p style="font-size:24px;font-weight:900">10 من 10 ⭐</p><p>حسّوب يصفّق لك! 👏👏👏</p><p>🎁 وسام بطل الرياضيات 🥇</p></div>';celebrate();if(soundOn)say('يا سلام! العلامة الكاملة! عشرة من عشرة!');}else{out.innerHTML='<h3>نتيجتك في اختبار الوحدة الأولى</h3><p>أجبت عن '+answeredCount+' من 15 سؤالًا.</p><p style="font-size:22px;font-weight:900">علامتك: '+scoreOutOf10+' من 10</p><p>'+(answeredCount<15?'أكمل الأسئلة المتبقية لتحصل على نتيجة أدق. ':'')+(n>=11?'👏 أداء رائع!':'💛 أحسنت على المحاولة! راجع الدروس ثم حاول مرة أخرى.')+'</p>';if(soundOn)say('أحسنت على المحاولة! واصل التقدم.');}out.classList.add('show');out.scrollIntoView({behavior:'smooth',block:'center'});}
 function returnUnit1Lessons(){document.getElementById('introFinalExam').classList.add('hide');document.getElementById('lessonArea').querySelector('.counter').classList.remove('hide');document.getElementById('lessonArea').querySelector('.progress').classList.remove('hide');document.getElementById('lessonArea').querySelector('.layout').classList.remove('hide');document.getElementById('lessonArea').querySelector(':scope > .footer').classList.remove('hide');show(0);window.scrollTo(0,0);}
 function openGrade(n){
- if(n===1){
-   document.getElementById('homePage').classList.add('hide');
-   document.getElementById('gradePage').classList.remove('hide');
-   window.scrollTo(0,0);
- }else{
-   alert('محتوى هذا الصف لم يُضف بعد. الصف الأول الأساسي هو المتوفر حاليًا.');
- }
+ document.getElementById('homePage').classList.add('hide');
+ if(n===1){document.getElementById('grade2Page').classList.add('hide');document.getElementById('gradePage').classList.remove('hide');}
+ else if(n===2){document.getElementById('gradePage').classList.add('hide');document.getElementById('grade2Page').classList.remove('hide');renderGrade2Units();}
+ else {document.getElementById('homePage').classList.remove('hide');alert('محتوى هذا الصف سيُضاف لاحقًا. الصفان الأول والثاني قيد التجهيز.');}
+ window.scrollTo(0,0);
 }
 function goHome(){
  document.getElementById('gradePage').classList.add('hide');
+ document.getElementById('grade2Page').classList.add('hide');
  document.getElementById('homePage').classList.remove('hide');
  window.scrollTo(0,0);
+}
+const grade2Units=[
+{title:'الوحدة 1: الأعداد',project:'مشروع الوحدة: العملات',lessons:['المئات','الأعداد ضمن 3 منازل','القيمة المنزلية','قراءة الأعداد وكتابتها']},
+{title:'الوحدة 2: مقارنة الأعداد وترتيبها',project:'مشروع الوحدة: مقارنة الأعداد وترتيبها',lessons:['العدّ بالواحدات والعشرات والمئات','الأعداد الزوجية والأعداد الفردية','العدد السابق والعدد التالي','مقارنة الأعداد','ترتيب الأعداد','تمثيل الأعداد على خط الأعداد','تقريب الأعداد']},
+{title:'الوحدة 3: الجمع',project:'مشروع الوحدة: فواتير الكهرباء المنزلية',lessons:['جمع مضاعفات العشرة والمئة ذهنيًا','تقدير ناتج الجمع','الجمع','الجمع بإعادة التجميع (1)','الجمع بإعادة التجميع (2)','خصائص الجمع','خطة حل المسألة: التخمين والتحقق']},
+{title:'الوحدة 4: الطرح',project:'مشروع الوحدة: الحيوانات',lessons:['طرح مضاعفات العشرة والمئة ذهنيًا','تقدير ناتج الطرح','الطرح','الطرح بإعادة التجميع (1)','الطرح بإعادة التجميع (2)','الطرح مع وجود أصفار','خطة حل المسألة: الحل بأكثر من خطوة']},
+{title:'الوحدة 5: معالجة البيانات',project:'مشروع الوحدة: رياضتي المفضلة',lessons:['تمثيل البيانات بالصور','تفسير البيانات الممثلة بالصور','جمع البيانات وتنظيمها','تفسير البيانات الممثلة بجدول']}
+];
+function renderGrade2Units(){
+ const root=document.getElementById('grade2Units');
+ root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')">'+l+'</button></li>').join('')+'</ol><button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار الوحدة (قيد الإعداد)</button></section>').join('');
+}
+function openGrade2Lesson(unit,lesson){
+ const u=grade2Units[unit],name=u.lessons[lesson];
+ document.getElementById('grade2Lesson').classList.remove('hide');
+ document.getElementById('grade2LessonTitle').textContent=name;
+ document.getElementById('grade2LessonUnit').textContent=u.title;
+ document.getElementById('grade2LessonText').innerHTML='<p>هذا الدرس مُدرج وفق فهرس كتاب الطالب الرسمي للصف الثاني الأساسي، الفصل الأول.</p><p>نعمل على تجهيز الشرح والأمثلة والتدريبات التفاعلية لهذا الدرس اعتمادًا على صفحات الكتاب، حتى تكون الأنشطة مطابقة للمحتوى الرسمي.</p>';
+ document.getElementById('grade2LessonStatus').textContent='عنوان الدرس مثبت من الفهرس؛ الشرح والأسئلة التفصيلية لم تُستكمل بعد.';
+ window.scrollTo(0,document.getElementById('grade2Lesson').offsetTop);
+}
+function openGrade2Exam(unit){
+ document.getElementById('grade2Lesson').classList.remove('hide');
+ document.getElementById('grade2LessonTitle').textContent='اختبار '+grade2Units[unit].title;
+ document.getElementById('grade2LessonUnit').textContent='اختبار نهاية الوحدة';
+ document.getElementById('grade2LessonText').innerHTML='<p>سيُبنى الاختبار من أسئلة الدروس بعد تجهيزها ومراجعتها مقابل الكتاب الرسمي.</p>';
+ document.getElementById('grade2LessonStatus').textContent='الاختبار قيد الإعداد ولم يُفعّل بعد.';
+ window.scrollTo(0,document.getElementById('grade2Lesson').offsetTop);
 }
 
 let lessons=[
@@ -747,4 +774,4 @@ function playAdventureTone(correct){
 }
 
 updateStars();show(0);
-</script></body></html>
+</script><div id="grade2Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثاني الأساسي</h2><p>الفصل الدراسي الأول • وفق فهرس كتاب الطالب الرسمي</p></div></div><section class="grade-overview"><h2>رحلتك في الصف الثاني 🌟</h2><p>اختاري الوحدة ثم الدرس. عناوين الدروس مرتبة حسب فهرس الكتاب.</p><div id="grade2Units"></div></section><section id="grade2Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="document.getElementById('grade2Lesson').classList.add('hide')">← العودة إلى الوحدات</button><p id="grade2LessonUnit" class="pill"></p><h2 id="grade2LessonTitle"></h2><div id="grade2LessonText"></div><div id="grade2LessonStatus" class="recap"></div></section></div></div></body></html>
