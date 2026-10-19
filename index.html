@@ -59,6 +59,37 @@
 .account-entry p{margin:3px 0;color:#526780}.account-actions{display:flex;gap:8px;flex-wrap:wrap}.account-btn{border:0;border-radius:12px;padding:10px 15px;background:#1876c9;color:#fff;font:inherit;font-weight:bold;cursor:pointer}.account-btn.alt{background:#e5f4ef;color:#14594f;border:1px solid #b6e4d7}
 .account-panel{background:#fff;border:1px solid #dce7f0;border-radius:20px;padding:18px;margin:12px 0 22px;box-shadow:0 5px 16px #17324d0a}.account-panel h3{margin-top:0}.account-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.account-tab{border:1px solid #cbdced;border-radius:999px;padding:7px 14px;background:#f7fbff;color:#19324d;font:inherit;cursor:pointer}.account-tab.active{background:#1876c9;color:#fff;border-color:#1876c9}.account-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.account-field{display:flex;flex-direction:column;gap:5px}.account-field.full{grid-column:1/-1}.account-field label{font-weight:bold;font-size:14px}.account-field input,.account-field select{width:100%;font:inherit;border:1px solid #cbdced;border-radius:11px;padding:10px;background:#fff;color:#19324d}.account-help{font-size:13px;color:#526780;margin:10px 0}.demo-warning{border-right:4px solid #e0a22e;background:#fff8e7;padding:10px 12px;border-radius:10px;font-size:13px;margin-top:12px}.account-state{padding:12px;border-radius:12px;background:#eef9f6;margin-top:12px;font-weight:bold;display:none}.account-state.show{display:block}@media(max-width:560px){.account-form{grid-template-columns:1fr}.account-field.full{grid-column:auto}.account-entry{align-items:stretch}.account-actions{width:100%}.account-actions button{flex:1}}
 
+
+/* Hassoub number adventure */
+.adventure-hub{margin:22px 0;padding:22px;border-radius:26px;background:linear-gradient(135deg,#fff0c2 0%,#ffe5ed 48%,#e2f8ff 100%);border:2px solid #fff;box-shadow:0 12px 28px #19324d12;color:#19324d;position:relative;overflow:hidden}
+.adventure-hub:after{content:"✦  ★  ✦";position:absolute;left:14px;top:8px;font-size:25px;color:#e3a927;opacity:.7;pointer-events:none}
+.adventure-top{display:flex;align-items:center;gap:15px;position:relative;z-index:1}
+.adventure-mascot{display:grid;place-items:center;flex:0 0 82px;height:82px;border-radius:24px;background:#fff;box-shadow:0 5px 0 #f4d58a;font-size:48px;animation:hassoubBob 2.4s ease-in-out infinite}
+.adventure-copy{flex:1}.adventure-copy h2{font-size:clamp(21px,3vw,29px);margin:0 0 4px}.adventure-copy p{margin:0;color:#475c70}
+.adventure-pills{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.adventure-pill{border-radius:999px;background:#ffffffb8;padding:4px 10px;font-size:13px;font-weight:bold}
+.adventure-launch{width:100%;border:0;border-radius:16px;padding:13px 16px;background:#18395d;color:#fff;font:inherit;font-weight:bold;font-size:17px;cursor:pointer;box-shadow:0 5px 0 #0d2844;transition:transform .15s}
+.adventure-launch:active,.adventure-answer:active{transform:translateY(2px)}
+.adventure-game{margin-top:16px;padding:clamp(14px,3vw,24px);border:2px solid #dcebf7;border-radius:23px;background:#fff;box-shadow:0 8px 22px #19324d0d}
+.adventure-game.hide{display:none!important}.adventure-game-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.adventure-progress{height:10px;border-radius:99px;background:#edf2f8;overflow:hidden;flex:1;min-width:120px}.adventure-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#21b7a5,#f5c342);border-radius:99px;transition:width .35s}
+.adventure-level{font-weight:bold;color:#526780;font-size:14px}.adventure-sound{border:1px solid #dce7f0;border-radius:12px;padding:7px 10px;background:#f6fbff;font:inherit;cursor:pointer}
+.adventure-scene{background:linear-gradient(180deg,#eafaff,#f8fcff);border-radius:20px;padding:20px 14px;text-align:center;min-height:125px;display:grid;place-content:center;margin:10px 0 16px}
+.adventure-scene .adventure-objects{font-size:clamp(34px,7vw,53px);line-height:1.55;letter-spacing:2px;overflow-wrap:anywhere}
+.adventure-scene .adventure-numberline{font-size:clamp(23px,5vw,34px);font-weight:bold;letter-spacing:3px;color:#1876c9}
+.adventure-question{text-align:center;font-size:clamp(19px,3.6vw,25px);margin:12px 0 16px}
+.adventure-answers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.adventure-answer{min-height:65px;border:2px solid #dce7f0;border-radius:17px;background:#fff;color:#19324d;font:inherit;font-size:clamp(22px,4vw,30px);font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #e3eaf1;transition:background .15s,border-color .15s,transform .15s}
+.adventure-answer:hover{border-color:#70cfc3;background:#f0fffb}.adventure-answer:disabled{cursor:default;opacity:.85}
+.adventure-feedback{min-height:54px;padding:12px 14px;border-radius:15px;background:#f7faff;margin-top:14px;font-weight:bold;text-align:center;color:#40566c}
+.adventure-feedback.good{background:#e4fbef;color:#12653f;animation:adventurePop .35s ease}.adventure-feedback.try{background:#fff4d9;color:#805500}
+.adventure-next{display:block;width:100%;margin-top:12px;border:0;border-radius:15px;padding:12px;background:#18a18f;color:#fff;font:inherit;font-weight:bold;font-size:16px;cursor:pointer}
+.adventure-reward{text-align:center;padding:18px 8px}.adventure-reward .trophy{font-size:66px;animation:adventurePop .5s ease}.adventure-reward h3{font-size:26px;margin:5px}.adventure-reward p{margin:8px 0 16px}
+.adventure-confetti{font-size:25px;letter-spacing:5px;animation:adventurePop .55s ease}
+@keyframes hassoubBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+@keyframes adventurePop{0%{transform:scale(.85)}65%{transform:scale(1.06)}100%{transform:scale(1)}}
+@media(max-width:560px){.adventure-hub{padding:16px}.adventure-top{align-items:flex-start;gap:11px}.adventure-mascot{flex-basis:62px;height:62px;font-size:38px;border-radius:18px}.adventure-answers{gap:7px}.adventure-answer{min-height:58px;border-radius:13px}.adventure-scene{padding:15px 8px}.adventure-game{padding:12px}}
+@media(prefers-reduced-motion:reduce){.adventure-mascot,.adventure-feedback.good,.adventure-reward .trophy,.adventure-confetti{animation:none}}
+
 </style></head>
 <body>
 <header class="hero">
@@ -78,6 +109,30 @@
     <p>شرح بصوت المعلمة مع عرض الدرس والكتابة على الشاشة، دون الحاجة إلى إظهار الوجه.</p>
     <button class="video-hub-button" onclick="openVideos()"><span><strong>الفيديوهات المجانية والمدفوعة</strong><small>اختر الصف وشاهد الفيديوهات المتاحة أو تعرّف إلى الدروس المدفوعة</small></span><span class="play-icon">▶️</span></button>
   </section>
+
+  <section class="adventure-hub" aria-label="مغامرات حسّوب التعليمية">
+    <div class="adventure-top">
+      <div class="adventure-mascot" aria-hidden="true">🦊</div>
+      <div class="adventure-copy">
+        <h2>🗺️ مغامرات حسّوب: كنز الأرقام</h2>
+        <p>مغامرة صغيرة فيها عدّ وألغاز وكنز ينتظرك! تعلّم باللعب واجمع النجوم.</p>
+      </div>
+    </div>
+    <div class="adventure-pills"><span class="adventure-pill">🔢 الأعداد حتى 10</span><span class="adventure-pill">⭐ 5 تحديات</span><span class="adventure-pill">🎉 مفاجأة في النهاية</span></div>
+    <button class="adventure-launch" onclick="startNumberAdventure()">ابدأ المغامرة! 🚀</button>
+    <div id="numberAdventure" class="adventure-game hide" aria-live="polite">
+      <div class="adventure-game-head"><span class="adventure-level" id="adventureLevel">التحدي 1 من 5</span><div class="adventure-progress" aria-label="تقدم المغامرة"><span id="adventureProgress"></span></div><button class="adventure-sound" id="adventureSound" onclick="toggleAdventureSound()" aria-pressed="true">🔊 الصوت</button></div>
+      <div id="adventurePlay">
+        <div class="adventure-scene"><div id="adventureScene" class="adventure-objects">🍎 🍎 🍎</div></div>
+        <h3 class="adventure-question" id="adventureQuestion">كم تفاحة نرى؟</h3>
+        <div class="adventure-answers" id="adventureAnswers"></div>
+        <div class="adventure-feedback" id="adventureFeedback">اختَر الإجابة التي تراها صحيحة يا بطل! 💛</div>
+        <button class="adventure-next hide" id="adventureNext" onclick="nextAdventureChallenge()">تابع المغامرة ←</button>
+      </div>
+      <div id="adventureFinish" class="adventure-reward hide"></div>
+    </div>
+  </section>
+
   <div class="grades-heading"><div><h2>اختاري الصف الدراسي</h2><p>لكل صف رحلته ودروسه الخاصة</p></div><span class="grade-count">12 صفًا</span></div>
   <section class="grades-grid" aria-label="الصفوف الدراسية">
     <button class="grade-card color-1" onclick="openGrade(1)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">01</span></span><span class="grade-name">الصف الأول<br>الأساسي</span><span class="grade-watermark">01</span><span class="grade-action">ابدئي التعلّم <b>←</b></span></button>
@@ -413,6 +468,80 @@ function finishUnit4(){activeUnit=4;lessons=unit4Lessons;const qs=[['7 − 2 = �
 function gradeUnit4Quiz(){const qs=[['7 − 2 = ؟',['4','5','6'],1],['احسب بخط الأعداد: 6 − 3 = ؟',['2','3','4'],1],['إذا كان 4 + 4 = 8، فإن 8 − 4 = ؟',['3','4','5'],1],['10 − 5 = ؟',['4','5','6'],1],['12 − 3 = ؟',['8','9','10'],1],['13 − 5 = ؟',['7','8','9'],1],['إذا كانت 2 + 6 = 8، فإن 8 − 2 = ؟',['5','6','7'],1],['إذا كان 3 + 4 = 7، فإن 7 − 4 = ؟',['2','3','4'],1],['أكمل: 9 − __ = 6',['2','3','4'],1],['أكمل: __ − 2 = 5',['6','7','8'],1],['أي حقيقة مترابطة مع 5 + 2 = 7؟',['7 − 5 = 2','7 − 5 = 3','5 − 2 = 7'],0],['11 − 1 = ؟',['9','10','11'],1],['14 − 4 = ؟',['9','10','11'],1],['أكمل: 8 − __ = 3',['4','5','6'],1],['ما ناتج 10 − 7؟',['2','3','4'],1]];let n=0,done=0,review='';qs.forEach((q,i)=>{const c=document.querySelector('input[name="u4q'+i+'"]:checked');const ok=!!c&&Number(c.value)===q[2];if(c)done++;if(ok)n++;review+='<div class="quizq"><strong>'+(i+1)+'. '+(ok?'✅ صحيح':'💡 راجع الإجابة')+'</strong><p>'+q[0]+'</p><p>الإجابة الصحيحة: <strong>'+q[1][q[2]]+'</strong></p>'+(ok?'':'<p class="try-again">حاول أن تحلّها مرة أخرى عند مراجعة الدرس.</p>')+'</div>';});const out=document.getElementById('unit4Result');out.innerHTML='<h3>نتيجتك: '+n+' من 15</h3><p>أجبت عن '+done+' من 15 سؤالًا.</p><p>'+(n===15?'🌟 ممتاز! أتقنت الوحدة الرابعة!':n>=11?'👏 أداء رائع! راجع الأسئلة التي تحتاج إلى تدريب.':'💛 أحسنت على المحاولة! راجع الملخص ثم أعد الاختبار.')+'</p><p>🤖 حسّوب يشجّعك على التعلّم والمحاولة.</p><h3>مراجعة الإجابات</h3>'+review;out.classList.add('show');if(n===15)celebrate();}
 
 function gradeUnitQuiz(){const key=['b','a','b','b','b','b','c','a','a','b','b','b','c','c','b','a','b','b','b','a'];let n=0,answeredCount=0;key.forEach((correct,i)=>{const chosen=document.querySelector('input[name="u'+(i+1)+'"]:checked');if(chosen){answeredCount++;if(chosen.value===correct)n++}});const out=document.getElementById('unitResult');out.innerHTML='أجبتِ عن '+answeredCount+' من 20 سؤالًا. نتيجتك: '+n+' من 20. '+(n===20?'🌟 ممتاز! أتقنتِ الوحدة!':n>=15?'👏 أداء رائع! راجعي الأسئلة التي لم تتأكدي منها.':'💛 أحسنتِ على المحاولة! راجعي ملخص الوحدة ثم أعيدي الاختبار.');out.classList.add('show');if(n===20)celebrate()}
+
+
+/* Playable first-grade numbers adventure */
+const numberAdventureChallenges=[
+ {scene:'🍎 🍎 🍎',question:'ساعد حسّوب يجمع التفاحات: كم تفاحة؟',answers:['2','3','4'],correct:'3',hint:'عدّ التفاحات واحدة واحدة: 1، 2، 3.'},
+ {scene:'🦋 🦋 🦋 🦋 🦋',question:'كم فراشة تطير في الحديقة؟',answers:['4','5','6'],correct:'5',hint:'المس كل فراشة وعدّها بهدوء.'},
+ {scene:'1　2　❔　4',sceneClass:'adventure-numberline',question:'أي عدد مفقود من السلسلة؟',answers:['2','3','5'],correct:'3',hint:'بعد العدد 2 يأتي العدد 3، ثم 4.'},
+ {scene:'🐠 🐠 🐠 🐠',question:'أي عدد يعبّر عن عدد السمكات؟',answers:['3','4','6'],correct:'4',hint:'عدّ السمكات: واحدة، اثنتان، ثلاث، أربع.'},
+ {scene:'6　7　❔　9',sceneClass:'adventure-numberline',question:'ساعد حسّوب يكمل العدّ: ما العدد التالي؟',answers:['8','5','10'],correct:'8',hint:'نعدّ بالترتيب: 6، 7، 8، 9.'}
+];
+let adventureIndex=0,adventureStars=0,adventureSoundOn=true,adventureLocked=false;
+function startNumberAdventure(){
+ adventureIndex=0;adventureStars=0;adventureLocked=false;
+ document.getElementById('numberAdventure').classList.remove('hide');
+ document.getElementById('adventurePlay').classList.remove('hide');
+ document.getElementById('adventureFinish').classList.add('hide');
+ document.getElementById('adventureSound').textContent=adventureSoundOn?'🔊 الصوت':'🔇 الصوت';
+ renderAdventureChallenge();
+ document.getElementById('numberAdventure').scrollIntoView({behavior:'smooth',block:'nearest'});
+ speakHassoub('أهلًا يا بطل! هيا نبحث عن كنز الأرقام.');
+}
+function renderAdventureChallenge(){
+ const q=numberAdventureChallenges[adventureIndex];
+ document.getElementById('adventureLevel').textContent='التحدي '+(adventureIndex+1)+' من '+numberAdventureChallenges.length;
+ document.getElementById('adventureProgress').style.width=(adventureIndex/numberAdventureChallenges.length*100)+'%';
+ const scene=document.getElementById('adventureScene');scene.textContent=q.scene;scene.className=q.sceneClass||'adventure-objects';
+ document.getElementById('adventureQuestion').textContent=q.question;
+ document.getElementById('adventureFeedback').textContent='اختَر الإجابة التي تراها صحيحة يا بطل! 💛';
+ document.getElementById('adventureFeedback').className='adventure-feedback';
+ document.getElementById('adventureNext').classList.add('hide');
+ const holder=document.getElementById('adventureAnswers');holder.innerHTML='';
+ q.answers.forEach(answer=>{const b=document.createElement('button');b.type='button';b.className='adventure-answer';b.textContent=answer;b.setAttribute('aria-label','الإجابة '+answer);b.onclick=()=>answerAdventure(answer,b);holder.appendChild(b)});
+ adventureLocked=false;
+}
+function answerAdventure(answer,button){
+ if(adventureLocked)return;
+ const q=numberAdventureChallenges[adventureIndex],feedback=document.getElementById('adventureFeedback');
+ if(answer===q.correct){
+  adventureLocked=true;adventureStars++;
+  feedback.textContent=['أحسنت يا بطل! ⭐','إجابة صحيحة! حسّوب فخور فيك! 🎉','رائع! نجمة جديدة لك! 🌟'][adventureIndex%3];
+  feedback.className='adventure-feedback good';
+  document.querySelectorAll('#adventureAnswers button').forEach(b=>{b.disabled=true;if(b.textContent===q.correct)b.style.borderColor='#20ad78'});
+  document.getElementById('adventureProgress').style.width=((adventureIndex+1)/numberAdventureChallenges.length*100)+'%';
+  document.getElementById('adventureNext').classList.remove('hide');
+  playAdventureTone(true);speakHassoub(feedback.textContent);
+ }else{
+  feedback.textContent='قريب جدًا! 💛 '+q.hint+' جرّب مرة ثانية.';
+  feedback.className='adventure-feedback try';playAdventureTone(false);speakHassoub('ولا يهمك، جرّب مرة ثانية. '+q.hint);
+  button.animate&&button.animate([{transform:'translateX(0)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:220});
+ }
+}
+function nextAdventureChallenge(){
+ if(adventureIndex<numberAdventureChallenges.length-1){adventureIndex++;renderAdventureChallenge();return}
+ document.getElementById('adventurePlay').classList.add('hide');
+ document.getElementById('adventureFinish').classList.remove('hide');
+ document.getElementById('adventureProgress').style.width='100%';
+ document.getElementById('adventureLevel').textContent='اكتملت المغامرة!';
+ const finish=document.getElementById('adventureFinish');
+ finish.innerHTML='<div class="adventure-confetti">🎉 ✨ 🎊 ✨ 🎉</div><div class="trophy">🏆</div><h3>يا بطل الأرقام!</h3><p>أنهيت المغامرة وجمعت <strong>'+adventureStars+' من '+numberAdventureChallenges.length+'</strong> نجوم ⭐<br>حسّوب مبسوط بإنجازك، استمر بالتعلّم!</p><button class="adventure-launch" onclick="startNumberAdventure()">العب مرة ثانية 🔁</button>';
+ playAdventureTone(true);speakHassoub('مبروك يا بطل! أنهيت مغامرة الأرقام. جمعت '+adventureStars+' نجوم.');
+}
+function toggleAdventureSound(){
+ adventureSoundOn=!adventureSoundOn;
+ const b=document.getElementById('adventureSound');b.textContent=adventureSoundOn?'🔊 الصوت':'🔇 الصوت';b.setAttribute('aria-pressed',String(adventureSoundOn));
+ if(!adventureSoundOn&&'speechSynthesis'in window)window.speechSynthesis.cancel();
+}
+function speakHassoub(message){
+ if(!adventureSoundOn||!('speechSynthesis'in window))return;
+ try{window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='ar-JO';utterance.rate=.92;utterance.pitch=1.12;window.speechSynthesis.speak(utterance)}catch(e){}
+}
+function playAdventureTone(correct){
+ if(!adventureSoundOn)return;
+ try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;const ctx=new AudioCtx();const notes=correct?[523.25,659.25,783.99]:[260,220];notes.forEach((hz,i)=>{const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type='sine';osc.frequency.value=hz;gain.gain.setValueAtTime(.0001,ctx.currentTime+i*.11);gain.gain.exponentialRampToValueAtTime(.12,ctx.currentTime+i*.11+.02);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+i*.11+.16);osc.connect(gain);gain.connect(ctx.destination);osc.start(ctx.currentTime+i*.11);osc.stop(ctx.currentTime+i*.11+.18)});setTimeout(()=>ctx.close(),700)}catch(e){}
+}
 
 updateStars();show(0);
 </script></body></html>
