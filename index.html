@@ -426,23 +426,61 @@ function renderGrade2Units(){
  const root=document.getElementById('grade2Units');
  root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')">'+l+'</button></li>').join('')+'</ol><button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار الوحدة (قيد الإعداد)</button></section>').join('');
 }
+const grade2Unit1Lessons=[
+{goal:'أفهم أن كل 10 عشرات تساوي 100، وأن 100 واحدة تسمّى مئة.',explain:'عندما نجمع 10 عشرات نحصل على 100. إذن: 10 عشرات = 100، و20 عشرة = 200، و30 عشرة = 300. مثال: 100 قطعة يمكن أن نمثلها بمئة واحدة، و600 تساوي 6 مئات أو 60 عشرة.',visual:'<div class="big">10 عشرات = 100</div><p>100 = مئة واحدة</p>',q:'كم عشرة في العدد 100؟',choices:['5 عشرات','10 عشرات','100 عشرة'],correct:1,why:'صحيح! 10 عشرات تساوي 100.',extra:'تخيّل 10 مجموعات، في كل مجموعة 10 قطع. كم قطعة لديك؟ 100.'},
+{goal:'أمثّل العدد المكوّن من ثلاث منازل: مئات وعشرات وآحاد.',explain:'نستخدم لوحة المنازل: مئات، عشرات، آحاد. في العدد 243: الرقم 2 في المئات، و4 في العشرات، و3 في الآحاد. لذلك 243 = 200 + 40 + 3. انتبه إلى ترتيب الأرقام من اليسار: مئات ثم عشرات ثم آحاد.',visual:'<div class="visual"><div>المئات　|　العشرات　|　الآحاد</div><div class="big">2　　4　　3</div><p>200 + 40 + 3 = 243</p></div>',q:'في العدد 125، كم عدد العشرات؟',choices:['1','2','5'],correct:1,why:'أحسنت! الرقم 2 في منزلة العشرات.',extra:'مثّل العدد 316: 3 مئات، و1 عشرة، و6 آحاد.'},
+{goal:'أحدّد القيمة المنزلية لكل رقم وأكتب العدد بالصورة التحليلية.',explain:'القيمة المنزلية تعني قيمة الرقم حسب مكانه. في العدد 253: قيمة 2 هي 200، وقيمة 5 هي 50، وقيمة 3 هي 3. ونكتب العدد بالصورة التحليلية: 253 = 200 + 50 + 3. وفي العدد 114، عدد العشرات هو 11 عشرة عند العدّ بالعشرات، أما الرقم في منزلة العشرات فهو 1 وقيمته 10.',visual:'<div class="visual"><div class="big">253</div><p>200 + 50 + 3</p><p>مئات + عشرات + آحاد</p></div>',q:'ما القيمة المنزلية للرقم 4 في العدد 342؟',choices:['4','40','400'],correct:1,why:'رائع! الرقم 4 في منزلة العشرات وقيمته 40.',extra:'اكتب 481 بالصورة التحليلية: 400 + 80 + 1.'},
+{goal:'أقرأ الأعداد ضمن ثلاث منازل وأكتبها بالأرقام والكلمات.',explain:'نقرأ العدد من منزلة المئات، ثم العشرات والآحاد. مثال: 364 يُقرأ: ثلاثمئة وأربعة وستون. والعدد 547 يُقرأ: خمسمئة وسبعة وأربعون. اقرأ العدد بهدوء، ثم اكتبه بالأرقام أو بالكلمات مع المحافظة على ترتيب المنازل.',visual:'<div class="big">364</div><p>ثلاثمئة وأربعة وستون</p>',q:'كيف نقرأ العدد 258؟',choices:['مئتان وثمانية وخمسون','مئتان وخمسة وثمانون','ثمانية وخمسون'],correct:0,why:'صحيح! 258: مئتان وثمانية وخمسون.',extra:'اقرأ العدد 371، ثم اكتبه بالكلمات: ثلاثمئة وواحد وسبعون.'}
+];
 function openGrade2Lesson(unit,lesson){
- const u=grade2Units[unit],name=u.lessons[lesson];
+ const u=grade2Units[unit],name=u.lessons[lesson],box=document.getElementById('grade2LessonText');
  document.getElementById('grade2Lesson').classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent=name;
  document.getElementById('grade2LessonUnit').textContent=u.title;
- document.getElementById('grade2LessonText').innerHTML='<p>هذا الدرس مُدرج وفق فهرس كتاب الطالب الرسمي للصف الثاني الأساسي، الفصل الأول.</p><p>نعمل على تجهيز الشرح والأمثلة والتدريبات التفاعلية لهذا الدرس اعتمادًا على صفحات الكتاب، حتى تكون الأنشطة مطابقة للمحتوى الرسمي.</p>';
- document.getElementById('grade2LessonStatus').textContent='عنوان الدرس مثبت من الفهرس؛ الشرح والأسئلة التفصيلية لم تُستكمل بعد.';
+ if(unit===0){
+  const d=grade2Unit1Lessons[lesson];
+  box.innerHTML='<div class="goal"><strong>🎯 هدف الدرس:</strong> '+d.goal+'</div><h3>📘 لنتعلّم مع حسّوب</h3><p>'+d.explain+'</p>'+d.visual+'<div class="activity"><h3>⭐ جرّب بنفسك</h3><p>'+d.q+'</p><div class="choices">'+d.choices.map((c,i)=>'<button onclick="checkGrade2Answer('+lesson+','+i+')">'+c+'</button>').join('')+'</div><div id="grade2Feedback" class="feedback" aria-live="polite"></div><p><strong>تحدّي حسّوب:</strong> '+d.extra+'</p></div><div class="nextrow"><button class="mainbtn secondary" onclick="openGrade2Lesson(0,'+Math.max(0,lesson-1)+')">الدرس السابق</button><button class="mainbtn" onclick="openGrade2Lesson(0,'+Math.min(3,lesson+1)+')">الدرس التالي ←</button></div>';
+  document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب يشجّعك!</strong> جرّب الإجابة، وإذا أخطأت راح يعطيك تلميحًا لتعيد المحاولة.';
+ }else{
+  box.innerHTML='<p>هذا الدرس مُدرج وفق فهرس كتاب الطالب الرسمي للصف الثاني الأساسي، الفصل الأول.</p><p>سيُضاف الشرح والتدريب التفاعلي بعد تجهيز محتوى هذه الوحدة من صفحات الكتاب.</p>';
+  document.getElementById('grade2LessonStatus').textContent='عنوان الدرس مثبت من الفهرس؛ الشرح والأسئلة التفصيلية لهذا الدرس لم تكتمل بعد.';
+ }
  window.scrollTo(0,document.getElementById('grade2Lesson').offsetTop);
+}
+function checkGrade2Answer(lesson,choice){
+ const d=grade2Unit1Lessons[lesson],out=document.getElementById('grade2Feedback');
+ if(choice===d.correct){out.innerHTML='🌟 أحسنت يا بطل! إجابة صحيحة! 🎉<div class="stars">⭐ ✨ ⭐</div>';out.className='feedback good';if(typeof speakHassoub==='function')speakHassoub('أحسنت يا بطل! إجابة صحيحة!');if(typeof celebrate==='function')celebrate();}
+ else{out.innerHTML='💛 حاول مرة ثانية يا بطل. تذكّر: '+d.why;out.className='feedback bad';if(typeof speakHassoub==='function')speakHassoub('ولا يهمك، حاول مرة ثانية.');}
 }
 function openGrade2Exam(unit){
- document.getElementById('grade2Lesson').classList.remove('hide');
- document.getElementById('grade2LessonTitle').textContent='اختبار '+grade2Units[unit].title;
- document.getElementById('grade2LessonUnit').textContent='اختبار نهاية الوحدة';
- document.getElementById('grade2LessonText').innerHTML='<p>سيُبنى الاختبار من أسئلة الدروس بعد تجهيزها ومراجعتها مقابل الكتاب الرسمي.</p>';
- document.getElementById('grade2LessonStatus').textContent='الاختبار قيد الإعداد ولم يُفعّل بعد.';
- window.scrollTo(0,document.getElementById('grade2Lesson').offsetTop);
+ const section=document.getElementById('grade2Lesson');
+ section.classList.remove('hide');
+ document.getElementById('grade2LessonTitle').textContent='اختبار نهاية '+grade2Units[unit].title;
+ document.getElementById('grade2LessonUnit').textContent='📝 اختبار الوحدة';
+ if(unit!==0){document.getElementById('grade2LessonText').innerHTML='<p>اختبار هذه الوحدة قيد الإعداد حتى تُستكمل دروسها.</p>';document.getElementById('grade2LessonStatus').textContent='لن نعرض اختبارًا قبل تجهيز محتواه ومراجعته.';return;}
+ const qs=[
+ ['10 عشرات تساوي:',['10','100','1000'],1],
+ ['في العدد 243، رقم العشرات هو:',['2','4','3'],1],
+ ['الصورة التحليلية للعدد 253 هي:',['200 + 50 + 3','200 + 5 + 3','20 + 50 + 3'],0],
+ ['قيمة الرقم 6 في العدد 364 هي:',['6','60','600'],1],
+ ['في العدد 608، رقم المئات هو:',['6','0','8'],0],
+ ['العدد 400 + 90 + 5 هو:',['495','459','945'],0],
+ ['نقرأ العدد 258:',['مئتان وثمانية وخمسون','مئتان وخمسة وثمانون','ثمانية وخمسون'],0],
+ ['في العدد 971، قيمة الرقم 9 هي:',['9','90','900'],2],
+ ['الصورة التحليلية للعدد 803 هي:',['800 + 30','800 + 3','80 + 3'],1],
+ ['العدد «ثلاثمئة وواحد وسبعون» يكتب:',['317','371','731'],1]
+ ];
+ document.getElementById('grade2LessonText').innerHTML='<p class="goal">اختبر فهمك للوحدة الأولى. اختر إجابة واحدة لكل سؤال، وحسّوب سيشجّعك بعد النتيجة! 🤖</p><form id="grade2ExamForm">'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2q'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'</form><button class="mainbtn" onclick="gradeGrade2Exam()">اعرض النتيجة ⭐</button><div id="grade2ExamResult" class="intro-exam-result hide"></div>';
+ document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب معك!</strong> اقرأ السؤال بهدوء، وبعد التصحيح ستظهر نتيجتك والإجابات الصحيحة.';
+ window.scrollTo(0,section.offsetTop);
 }
+function gradeGrade2Exam(){
+ const qs=[1,1,0,1,0,0,0,2,1,1];let score=0,answered=0,review='';
+ qs.forEach((correct,i)=>{const c=document.querySelector('input[name="g2q'+i+'"]:checked');if(c){answered++;if(Number(c.value)===correct)score++;}const q=document.querySelector('input[name="g2q'+i+'"]')?.closest('fieldset');if(q){const labels=q.querySelectorAll('label');review+='<p>'+(i+1)+'. الإجابة الصحيحة: <strong>'+labels[correct].textContent.trim()+'</strong></p>';}});
+ const out=document.getElementById('grade2ExamResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك: '+score+' من 10</h3><p>أجبت عن '+answered+' من 10 أسئلة.</p><p>'+(score===10?'🏆 ممتاز! يا بطل، أتقنت الوحدة!':score>=7?'👏 رائع! راجع الأسئلة التي أخطأت فيها.':'💛 لا تستسلم، راجع الدروس ثم جرّب من جديد.')+'</p>'+review+'<p>🤖 حسّوب يقول: أنا فخور بمحاولتك، والتعلّم خطوة خطوة!</p>';
+ if(score===10){if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('ممتاز يا بطل! حصلت على العلامة الكاملة!');}
+}
+
 
 let lessons=[
 {title:'الموقع والاتجاه',goal:'أستخدم كلمات الاتجاه لوصف مكان الأشياء.',explain:'انظر إلى الصورة: الأرنب بجانب الشجرة، والكرة تحت الطاولة. كلمات مثل: فوق، تحت، أمام، خلف، بجانب تساعدنا على وصف المكان. مثال 1: الكتاب فوق الطاولة. مثال 2: الحقيبة تحت الكرسي. مثال 3: قف أمام الباب ثم خلف الكرسي. تدرّب: ضع قلمًا بجانب الدفتر، ثم صف مكانه. تذكّر أن الاتجاه يتغيّر حسب مكانك ومكان الشيء. أمثلة إضافية: الساعة فوق الحائط، والحذاء تحت المقعد، والكرسي بجانب الطاولة. اسأل نفسك: هل اللعبة أمام الصندوق أم خلفه؟ حرّك لعبة بنفسك وقل مكانها بجملة كاملة.',visual:'🐰　 🌳<br><br>🪑<br>⚽',q:'أين الكرة بالنسبة إلى الطاولة؟',choices:['فوق الطاولة','تحت الطاولة','داخل الطاولة'],correct:1,why:'أحسنت! الكرة مرسومة تحت الطاولة.',extra:'جرّب وصف مكان شيء في غرفتك باستخدام كلمة: فوق أو تحت أو بجانب.'},
