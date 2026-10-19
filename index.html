@@ -442,13 +442,23 @@ const grade2Unit2Lessons=[
 {goal:'أمثّل الأعداد وأقرأها على خط الأعداد.',explain:'تُرتب الأعداد على خط الأعداد من الأصغر إلى الأكبر كلما تحركنا إلى اليمين. نحدد موقع العدد بين العلامات بحسب قيمته.',visual:'<div class="visual"><p>300 ─── 310 ─── 320 ─── 330</p><p>التحرك يمينًا يعني أن العدد يزداد.</p></div>',q:'على خط الأعداد، أي عدد يقع إلى يمين 450؟',choices:['440','449','460'],correct:2,why:'العدد الأكبر يقع إلى يمين العدد الأصغر.',extra:'أين يقع 520 بالنسبة إلى 500 على خط الأعداد؟'},
 {goal:'أقرّب الأعداد إلى أقرب عشرة أو مئة وفق المطلوب.',explain:'للتقريب إلى أقرب عشرة ننظر إلى رقم الآحاد: إذا كان 5 أو أكثر نرفع العشرات واحدة، وإذا كان أقل من 5 نبقي العشرات كما هي. وللتقريب إلى أقرب مئة ننظر إلى رقم العشرات.',visual:'<div class="visual"><p>47 ≈ 50</p><p>42 ≈ 40</p><p>362 ≈ 400 لأقرب مئة</p></div>',q:'قرّب العدد 67 إلى أقرب عشرة.',choices:['60','70','67'],correct:1,why:'رقم الآحاد 7، فنقرّب إلى العشرة الأكبر: 70.',extra:'قرّب 241 إلى أقرب مئة.'}
 ];
+
+const grade2Unit3Lessons=[
+{goal:'أجمع مضاعفات العشرة والمئة ذهنيًا.',explain:'عند جمع مضاعفات العشرة نجمع عدد العشرات، وعند جمع مضاعفات المئة نجمع عدد المئات. مثال: 30 + 40 = 70، و200 + 300 = 500.',visual:'<div class="big">30 + 40 = 70</div><p>200 + 300 = 500</p>',q:'ناتج 60 + 20 هو:',choices:['70','80','800'],correct:1,why:'6 عشرات + عشرتان = 8 عشرات، أي 80.',extra:'احسب ذهنيًا: 400 + 200.'},
+{goal:'أقدّر ناتج الجمع بالتقريب قبل إجراء الحساب.',explain:'نقرّب الأعداد إلى منزلة مناسبة ثم نجمع للحصول على ناتج تقريبي يساعدنا على معرفة إن كانت الإجابة معقولة. مثال: 48 + 31 تقريبا 50 + 30 = 80.',visual:'<div class="visual"><p>48 ≈ 50</p><p>31 ≈ 30</p><div class="big">50 + 30 = 80 تقريبًا</div></div>',q:'أفضل تقدير لـ 62 + 27 هو:',choices:['نحو 90','نحو 30','نحو 200'],correct:0,why:'62 تقارب 60 و27 تقارب 30، ومجموعهما 90.',extra:'قدّر 39 + 22 بالتقريب لأقرب عشرة.'},
+{goal:'أجمع أعدادًا ضمن ثلاث منازل دون إعادة تجميع عندما لا نحتاج إليها.',explain:'نرتب الأعداد بحيث تكون المئات تحت المئات والعشرات تحت العشرات والآحاد تحت الآحاد، ثم نجمع كل منزلة. مثال: 123 + 245 = 368.',visual:'<div class="visual"><p>  123</p><p>+ 245</p><hr><div class="big">368</div></div>',q:'ما ناتج 214 + 132؟',choices:['346','336','356'],correct:0,why:'4+2=6، و1+3=4 عشرات، و2+1=3 مئات؛ الناتج 346.',extra:'احسب 325 + 142.'},
+{goal:'أجمع مع إعادة التجميع عندما يكون مجموع الآحاد 10 أو أكثر.',explain:'نجمع الآحاد أولًا. إذا كان المجموع 10 أو أكثر، نكتب الآحاد وننقل عشرة إلى منزلة العشرات. مثال: 27 + 15: الآحاد 7+5=12، نكتب 2 ونضيف عشرة للعشرات؛ الناتج 42.',visual:'<div class="big">27 + 15 = 42</div><p>12 آحادًا = 1 عشرة و2 آحاد</p>',q:'في 28 + 14، ناتج الجمع هو:',choices:['32','42','52'],correct:1,why:'8+4=12، نكتب 2 ونضيف عشرة؛ الناتج 42.',extra:'جرّب: 36 + 17.'},
+{goal:'أعيد التجميع عند الحاجة في العشرات والمئات.',explain:'بعد جمع الآحاد والعشرات، إذا بلغ مجموع العشرات 10 عشرات أو أكثر، نعيد تجميعها إلى مئة. مثال: 268 + 157 = 425.',visual:'<div class="visual"><p>268 + 157</p><div class="big">= 425</div><p>نجمع كل منزلة مع مراعاة إعادة التجميع.</p></div>',q:'ما ناتج 156 + 168؟',choices:['314','324','334'],correct:1,why:'6+8=14 نعيد تجميع عشرة، ثم 5+6+1=12 عشرات، والناتج 324.',extra:'احسب 275 + 186.'},
+{goal:'أستعمل خصائص الجمع لتسهيل الحساب.',explain:'من خصائص الجمع أن تبديل ترتيب العددين لا يغيّر الناتج: 3+5=5+3. وإضافة الصفر لا تغيّر العدد: 7+0=7. ويمكن جمع الأعداد بترتيب يسهل الحساب.',visual:'<div class="visual"><p>4 + 6 = 6 + 4</p><p>9 + 0 = 9</p></div>',q:'أي جملة تبيّن أن إضافة الصفر لا تغيّر العدد؟',choices:['8 + 0 = 8','8 + 1 = 8','8 + 0 = 0'],correct:0,why:'إضافة الصفر لا تغيّر قيمة العدد.',extra:'أكمل: 12 + 7 = 7 + ...'},
+{goal:'أحل مسألة باستعمال التخمين والتحقق.',explain:'أقرأ المسألة وأحدد المطلوب، ثم أخمّن إجابة مناسبة وأتحقق منها بإجراء الجمع. إذا لم تناسب الإجابة المعطيات أعدّل التخمين.',visual:'<div class="visual"><p>مع سارة 25 ملصقًا، وأعطتها صديقتها بعض الملصقات فأصبح معها 40.</p><p>التخمين: 10؟ نتحقق: 25 + 15 = 40.</p></div>',q:'كان مع ليث 18 كرة، وأصبح معه 30. كم كرة حصل عليها؟',choices:['10','12','48'],correct:1,why:'نبحث عن العدد الذي يضاف إلى 18 ليصبح 30؛ وهو 12.',extra:'معك 34 دينارًا وأصبح المجموع 50 دينارًا. كم أضيف؟'}
+];
 function openGrade2Lesson(unit,lesson){
  const u=grade2Units[unit],name=u.lessons[lesson],box=document.getElementById('grade2LessonText');
  document.getElementById('grade2Lesson').classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent=name;
  document.getElementById('grade2LessonUnit').textContent=u.title;
- if(unit===0 || unit===1){
-  const d=(unit===0?grade2Unit1Lessons:grade2Unit2Lessons)[lesson];
+ if(unit===0 || unit===1 || unit===2){
+  const d=(unit===0?grade2Unit1Lessons:unit===1?grade2Unit2Lessons:grade2Unit3Lessons)[lesson];
   box.innerHTML='<div class="goal"><strong>🎯 هدف الدرس:</strong> '+d.goal+'</div><h3>📘 لنتعلّم مع حسّوب</h3><p>'+d.explain+'</p>'+d.visual+'<div class="activity"><h3>⭐ جرّب بنفسك</h3><p>'+d.q+'</p><div class="choices">'+d.choices.map((c,i)=>'<button onclick="checkGrade2Answer('+unit+','+lesson+','+i+')">'+c+'</button>').join('')+'</div><div id="grade2Feedback" class="feedback" aria-live="polite"></div><p><strong>تحدّي حسّوب:</strong> '+d.extra+'</p></div><div class="nextrow"><button class="mainbtn secondary" onclick="openGrade2Lesson('+unit+','+Math.max(0,lesson-1)+')">الدرس السابق</button><button class="mainbtn" onclick="openGrade2Lesson('+unit+','+Math.min(u.lessons.length-1,lesson+1)+')">الدرس التالي ←</button></div>';
   document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب يشجّعك!</strong> جرّب الإجابة، وإذا أخطأت راح يعطيك تلميحًا لتعيد المحاولة.';
  }else{
@@ -458,7 +468,7 @@ function openGrade2Lesson(unit,lesson){
  window.scrollTo(0,document.getElementById('grade2Lesson').offsetTop);
 }
 function checkGrade2Answer(unit,lesson,choice){
- const d=(unit===0?grade2Unit1Lessons:grade2Unit2Lessons)[lesson],out=document.getElementById('grade2Feedback');
+ const d=(unit===0?grade2Unit1Lessons:unit===1?grade2Unit2Lessons:grade2Unit3Lessons)[lesson],out=document.getElementById('grade2Feedback');
  if(choice===d.correct){out.innerHTML='🌟 أحسنت يا بطل! إجابة صحيحة! 🎉<div class="stars">⭐ ✨ ⭐</div>';out.className='feedback good';if(typeof speakHassoub==='function')speakHassoub('أحسنت يا بطل! إجابة صحيحة!');if(typeof celebrate==='function')celebrate();}
  else{out.innerHTML='💛 حاول مرة ثانية يا بطل. تذكّر: '+d.why;out.className='feedback bad';if(typeof speakHassoub==='function')speakHassoub('ولا يهمك، حاول مرة ثانية.');}
 }
@@ -469,7 +479,7 @@ function openGrade2Exam(unit){
  section.classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent='اختبار نهاية '+grade2Units[unit].title;
  document.getElementById('grade2LessonUnit').textContent='📝 اختبار الوحدة';
- if(unit>1){document.getElementById('grade2LessonText').innerHTML='<p>اختبار هذه الوحدة قيد الإعداد حتى تُستكمل دروسها.</p>';document.getElementById('grade2LessonStatus').textContent='لن نعرض اختبارًا قبل تجهيز محتواه ومراجعته.';return;}
+ if(unit>2){document.getElementById('grade2LessonText').innerHTML='<p>اختبار هذه الوحدة قيد الإعداد حتى تُستكمل دروسها.</p>';document.getElementById('grade2LessonStatus').textContent='لن نعرض اختبارًا قبل تجهيز محتواه ومراجعته.';return;}
  const qs=unit===0?[
  ['10 عشرات تساوي:',['10','100','1000'],1],
  ['في العدد 243، رقم العشرات هو:',['2','4','3'],1],
@@ -492,13 +502,24 @@ function openGrade2Exam(unit){
  ['أي عدد فردي؟',['28','36','41'],2],
  ['العدد التالي لـ 999 هو:',['1000','998','990'],0],
  ['رتّب تنازليًا: ما العدد الأول؟',['182','218','128'],1]
+ ]: [
+ ['30 + 40 =',['60','70','80'],1],
+ ['أفضل تقدير لـ 62 + 27 هو:',['نحو 90','نحو 30','نحو 200'],0],
+ ['214 + 132 =',['346','336','356'],0],
+ ['28 + 14 =',['32','42','52'],1],
+ ['156 + 168 =',['314','324','334'],1],
+ ['8 + 0 =',['0','8','80'],1],
+ ['25 + ؟ = 40، العدد المفقود:',['10','15','20'],1],
+ ['200 + 500 =',['700','250','300'],0],
+ ['أي جملة صحيحة؟',['5 + 3 = 3 + 5','5 + 0 = 0','5 + 1 = 5'],0],
+ ['34 + 16 =',['40','50','60'],1]
  ];
  document.getElementById('grade2LessonText').innerHTML='<p class="goal">اختبر فهمك للوحدة الأولى. اختر إجابة واحدة لكل سؤال، وحسّوب سيشجّعك بعد النتيجة! 🤖</p><form id="grade2ExamForm">'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2q'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'</form><button class="mainbtn" onclick="gradeGrade2Exam()">اعرض النتيجة ⭐</button><div id="grade2ExamResult" class="intro-exam-result hide"></div>';
  document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب معك!</strong> اقرأ السؤال بهدوء، وبعد التصحيح ستظهر نتيجتك والإجابات الصحيحة.';
  window.scrollTo(0,section.offsetTop);
 }
 function gradeGrade2Exam(){
- const qs=grade2ExamUnit===0?[1,1,0,1,0,0,0,2,1,1]:[1,1,0,1,1,2,1,2,0,1];let score=0,answered=0,review='';
+ const qs=grade2ExamUnit===0?[1,1,0,1,0,0,0,2,1,1]:grade2ExamUnit===1?[1,1,0,1,1,2,1,2,0,1]:[1,0,0,1,1,1,1,0,0,1];let score=0,answered=0,review='';
  qs.forEach((correct,i)=>{const c=document.querySelector('input[name="g2q'+i+'"]:checked');if(c){answered++;if(Number(c.value)===correct)score++;}const q=document.querySelector('input[name="g2q'+i+'"]')?.closest('fieldset');if(q){const labels=q.querySelectorAll('label');review+='<p>'+(i+1)+'. الإجابة الصحيحة: <strong>'+labels[correct].textContent.trim()+'</strong></p>';}});
  const out=document.getElementById('grade2ExamResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك: '+score+' من 10</h3><p>أجبت عن '+answered+' من 10 أسئلة.</p><p>'+(score===10?'🏆 ممتاز! يا بطل، أتقنت الوحدة!':score>=7?'👏 رائع! راجع الأسئلة التي أخطأت فيها.':'💛 لا تستسلم، راجع الدروس ثم جرّب من جديد.')+'</p>'+review+'<p>🤖 حسّوب يقول: أنا فخور بمحاولتك، والتعلّم خطوة خطوة!</p>';
  if(score===10){if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('ممتاز يا بطل! حصلت على العلامة الكاملة!');}
