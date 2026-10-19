@@ -107,6 +107,29 @@
 @media(max-width:560px){.adventure-hub{padding:16px}.adventure-top{align-items:flex-start;gap:11px}.adventure-mascot{flex-basis:62px;height:62px;font-size:38px;border-radius:18px}.adventure-answers{gap:7px}.adventure-answer{min-height:58px;border-radius:13px}.adventure-scene{padding:15px 8px}.adventure-game{padding:12px}}
 @media(prefers-reduced-motion:reduce){.adventure-mascot,.adventure-feedback.good,.adventure-reward .trophy,.adventure-confetti{animation:none}}
 
+
+/* حسّوب يتحرّك ويصفّق عند العلامة الكاملة */
+.hassoub-celebration-bot{position:relative;width:150px;height:150px;margin:8px auto 14px;animation:hassoub-bounce .42s ease-in-out infinite alternate}
+.hassoub-bot-head{position:absolute;z-index:2;top:12px;left:43px;width:64px;height:52px;border:4px solid #236a9c;border-radius:17px;background:linear-gradient(145deg,#dffaff,#75d6e8);box-shadow:inset 0 -5px 0 #55b7d0}
+.hassoub-bot-head:before{content:"";position:absolute;width:5px;height:13px;background:#236a9c;top:-15px;left:25px;border-radius:5px}
+.hassoub-bot-head:after{content:"";position:absolute;width:11px;height:11px;background:#ffca55;border:2px solid #236a9c;border-radius:50%;top:-23px;left:22px}
+.hassoub-bot-eyes{display:flex;justify-content:center;gap:13px;padding-top:14px}
+.hassoub-bot-eyes i{display:block;width:9px;height:12px;background:#174d78;border-radius:50%}
+.hassoub-bot-smile{width:22px;height:9px;border-bottom:3px solid #174d78;border-radius:0 0 16px 16px;margin:2px auto}
+.hassoub-bot-body{position:absolute;z-index:1;top:69px;left:48px;width:54px;height:43px;border:4px solid #236a9c;border-radius:13px;background:linear-gradient(145deg,#fff,#9be7f0)}
+.hassoub-bot-body:after{content:"★";position:absolute;top:8px;left:15px;color:#f4ad21;font-size:18px}
+.hassoub-bot-arm{position:absolute;z-index:3;top:73px;width:37px;height:12px;background:#62c7dc;border:4px solid #236a9c;border-radius:12px;transform-origin:90% 50%}
+.hassoub-bot-arm.left{left:17px;transform:rotate(25deg);animation:hassoub-clap-left .28s ease-in-out infinite alternate}
+.hassoub-bot-arm.right{right:17px;transform-origin:10% 50%;animation:hassoub-clap-right .28s ease-in-out infinite alternate}
+.hassoub-bot-hand{position:absolute;right:-7px;top:-6px;width:18px;height:18px;background:#ffcf72;border:3px solid #236a9c;border-radius:50%}
+.hassoub-bot-arm.right .hassoub-bot-hand{right:auto;left:-7px}
+.hassoub-bot-leg{position:absolute;top:108px;width:12px;height:22px;background:#62c7dc;border:3px solid #236a9c;border-radius:9px}
+.hassoub-bot-leg.left{left:58px}.hassoub-bot-leg.right{right:58px}
+@keyframes hassoub-clap-left{from{transform:rotate(30deg)}to{transform:rotate(-38deg)}}
+@keyframes hassoub-clap-right{from{transform:rotate(-30deg)}to{transform:rotate(38deg)}}
+@keyframes hassoub-bounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.hassoub-celebration-bot,.hassoub-bot-arm.left,.hassoub-bot-arm.right{animation:none}}
+
 </style></head>
 <body>
 <header class="hero">
@@ -461,7 +484,7 @@ function finishActualUnit1(){
  qs.forEach((q,i)=>{html+='<div class="quizq"><p><strong>'+(i+1)+'. '+q[0]+'</strong></p>';q[1].forEach((c,j)=>{html+='<label style="display:block;margin:6px 0"><input type="radio" name="a'+(i+1)+'" value="'+String.fromCharCode(97+j)+'"> '+c+'</label>'});html+='</div>'});
  html+='<button type="button" class="mainbtn" onclick="gradeActualUnit1Quiz()">اعرض النتيجة ⭐</button></form><div id="actualUnitResult" class="feedback"></div><button class="mainbtn secondary" onclick="show(0)">مراجعة الدروس</button><button class="mainbtn secondary" onclick="playFisherGame()">إعادة لعبة أساعد الصياد 🎣</button><button class="mainbtn secondary" onclick="backToUnits()">العودة إلى الوحدات</button></div>';lesson.innerHTML=html;window.scrollTo(0,0);
 }
-function gradeActualUnit1Quiz(){const key=['b','a','b','a','c','b','b','b','b','c','a','b','b','c','b'];let n=0,answeredCount=0;key.forEach((correct,i)=>{const chosen=document.querySelector('input[name="a'+(i+1)+'"]:checked');if(chosen){answeredCount++;if(chosen.value===correct)n++}});const out=document.getElementById('actualUnitResult');if(n===15&&answeredCount===15){out.innerHTML='<div style="text-align:center;padding:20px 10px;border:3px solid #ffd34d;border-radius:22px;background:linear-gradient(135deg,#fff8d9,#fff0fa,#e6f7ff);overflow:hidden"><div style="font-size:42px;animation:float 1s ease-in-out infinite alternate">🎆 🌟 🎊 🌟 🎆</div><div style="font-size:76px;line-height:1.2;animation:float 1s ease-in-out infinite alternate">🤖👏</div><h2 style="color:#b87500">يا سلام! العلامة الكاملة! 🏆</h2><p style="font-size:24px;font-weight:900">15 من 15 ⭐</p><p style="font-size:19px;font-weight:800">حسّوب يصفّق لك بكل قوته! 👏👏👏</p><p>🎁 هديتك: وسام بطل الرياضيات 🥇</p><div style="font-size:34px">✨ ⭐ 🎉 💥 🎉 ⭐ ✨</div><p>أنت بطل مبدع! أتقنت الوحدة الأولى، وأنا فخور فيك! 💛</p><p style="font-size:27px">🎇 🎆 🎇</p></div>';out.classList.add('show');celebrate();if(soundOn)say('يا سلام! العلامة الكاملة! خمسة عشر من خمسة عشر! أحسنت يا بطل! أنت بطل الرياضيات!');return;}out.innerHTML='أجبت عن '+answeredCount+' من 15 سؤالًا. نتيجتك: '+n+' من 15. '+(n>=11?'👏 أداء رائع! راجع الأسئلة التي تحتاج إلى تدريب.':'💛 أحسنت على المحاولة! راجع الدروس ثم أعد الاختبار.')+'<p>🤖 حسّوب يقول: أنا فخور بمحاولتك، والتدريب يصنع الفرق!</p>';out.classList.add('show');}
+function gradeActualUnit1Quiz(){const key=['b','a','b','a','c','b','b','b','b','c','a','b','b','c','b'];let n=0,answeredCount=0;key.forEach((correct,i)=>{const chosen=document.querySelector('input[name="a'+(i+1)+'"]:checked');if(chosen){answeredCount++;if(chosen.value===correct)n++}});const out=document.getElementById('actualUnitResult');if(n===15&&answeredCount===15){out.innerHTML='<div style="text-align:center;padding:20px 10px;border:3px solid #ffd34d;border-radius:22px;background:linear-gradient(135deg,#fff8d9,#fff0fa,#e6f7ff);overflow:hidden"><div style="font-size:42px;animation:float 1s ease-in-out infinite alternate">🎆 🌟 🎊 🌟 🎆</div><div class="hassoub-celebration-bot" role="img" aria-label="حسّوب يصفّق بيديه"><div class="hassoub-bot-head"><div class="hassoub-bot-eyes"><i></i><i></i></div><div class="hassoub-bot-smile"></div></div><div class="hassoub-bot-body"></div><div class="hassoub-bot-arm left"><span class="hassoub-bot-hand"></span></div><div class="hassoub-bot-arm right"><span class="hassoub-bot-hand"></span></div><div class="hassoub-bot-leg left"></div><div class="hassoub-bot-leg right"></div></div><h2 style="color:#b87500">يا سلام! العلامة الكاملة! 🏆</h2><p style="font-size:24px;font-weight:900">15 من 15 ⭐</p><p style="font-size:19px;font-weight:800">حسّوب يصفّق لك بكل قوته! 👏👏👏</p><p>🎁 هديتك: وسام بطل الرياضيات 🥇</p><div style="font-size:34px">✨ ⭐ 🎉 💥 🎉 ⭐ ✨</div><p>أنت بطل مبدع! أتقنت الوحدة الأولى، وأنا فخور فيك! 💛</p><p style="font-size:27px">🎇 🎆 🎇</p></div>';out.classList.add('show');celebrate();if(soundOn)say('يا سلام! العلامة الكاملة! خمسة عشر من خمسة عشر! أحسنت يا بطل! أنت بطل الرياضيات!');return;}out.innerHTML='أجبت عن '+answeredCount+' من 15 سؤالًا. نتيجتك: '+n+' من 15. '+(n>=11?'👏 أداء رائع! راجع الأسئلة التي تحتاج إلى تدريب.':'💛 أحسنت على المحاولة! راجع الدروس ثم أعد الاختبار.')+'<p>🤖 حسّوب يقول: أنا فخور بمحاولتك، والتدريب يصنع الفرق!</p>';out.classList.add('show');}
 function finish(){if(activeUnit===1){finishActualUnit1();return;}const qs=[
 ['أين الكتاب إذا كان فوق الطاولة؟',['تحت الطاولة','فوق الطاولة','داخل الطاولة'],'b'],
 ['الحقيبة تحت الكرسي. أين الحقيبة؟',['تحت الكرسي','فوق الكرسي','خلف الباب'],'a'],
