@@ -462,13 +462,15 @@ function checkGrade2Answer(unit,lesson,choice){
  if(choice===d.correct){out.innerHTML='🌟 أحسنت يا بطل! إجابة صحيحة! 🎉<div class="stars">⭐ ✨ ⭐</div>';out.className='feedback good';if(typeof speakHassoub==='function')speakHassoub('أحسنت يا بطل! إجابة صحيحة!');if(typeof celebrate==='function')celebrate();}
  else{out.innerHTML='💛 حاول مرة ثانية يا بطل. تذكّر: '+d.why;out.className='feedback bad';if(typeof speakHassoub==='function')speakHassoub('ولا يهمك، حاول مرة ثانية.');}
 }
+let grade2ExamUnit=0;
 function openGrade2Exam(unit){
+ grade2ExamUnit=unit;
  const section=document.getElementById('grade2Lesson');
  section.classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent='اختبار نهاية '+grade2Units[unit].title;
  document.getElementById('grade2LessonUnit').textContent='📝 اختبار الوحدة';
- if(unit!==0){document.getElementById('grade2LessonText').innerHTML='<p>اختبار هذه الوحدة قيد الإعداد حتى تُستكمل دروسها.</p>';document.getElementById('grade2LessonStatus').textContent='لن نعرض اختبارًا قبل تجهيز محتواه ومراجعته.';return;}
- const qs=[
+ if(unit>1){document.getElementById('grade2LessonText').innerHTML='<p>اختبار هذه الوحدة قيد الإعداد حتى تُستكمل دروسها.</p>';document.getElementById('grade2LessonStatus').textContent='لن نعرض اختبارًا قبل تجهيز محتواه ومراجعته.';return;}
+ const qs=unit===0?[
  ['10 عشرات تساوي:',['10','100','1000'],1],
  ['في العدد 243، رقم العشرات هو:',['2','4','3'],1],
  ['الصورة التحليلية للعدد 253 هي:',['200 + 50 + 3','200 + 5 + 3','20 + 50 + 3'],0],
@@ -479,13 +481,24 @@ function openGrade2Exam(unit){
  ['في العدد 971، قيمة الرقم 9 هي:',['9','90','900'],2],
  ['الصورة التحليلية للعدد 803 هي:',['800 + 30','800 + 3','80 + 3'],1],
  ['العدد «ثلاثمئة وواحد وسبعون» يكتب:',['317','371','731'],1]
+ ]:[
+ ['العدد التالي في 230، 240، 250 هو:',['251','260','270'],1],
+ ['أي عدد زوجي؟',['37','42','55'],1],
+ ['العدد السابق لـ 600 هو:',['599','601','590'],0],
+ ['482 ... 428، الرمز الصحيح:',['<','>','='],1],
+ ['أصغر الأعداد هو:',['340','304','430'],1],
+ ['العدد الذي يقع يمين 450 هو:',['440','449','460'],2],
+ ['تقريب 67 لأقرب عشرة:',['60','70','67'],1],
+ ['أي عدد فردي؟',['28','36','41'],2],
+ ['العدد التالي لـ 999 هو:',['1000','998','990'],0],
+ ['رتّب تنازليًا: ما العدد الأول؟',['182','218','128'],1]
  ];
  document.getElementById('grade2LessonText').innerHTML='<p class="goal">اختبر فهمك للوحدة الأولى. اختر إجابة واحدة لكل سؤال، وحسّوب سيشجّعك بعد النتيجة! 🤖</p><form id="grade2ExamForm">'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2q'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'</form><button class="mainbtn" onclick="gradeGrade2Exam()">اعرض النتيجة ⭐</button><div id="grade2ExamResult" class="intro-exam-result hide"></div>';
  document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب معك!</strong> اقرأ السؤال بهدوء، وبعد التصحيح ستظهر نتيجتك والإجابات الصحيحة.';
  window.scrollTo(0,section.offsetTop);
 }
 function gradeGrade2Exam(){
- const qs=[1,1,0,1,0,0,0,2,1,1];let score=0,answered=0,review='';
+ const qs=grade2ExamUnit===0?[1,1,0,1,0,0,0,2,1,1]:[1,1,0,1,1,2,1,2,0,1];let score=0,answered=0,review='';
  qs.forEach((correct,i)=>{const c=document.querySelector('input[name="g2q'+i+'"]:checked');if(c){answered++;if(Number(c.value)===correct)score++;}const q=document.querySelector('input[name="g2q'+i+'"]')?.closest('fieldset');if(q){const labels=q.querySelectorAll('label');review+='<p>'+(i+1)+'. الإجابة الصحيحة: <strong>'+labels[correct].textContent.trim()+'</strong></p>';}});
  const out=document.getElementById('grade2ExamResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك: '+score+' من 10</h3><p>أجبت عن '+answered+' من 10 أسئلة.</p><p>'+(score===10?'🏆 ممتاز! يا بطل، أتقنت الوحدة!':score>=7?'👏 رائع! راجع الأسئلة التي أخطأت فيها.':'💛 لا تستسلم، راجع الدروس ثم جرّب من جديد.')+'</p>'+review+'<p>🤖 حسّوب يقول: أنا فخور بمحاولتك، والتعلّم خطوة خطوة!</p>';
  if(score===10){if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('ممتاز يا بطل! حصلت على العلامة الكاملة!');}
