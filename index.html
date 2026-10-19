@@ -115,24 +115,12 @@
       <div class="adventure-mascot" aria-hidden="true">🦊</div>
       <div class="adventure-copy">
         <h2>🗺️ مغامرات حسّوب: كنز الأرقام</h2>
-        <p>مغامرة صغيرة فيها عدّ وألغاز وكنز ينتظرك! تعلّم باللعب واجمع النجوم.</p>
+        <p>مش بس أسئلة! مغامرة فيها عدّ وألغاز ونجوم ومفاجأة في النهاية.</p>
       </div>
     </div>
-    <div class="adventure-pills"><span class="adventure-pill">🔢 الأعداد حتى 10</span><span class="adventure-pill">⭐ 5 تحديات</span><span class="adventure-pill">🎉 مفاجأة في النهاية</span></div>
-    <button class="adventure-launch" onclick="startNumberAdventure()">ابدأ المغامرة! 🚀</button>
-    <div id="numberAdventure" class="adventure-game hide" aria-live="polite">
-      <div class="adventure-game-head"><span class="adventure-level" id="adventureLevel">التحدي 1 من 5</span><div class="adventure-progress" aria-label="تقدم المغامرة"><span id="adventureProgress"></span></div><button class="adventure-sound" id="adventureSound" onclick="toggleAdventureSound()" aria-pressed="true">🔊 الصوت</button></div>
-      <div id="adventurePlay">
-        <div class="adventure-scene"><div id="adventureScene" class="adventure-objects">🍎 🍎 🍎</div></div>
-        <h3 class="adventure-question" id="adventureQuestion">كم تفاحة نرى؟</h3>
-        <div class="adventure-answers" id="adventureAnswers"></div>
-        <div class="adventure-feedback" id="adventureFeedback">اختَر الإجابة التي تراها صحيحة يا بطل! 💛</div>
-        <button class="adventure-next hide" id="adventureNext" onclick="nextAdventureChallenge()">تابع المغامرة ←</button>
-      </div>
-      <div id="adventureFinish" class="adventure-reward hide"></div>
-    </div>
+    <div class="adventure-pills"><span class="adventure-pill">🔢 الأعداد حتى 10</span><span class="adventure-pill">⭐ 5 تحديات</span><span class="adventure-pill">🎉 مكافأة للبطل</span></div>
+    <button class="adventure-launch" onclick="openAdventureFromHome()">جرّب المغامرة الآن! 🚀</button>
   </section>
-
   <div class="grades-heading"><div><h2>اختاري الصف الدراسي</h2><p>لكل صف رحلته ودروسه الخاصة</p></div><span class="grade-count">12 صفًا</span></div>
   <section class="grades-grid" aria-label="الصفوف الدراسية">
     <button class="grade-card color-1" onclick="openGrade(1)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">01</span></span><span class="grade-name">الصف الأول<br>الأساسي</span><span class="grade-watermark">01</span><span class="grade-action">ابدئي التعلّم <b>←</b></span></button>
@@ -242,7 +230,19 @@
   <p class="home-note">المرحلة الحالية: معاينة واجهة المكتبة وحساب وليّ الأمر. الحسابات الحقيقية وتكامل الدفع والتفعيل التلقائي وحماية الفيديوهات تحتاج إلى خادم وقاعدة بيانات وربط مزوّد دفع آمن.</p>
 </main>
 <main class="wrap hide" id="gradePage"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الأول الأساسي</h2><p id="gradeBreadcrumb">اختاري الفصل الدراسي</p></div></div>
-<section id="gradeOverview" class="grade-overview"><h2>رحلتك في الصف الأول 🌟</h2><p>اضغطي على الفصل الدراسي الأول لتظهر قائمة الدروس مباشرة.</p><div class="semester-grid"><button class="semester-card sem-one" onclick="showSemester(1)"><span class="semester-icon">📘</span><strong>الفصل الدراسي الأول</strong><span>الوحدات والدروس</span><b>اضغطي لعرض الدروس ↓</b></button><div id="unitChooser" class="unit-chooser hide"><div id="unitsList"></div></div><button class="semester-card sem-two" onclick="showSemester(2)"><span class="semester-icon">📗</span><strong>الفصل الدراسي الثاني</strong><span>سيُضاف المحتوى عند تجهيزه</span><b>عرض الفصل ←</b></button></div></section>
+<section id="gradeOverview" class="grade-overview"><h2>رحلتك في الصف الأول 🌟</h2><p>اضغطي على الفصل الدراسي الأول لتظهر قائمة الدروس مباشرة.</p><div class="semester-grid"><button class="semester-card sem-one" onclick="showSemester(1)"><span class="semester-icon">📘</span><strong>الفصل الدراسي الأول</strong><span>الوحدات والدروس</span><b>اضغطي لعرض الدروس ↓</b></button><div id="unitChooser" class="unit-chooser hide"><div id="unitsList"></div></div><button class="semester-card sem-two" onclick="showSemester(2)"><span class="semester-icon">📗</span><strong>الفصل الدراسي الثاني</strong><span>سيُضاف المحتوى عند تجهيزه</span><b>عرض الفصل ←</b></button></div>
+<div id="numberAdventure" class="adventure-game hide" aria-live="polite">
+  <div class="adventure-game-head"><span class="adventure-level" id="adventureLevel">التحدي 1 من 5</span><div class="adventure-progress" aria-label="تقدم المغامرة"><span id="adventureProgress"></span></div><button class="adventure-sound" id="adventureSound" onclick="toggleAdventureSound()" aria-pressed="true">🔊 الصوت</button><button class="adventure-sound" onclick="closeNumberAdventure()">إغلاق ✕</button></div>
+  <div id="adventurePlay">
+    <div class="adventure-scene"><div id="adventureScene" class="adventure-objects">🍎 🍎 🍎</div></div>
+    <h3 class="adventure-question" id="adventureQuestion">كم تفاحة نرى؟</h3>
+    <div class="adventure-answers" id="adventureAnswers"></div>
+    <div class="adventure-feedback" id="adventureFeedback">اختَر الإجابة التي تراها صحيحة يا بطل! 💛</div>
+    <button class="adventure-next hide" id="adventureNext" onclick="nextAdventureChallenge()">تابع المغامرة ←</button>
+  </div>
+  <div id="adventureFinish" class="adventure-reward hide"></div>
+</div>
+</section>
 <div id="lessonArea" class="hide"><div class="toptools"><button class="toggle" onclick="backToUnits()">← العودة إلى الوحدات</button><span class="scorepill" id="starCount">⭐ نجومي: 0</span><button class="toggle" id="soundToggle" onclick="toggleSound()">🔊 الصوت: يعمل</button><span class="mascot">🤖 حسّوب يشجّعك!</span></div><div class="counter"><span id="lessonCount">الدرس 1 من 7</span><span>تقدّمك في الوحدة</span></div><div class="progress"><div id="progressbar"></div></div><div class="layout" style="margin-top:16px"><aside class="panel"><h2>دروس الوحدة</h2><nav class="nav" id="nav"></nav><p class="footer">الدروس مرتبة وفق فهرس كتاب الطالب. الأنشطة والأسئلة هنا مُعدّة للتدريب والفهم.</p></aside><section class="lesson" id="lesson"></section></div><div class="footer">أنشطة تدريبية تفاعلية للصف الأول الأساسي.</div></div></main>
 <div id="hassoubTip" class="hassoub-tip" role="status" aria-live="polite"><div class="tip-head">🤖 حسّوب يذكّرك!</div><p id="hassoubTipText">خلّينا نتذكّر أهم فكرة في الدرس.</p><button onclick="closeHassoubTip()">تمام يا حسّوب ⭐</button></div>
 <script>
@@ -280,7 +280,7 @@ function showSemester(n){
  const isOpen=!chooser.classList.contains('hide') && chooser.dataset.semester===String(n);
  if(isOpen){chooser.classList.add('hide');chooser.dataset.semester='';return;}
  chooser.dataset.semester=String(n);
- document.getElementById('unitsList').innerHTML=n===1?`<div class="unit-card"><div><h4>الوحدة التمهيدية: الأعداد حتى 10</h4><p>7 دروس تدريبية + اختبار مراجعة</p></div><button onclick="openLessonFromList(0,0)">ابدئي المراجعة ←</button></div><div class="unit-card"><div><h4>الوحدة الأولى: لوحة الطرق الأربعة</h4><p>6 دروس + لعبة أساعد الصياد + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,1)">ابدئي الوحدة ←</button></div><div class="unit-card"><div><h4>الوحدة الثانية: مقارنة الأعداد وترتيبها</h4><p>مشروع نماذج الأعداد + 5 دروس + لعبة العدد المفقود + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,2)">ابدأ الوحدة الثانية ←</button><button class="secondary" onclick="startUnit2Project()">مشروع الوحدة: نماذج الأعداد</button></div><div class="unit-card"><div><h4>الوحدة الثالثة: الجمع</h4><p>مشروع ملاقط الأعداد + 5 دروس تفاعلية + لعبة الجمع + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,3)">ابدأ الوحدة الثالثة ←</button><button class="secondary" onclick="startUnit3Project()">مشروع الوحدة: ملاقط الأعداد</button></div><div class="unit-card"><div><h4>الوحدة الرابعة: الطرح</h4><p>مشروع منزل الحقائق المترابطة + 5 دروس تفاعلية + لعبة الطرح + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,4)">ابدأ الوحدة الرابعة ←</button><button class="secondary" onclick="startUnit4Project()">مشروع الوحدة: منزل الحقائق المترابطة</button></div><div class="unit-card"><div><h4>الوحدة الخامسة: معالجة البيانات</h4><p>مشروع الفصول الأربعة + 4 دروس تفاعلية + لعبة اللون المفضّل + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,5)">ابدأ الوحدة الخامسة ←</button><button class="secondary" onclick="startUnit5Project()">مشروع الوحدة: الفصول الأربعة</button></div>`:`<p class="unit-card unit-coming">دروس الفصل الدراسي الثاني ستُضاف لاحقًا.</p>`;
+ document.getElementById('unitsList').innerHTML=n===1?`<div class="unit-card"><div><h4>الوحدة التمهيدية: الأعداد حتى 10</h4><p>7 دروس تدريبية + اختبار مراجعة</p></div><button onclick="openLessonFromList(0,0)">ابدئي المراجعة ←</button><button class="secondary" onclick="startNumberAdventure()">🎮 لعبة كنز الأرقام</button></div><div class="unit-card"><div><h4>الوحدة الأولى: لوحة الطرق الأربعة</h4><p>6 دروس + لعبة أساعد الصياد + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,1)">ابدئي الوحدة ←</button></div><div class="unit-card"><div><h4>الوحدة الثانية: مقارنة الأعداد وترتيبها</h4><p>مشروع نماذج الأعداد + 5 دروس + لعبة العدد المفقود + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,2)">ابدأ الوحدة الثانية ←</button><button class="secondary" onclick="startUnit2Project()">مشروع الوحدة: نماذج الأعداد</button></div><div class="unit-card"><div><h4>الوحدة الثالثة: الجمع</h4><p>مشروع ملاقط الأعداد + 5 دروس تفاعلية + لعبة الجمع + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,3)">ابدأ الوحدة الثالثة ←</button><button class="secondary" onclick="startUnit3Project()">مشروع الوحدة: ملاقط الأعداد</button></div><div class="unit-card"><div><h4>الوحدة الرابعة: الطرح</h4><p>مشروع منزل الحقائق المترابطة + 5 دروس تفاعلية + لعبة الطرح + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,4)">ابدأ الوحدة الرابعة ←</button><button class="secondary" onclick="startUnit4Project()">مشروع الوحدة: منزل الحقائق المترابطة</button></div><div class="unit-card"><div><h4>الوحدة الخامسة: معالجة البيانات</h4><p>مشروع الفصول الأربعة + 4 دروس تفاعلية + لعبة اللون المفضّل + اختبار نهاية الوحدة</p></div><button onclick="openLessonFromList(0,5)">ابدأ الوحدة الخامسة ←</button><button class="secondary" onclick="startUnit5Project()">مشروع الوحدة: الفصول الأربعة</button></div>`:`<p class="unit-card unit-coming">دروس الفصل الدراسي الثاني ستُضاف لاحقًا.</p>`;
  chooser.classList.remove('hide');document.getElementById('gradeBreadcrumb').textContent='الصف الأول الأساسي • '+(n===1?'الفصل الدراسي الأول':'الفصل الدراسي الثاني');
 }
 function backToSemesters(){document.getElementById('unitChooser').classList.add('hide');document.getElementById('gradeBreadcrumb').textContent='اختاري الفصل الدراسي';}
@@ -479,6 +479,8 @@ const numberAdventureChallenges=[
  {scene:'6　7　❔　9',sceneClass:'adventure-numberline',question:'ساعد حسّوب يكمل العدّ: ما العدد التالي؟',answers:['8','5','10'],correct:'8',hint:'نعدّ بالترتيب: 6، 7، 8، 9.'}
 ];
 let adventureIndex=0,adventureStars=0,adventureSoundOn=true,adventureLocked=false;
+function openAdventureFromHome(){openGrade(1);document.getElementById('unitChooser').classList.add('hide');startNumberAdventure();}
+function closeNumberAdventure(){document.getElementById('numberAdventure').classList.add('hide');}
 function startNumberAdventure(){
  adventureIndex=0;adventureStars=0;adventureLocked=false;
  document.getElementById('numberAdventure').classList.remove('hide');
