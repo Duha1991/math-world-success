@@ -426,7 +426,31 @@ const grade2Units=[
 ];
 function renderGrade2Units(){
  const root=document.getElementById('grade2Units');
- root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')"><strong>الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][j]+'</strong>: '+l+'</button></li>').join('')+'</ol>'+(i===1?'<button class="mainbtn secondary" onclick="openGrade2Unit2Project()">🧩 مشروع الوحدة</button> <button class="mainbtn secondary" onclick="openGrade2Unit2Game()">🎮 لعبة حسّوب</button> ':'')+'<button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
+ root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')"><strong>الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][j]+'</strong>: '+l+'</button></li>').join('')+'</ol>'+(i===1?'<button class="mainbtn secondary" onclick="openGrade2Unit2Project()">🧩 مشروع الوحدة</button> ':'')+'<button class="mainbtn secondary" onclick="openGrade2Game('+i+')">🎮 لعبة حسّوب</button> <button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
+}
+function openGrade2Game(unit){
+ history.pushState({mathSiteView:'grade2-game'},'',location.pathname+'#grade2-game');
+ document.querySelector('#grade2Page .grade-overview').classList.add('hide');
+ const section=document.getElementById('grade2Lesson');section.classList.remove('hide');
+ document.getElementById('grade2LessonTitle').textContent='لعبة حسّوب: '+grade2Units[unit].title;
+ document.getElementById('grade2LessonUnit').textContent='🎮 تحدّي الوحدة';
+ const all=[
+ [['كم عشرة في 100؟',['5','10','100'],1],['القيمة المنزلية للرقم 4 في 342؟',['4','40','400'],1],['253 بالصورة التحليلية؟',['200+50+3','200+5+3','20+50+3'],0],['العدد 400+90+5؟',['495','459','945'],0],['قيمة 9 في 971؟',['9','90','900'],2]],
+ [['أي عدد أكبر؟',['398','389','308'],0],['السابق لـ700؟',['701','699','690'],1],['أي عدد زوجي؟',['125','237','348'],2],['قرّب 64 لأقرب عشرة؟',['60','70','80'],1],['رتّب تصاعديًا 510،501،150؛ الأول؟',['150','501','510'],0]],
+ [['30+40؟',['60','70','80'],1],['تقدير 62+27؟',['نحو90','نحو30','نحو200'],0],['214+132؟',['346','336','356'],0],['28+14؟',['32','42','52'],1],['25+؟=40؟',['10','15','20'],1]],
+ [['50−20؟',['20','30','40'],1],['58−22 تقريبًا؟',['40','10','80'],0],['586−243؟',['343','353','333'],0],['51−26؟',['25','35','15'],0],['400−125؟',['275','285','375'],0]],
+ [['⭐⭐⭐ والمفتاح ⭐=4 طلاب، كم؟',['7','12','16'],1],['أيهما أكثر: 9 أم 6؟',['9','6','متساويان'],0],['تفاح، موز، تفاح، عنب، تفاح. تكرار التفاح؟',['2','3','4'],1],['7،4،9: ما الأكبر؟',['7','4','9'],2],['11+13؟',['22','24','25'],1]]
+ ];
+ const qs=all[unit];document.getElementById('grade2LessonText').innerHTML='<p class="goal">جاوب عن أسئلة اللعبة واجمع نقاطك! ⭐</p><form id="grade2GameForm">'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2gameq'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'</form><button class="mainbtn" onclick="gradeGrade2Game('+unit+')">تحقّق من إجاباتي ⭐</button><div id="grade2GameResult" class="intro-exam-result hide"></div>';
+ document.getElementById('grade2LessonStatus').innerHTML='🤖 حسّوب يشجّعك: جرّب، تعلّم، واجمع النجوم!';
+ window.scrollTo(0,section.offsetTop);
+}
+function gradeGrade2Game(unit){
+ const keys=[[1,1,0,0,2],[0,1,2,1,0],[1,0,0,1,1],[1,0,0,0,0],[1,0,1,2,1]][unit];let score=0,answered=0;
+ keys.forEach((k,i)=>{const a=document.querySelector('input[name="g2gameq'+i+'"]:checked');if(a){answered++;if(Number(a.value)===k)score++;}});
+ const out=document.getElementById('grade2GameResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك '+score+' من 5 ⭐</h3><p>أجبت عن '+answered+' من 5 أسئلة.</p><p>'+(score===5?'🏆 ممتاز! أنت بطل الوحدة!':score>=3?'👏 أحسنت، اقتربت من الفوز!':'💛 حاول مرة ثانية، حسّوب معك!')+'</p>';
+ if(score===5&&typeof celebrate==='function')celebrate();
+ if(typeof speakHassoub==='function')speakHassoub(score===5?'رائع! فزت باللعبة!':'أحسنت، استمر بالمحاولة!');
 }
 function openGrade2Unit2Project(){
  const section=document.getElementById('grade2Lesson');section.classList.remove('hide');
@@ -621,12 +645,14 @@ function openGrade2Exam(unit){
  ['أي جملة صحيحة؟',['5 + 3 = 3 + 5','5 + 0 = 0','5 + 1 = 5'],0],
  ['34 + 16 =',['40','50','60'],1]
  ];
- document.getElementById('grade2LessonText').innerHTML='<p class="goal">اختبر فهمك للوحدة الأولى. اختر إجابة واحدة لكل سؤال، وحسّوب سيشجّعك بعد النتيجة! 🤖</p><form id="grade2ExamForm">'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2q'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'</form><button class="mainbtn" onclick="gradeGrade2Exam()">اعرض النتيجة ⭐</button><div id="grade2ExamResult" class="intro-exam-result hide"></div>';
+ if(unit===3)qs.push(['50 − 20 = ؟',['20','30','40'],1],['أفضل تقدير لـ 58 − 22؟',['نحو 40','نحو 10','نحو 80'],0],['586 − 243 = ؟',['343','353','333'],0],['51 − 26 = ؟',['25','35','15'],0],['453 − 128 = ؟',['325','335','315'],0],['400 − 125 = ؟',['275','285','375'],0],['700 − 358 = ؟',['352','342','362'],1],['120 − 35 − 20 = ؟',['65','75','85'],0],['604 − 278 = ؟',['336','326','316'],1],['500 − 263 = ؟',['237','247','257'],0]);
+ if(unit===4)qs.push(['⭐⭐⭐ والمفتاح ⭐=4 طلاب، كم طالبًا؟',['7','12','16'],1],['أيهما أكثر: 9 صور أم 6 صور؟',['9 صور','6 صور','متساويان'],0],['تفاح، موز، تفاح، عنب، تفاح. كم مرة تكرر التفاح؟',['2','3','4'],1],['القراءة 7، الرسم 4، الرياضة 9. ما الأكثر؟',['القراءة','الرسم','الرياضة'],2],['أحمر 6، أزرق 2. كم يزيد الأحمر؟',['4','8','3'],0],['11 طالبًا و13 طالبًا، ما المجموع؟',['22','24','25'],1],['أي فئة أقل: 5 فراشات أم 8 طيور؟',['الفراشات','الطيور','متساويتان'],0],['جدول: 4 تفاح و6 موز. ما الأكثر؟',['التفاح','الموز','متساويان'],1],['صورتان والمفتاح لكل صورة 3 كرات. كم كرة؟',['5','6','9'],1],['إذا تكرر الأزرق مرتين والأحمر مرة، فما الأكثر؟',['الأزرق','الأحمر','متساويان'],0]);
+ document.getElementById('grade2LessonText').innerHTML='<p class="goal">اختبر فهمك للوحدة. اختر إجابة واحدة لكل سؤال، وحسّوب سيشجّعك بعد النتيجة! 🤖</p><form id="grade2ExamForm">'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2q'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'</form><button class="mainbtn" onclick="gradeGrade2Exam()">اعرض النتيجة ⭐</button><div id="grade2ExamResult" class="intro-exam-result hide"></div>';
  document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب معك!</strong> اقرأ السؤال بهدوء، وبعد التصحيح ستظهر نتيجتك والإجابات الصحيحة.';
  window.scrollTo(0,section.offsetTop);
 }
 function gradeGrade2Exam(){
- const qs=grade2ExamUnit===0?[1,1,0,1,0,0,0,2,1,1]:grade2ExamUnit===1?[1,1,0,1,1,2,1,2,0,1]:[1,0,0,1,1,1,1,0,0,1];let score=0,answered=0,review='';
+ const qs=grade2ExamUnit===0?[1,1,0,1,0,0,0,2,1,1]:grade2ExamUnit===1?[1,1,0,1,1,2,1,2,0,1]:grade2ExamUnit===2?[1,0,0,1,1,1,1,0,0,1]:grade2ExamUnit===3?[1,0,0,0,0,0,1,0,1,0]:[1,0,1,2,0,1,0,1,1,0];let score=0,answered=0,review='';
  qs.forEach((correct,i)=>{const c=document.querySelector('input[name="g2q'+i+'"]:checked');if(c){answered++;if(Number(c.value)===correct)score++;}const q=document.querySelector('input[name="g2q'+i+'"]')?.closest('fieldset');if(q){const labels=q.querySelectorAll('label');review+='<p>'+(i+1)+'. الإجابة الصحيحة: <strong>'+labels[correct].textContent.trim()+'</strong></p>';}});
  const out=document.getElementById('grade2ExamResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك: '+score+' من 10</h3><p>أجبت عن '+answered+' من 10 أسئلة.</p><p>'+(score===10?'🏆 ممتاز! يا بطل، أتقنت الوحدة!':score>=7?'👏 رائع! راجع الأسئلة التي أخطأت فيها.':'💛 لا تستسلم، راجع الدروس ثم جرّب من جديد.')+'</p>'+review+'<p>🤖 حسّوب يقول: أنا فخور بمحاولتك، والتعلّم خطوة خطوة!</p>';
  if(score===10){if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('ممتاز يا بطل! حصلت على العلامة الكاملة!');}
