@@ -426,7 +426,7 @@ const grade2Units=[
 ];
 function renderGrade2Units(){
  const root=document.getElementById('grade2Units');
- root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')"><strong>الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][j]+'</strong>: '+l+'</button></li>').join('')+'</ol>'+(i===1?'<button class="mainbtn secondary" onclick="openGrade2Unit2Project()">🧩 مشروع الوحدة</button> ':'')+'<button class="mainbtn secondary" onclick="openGrade2Game('+i+')">🎮 لعبة حسّوب</button> <button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
+ root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')"><strong>الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][j]+'</strong>: '+l+'</button></li>').join('')+'</ol>'+'<button class="mainbtn secondary" onclick="openGrade2Project('+i+')">🧩 مشروع الوحدة</button> <button class="mainbtn secondary" onclick="openGrade2Game('+i+')">🎮 لعبة حسّوب</button> <button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
 }
 function openGrade2Game(unit){
  history.pushState({mathSiteView:'grade2-game'},'',location.pathname+'#grade2-game');
@@ -451,6 +451,25 @@ function gradeGrade2Game(unit){
  const out=document.getElementById('grade2GameResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك '+score+' من 5 ⭐</h3><p>أجبت عن '+answered+' من 5 أسئلة.</p><p>'+(score===5?'🏆 ممتاز! أنت بطل الوحدة!':score>=3?'👏 أحسنت، اقتربت من الفوز!':'💛 حاول مرة ثانية، حسّوب معك!')+'</p>';
  if(score===5&&typeof celebrate==='function')celebrate();
  if(typeof speakHassoub==='function')speakHassoub(score===5?'رائع! فزت باللعبة!':'أحسنت، استمر بالمحاولة!');
+}
+function openGrade2Project(unit){
+ if(unit===1){openGrade2Unit2Project();return;}
+ history.pushState({mathSiteView:'grade2-project'},'',location.pathname+'#grade2-project');
+ document.querySelector('#grade2Page .grade-overview').classList.add('hide');
+ const section=document.getElementById('grade2Lesson');section.classList.remove('hide');
+ document.getElementById('grade2LessonTitle').textContent='مشروع الوحدة: '+grade2Units[unit].title;
+ document.getElementById('grade2LessonUnit').textContent='🧩 مشروع تطبيقي';
+ const projects=[
+ {title:'متحف الأعداد',goal:'أمثل الأعداد وأوضح القيمة المنزلية.',body:'<p>أنشئ بطاقة لكل عدد من هذه الأعداد: 126، 304، 580.</p><ol><li>اكتب كل عدد بالحروف.</li><li>مثّله بالمئات والعشرات والآحاد.</li><li>اكتب صورته التحليلية.</li><li>اختر رقمًا واشرح قيمته المنزلية.</li></ol><p>تحدّي حسّوب: اختر عددًا من ثلاث منازل واكتب لغزًا لزميلك ليكتشفه.</p>'},
+ null,
+ {title:'متجر الجمع',goal:'أستخدم الجمع في موقف من الحياة اليومية.',body:'<p>في متجر ألعاب: ثمن سيارة 125 قرشًا، ودمية 234 قرشًا، وكرة 116 قرشًا.</p><ol><li>احسب ثمن السيارة والدمية معًا.</li><li>قدّر ثمن الكرة والدمية.</li><li>إذا اشتريت السيارة والكرة، فكم تدفع؟</li><li>اكتب مسألة جمع من عندك وحلّها.</li></ol><p>تحدّي حسّوب: اختر عددين مجموعهما أكبر من 500.</p>'},
+ {title:'مركز إعادة التدوير',goal:'أستخدم الطرح وأتحقق من معقولية الناتج.',body:'<p>جمع المركز 563 علبة، وأرسل 248 علبة لإعادة التدوير.</p><ol><li>كم علبة بقيت؟</li><li>قدّر الناتج قبل الحساب.</li><li>إذا جمع المركز 120 علبة أخرى، فكم يصبح لديه؟</li><li>اكتب طريقة للتحقق من إجابتك.</li></ol><p>تحدّي حسّوب: أنشئ مسألة طرح من ثلاث منازل وأعطِ زميلك فرصة لحلها.</p>'},
+ {title:'باحث البيانات الصغير',goal:'أنظم البيانات وأمثلها وأفسرها.',body:'<p>سأل حسّوب 12 طالبًا عن الفاكهة المفضلة: التفاح 5، الموز 3، البرتقال 4.</p><ol><li>أنشئ جدولًا للفئات وعدد الطلاب.</li><li>مثّل البيانات بالصور، واجعل كل صورة تمثل طالبًا واحدًا.</li><li>ما الفاكهة الأكثر تفضيلًا؟</li><li>كم طالبًا اختار الموز والبرتقال معًا؟</li><li>اكتب سؤالًا آخر يمكن الإجابة عنه من بياناتك.</li></ol><p>تحدّي حسّوب: اجمع بيانات صفك عن نشاط مفضل ومثّلها بجدول.</p>'}
+ ];
+ const p=projects[unit]||projects[0];
+ document.getElementById('grade2LessonText').innerHTML='<div class="goal"><strong>هدف المشروع:</strong> '+p.goal+'</div><h3>🧩 '+p.title+'</h3>'+p.body+'<p><strong>طريقة الإنجاز:</strong> اكتب الحل في دفترك، وراجع خطواتك، ثم شارك إنجازك مع معلمك أو أسرتك.</p>';
+ document.getElementById('grade2LessonStatus').innerHTML='🤖 حسّوب يقول: أنت باحث صغير، جرّب وفكّر وتأكد من إجاباتك! ⭐';
+ window.scrollTo(0,section.offsetTop);
 }
 function openGrade2Unit2Project(){
  const section=document.getElementById('grade2Lesson');section.classList.remove('hide');
