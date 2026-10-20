@@ -576,6 +576,8 @@ function checkGrade2Unit45Question(unit,lesson,qi,choice){
 }
 function openGrade2Lesson(unit,lesson){
  history.pushState({mathSiteView:'grade2-lesson'},'',location.pathname+'#grade2-lesson');
+ /* Reset per-question reward state when opening a different lesson. */
+ const sharedFeedback=document.getElementById('grade2Feedback');if(sharedFeedback){sharedFeedback.dataset.starAwarded='false';sharedFeedback.innerHTML='';sharedFeedback.className='feedback';}
  const u=grade2Units[unit],name=u.lessons[lesson],box=document.getElementById('grade2LessonText');
  document.querySelector('#grade2Page .grade-overview').classList.add('hide');
  document.getElementById('grade2Lesson').classList.remove('hide');
