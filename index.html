@@ -157,7 +157,7 @@
   <div class="grades-heading"><div><h2>اختاري الصف الدراسي</h2><p>لكل صف رحلته ودروسه الخاصة</p></div><span class="grade-count">12 صفًا</span></div>
   <section class="grades-grid" aria-label="الصفوف الدراسية">
     <button class="grade-card color-1" onclick="openGrade(1)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">01</span></span><span class="grade-name">الصف الأول<br>الأساسي</span><span class="grade-watermark">01</span><span class="grade-action">ابدئي التعلّم <b>←</b></span></button>
-    <button class="grade-card color-2" onclick="openGrade(2)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">02</span></span><span class="grade-name">الصف الثاني<br>الأساسي</span><span class="grade-watermark">02</span><span class="grade-action">قريبًا <b>☆</b></span></button>
+    <button class="grade-card color-2" onclick="openGrade(2)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">02</span></span><span class="grade-name">الصف الثاني<br>الأساسي</span><span class="grade-watermark">02</span><span class="grade-action">ابدئي التعلّم <b>←</b></span></button>
     <button class="grade-card color-3" onclick="openGrade(3)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">03</span></span><span class="grade-name">الصف الثالث<br>الأساسي</span><span class="grade-watermark">03</span><span class="grade-action">قريبًا <b>☆</b></span></button>
     <button class="grade-card color-4" onclick="openGrade(4)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">04</span></span><span class="grade-name">الصف الرابع<br>الأساسي</span><span class="grade-watermark">04</span><span class="grade-action">قريبًا <b>☆</b></span></button>
     <button class="grade-card color-5" onclick="openGrade(5)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">05</span></span><span class="grade-name">الصف الخامس<br>الأساسي</span><span class="grade-watermark">05</span><span class="grade-action">قريبًا <b>☆</b></span></button>
@@ -424,7 +424,7 @@ const grade2Units=[
 ];
 function renderGrade2Units(){
  const root=document.getElementById('grade2Units');
- root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')">'+l+'</button></li>').join('')+'</ol>'+(i===1?'<button class="mainbtn secondary" onclick="openGrade2Unit2Project()">🧩 مشروع الوحدة</button> <button class="mainbtn secondary" onclick="openGrade2Unit2Game()">🎮 لعبة حسّوب</button> ':'')+'<button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
+ root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')"><strong>الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][j]+'</strong>: '+l+'</button></li>').join('')+'</ol>'+(i===1?'<button class="mainbtn secondary" onclick="openGrade2Unit2Project()">🧩 مشروع الوحدة</button> <button class="mainbtn secondary" onclick="openGrade2Unit2Game()">🎮 لعبة حسّوب</button> ':'')+'<button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
 }
 function openGrade2Unit2Project(){
  const section=document.getElementById('grade2Lesson');section.classList.remove('hide');
@@ -500,13 +500,13 @@ const grade2Unit3Lessons=[
 function openGrade2Lesson(unit,lesson){
  const u=grade2Units[unit],name=u.lessons[lesson],box=document.getElementById('grade2LessonText');
  document.getElementById('grade2Lesson').classList.remove('hide');
- document.getElementById('grade2LessonTitle').textContent=name;
+ document.getElementById('grade2LessonTitle').textContent='الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][lesson]+' : '+name;
  document.getElementById('grade2LessonUnit').textContent=u.title;
  if(unit===0 || unit===1 || unit===2){
   const d=(unit===0?grade2Unit1Lessons:unit===1?grade2Unit2Lessons:grade2Unit3Lessons)[lesson];
   if(unit===1){grade2CurrentLesson=lesson;}
   box.innerHTML='<div class="goal"><strong>🎯 هدف الدرس:</strong> '+d.goal+'</div><h3>📘 لنتعلّم مع حسّوب</h3><p>'+d.explain+'</p>'+d.visual+(unit===1?renderGrade2Unit2Practice(d):'<div class="activity"><h3>⭐ جرّب بنفسك</h3><p>'+d.q+'</p><div class="choices">'+d.choices.map((c,i)=>'<button onclick="checkGrade2Answer('+unit+','+lesson+','+i+')">'+c+'</button>').join('')+'</div><div id="grade2Feedback" class="feedback" aria-live="polite"></div><p><strong>تحدّي حسّوب:</strong> '+d.extra+'</p></div>')+'<div class="nextrow"><button class="mainbtn secondary" onclick="openGrade2Lesson('+unit+','+Math.max(0,lesson-1)+')">الدرس السابق</button><button class="mainbtn" onclick="openGrade2Lesson('+unit+','+Math.min(u.lessons.length-1,lesson+1)+')">الدرس التالي ←</button></div>';
-  document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب يشجّعك!</strong> جرّب الإجابة، وإذا أخطأت راح يعطيك تلميحًا لتعيد المحاولة.';
+  document.getElementById('grade2LessonStatus').innerHTML='<div class="hassoub-celebration-bot" role="img" aria-label="حسّوب يتحرّك ويصفّق" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:auto;min-height:100px;margin:8px auto;position:relative;overflow:visible"><span style="display:inline-block;font-size:38px;animation:hassoub-clap-left .28s ease-in-out infinite alternate">👏</span><span style="display:inline-block;font-size:64px;animation:hassoub-bounce .42s ease-in-out infinite alternate">🤖</span><span style="display:inline-block;font-size:38px;animation:hassoub-clap-right .28s ease-in-out infinite alternate">👏</span></div><strong>حسّوب معك! 👏</strong><p>جرّب، تعلّم، واجمع نجومك خطوة خطوة.</p>';
  }else{
   box.innerHTML='<p>هذا الدرس مُدرج وفق فهرس كتاب الطالب الرسمي للصف الثاني الأساسي، الفصل الأول.</p><p>سيُضاف الشرح والتدريب التفاعلي بعد تجهيز محتوى هذه الوحدة من صفحات الكتاب.</p>';
   document.getElementById('grade2LessonStatus').textContent='عنوان الدرس مثبت من الفهرس؛ الشرح والأسئلة التفصيلية لهذا الدرس لم تكتمل بعد.';
