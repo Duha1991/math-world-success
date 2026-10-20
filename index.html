@@ -551,6 +551,7 @@ let grade2ExamUnit=0;
 function openGrade2Exam(unit){
  history.pushState({mathSiteView:'grade2-exam'},'',location.pathname+'#grade2-exam');
  grade2ExamUnit=unit;
+ document.querySelector('#grade2Page .grade-overview').classList.add('hide');
  const section=document.getElementById('grade2Lesson');
  section.classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent='اختبار نهاية '+grade2Units[unit].title;
