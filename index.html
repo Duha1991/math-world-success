@@ -424,7 +424,30 @@ const grade2Units=[
 ];
 function renderGrade2Units(){
  const root=document.getElementById('grade2Units');
- root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')">'+l+'</button></li>').join('')+'</ol><button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار الوحدة (قيد الإعداد)</button></section>').join('');
+ root.innerHTML=grade2Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس حسب فهرس كتاب الطالب • '+u.project+'</p></div><ol>'+u.lessons.map((l,j)=>'<li><button class="toggle" style="margin:4px" onclick="openGrade2Lesson('+i+','+j+')">'+l+'</button></li>').join('')+'</ol>'+(i===1?'<button class="mainbtn secondary" onclick="openGrade2Unit2Project()">🧩 مشروع الوحدة</button> <button class="mainbtn secondary" onclick="openGrade2Unit2Game()">🎮 لعبة حسّوب</button> ':'')+'<button class="mainbtn" onclick="openGrade2Exam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
+}
+function openGrade2Unit2Project(){
+ const section=document.getElementById('grade2Lesson');section.classList.remove('hide');
+ document.getElementById('grade2LessonTitle').textContent='مشروع الوحدة الثانية: مقارنة الأعداد وترتيبها';
+ document.getElementById('grade2LessonUnit').textContent='🧩 مشروع تطبيقي';
+ document.getElementById('grade2LessonText').innerHTML='<div class="goal"><strong>هدف المشروع:</strong> أستخدم مقارنة الأعداد وترتيبها في موقف من الحياة اليومية.</div><h3>🛍️ متجر الأعداد</h3><p>تخيّل أن هذه أسعار ألعاب في متجر:</p><div class="visual"><p>🚗 سيارة: 245 قرشًا</p><p>🧸 دمية: 320 قرشًا</p><p>⚽ كرة: 198 قرشًا</p><p>🧩 أحجية: 275 قرشًا</p></div><ol><li>اكتب الأسعار من الأصغر إلى الأكبر.</li><li>ما اللعبة الأغلى؟ وما اللعبة الأرخص؟</li><li>أكمل: 245 ___ 275 باستعمال الرمز المناسب.</li><li>قرّب سعر الدمية 320 إلى أقرب مئة.</li></ol><p><strong>تحدّي حسّوب:</strong> اختر سعرين واكتب جملة مقارنة صحيحة بينهما.</p><p>ناقش إجاباتك أو اكتبها في دفترك، ثم انتقل إلى لعبة حسّوب.</p>';
+ document.getElementById('grade2LessonStatus').innerHTML='🤖 حسّوب يقول: رتّب، قارن، وتأكد من قيمة كل منزلة!';
+ window.scrollTo(0,section.offsetTop);
+}
+function openGrade2Unit2Game(){
+ const section=document.getElementById('grade2Lesson');section.classList.remove('hide');
+ document.getElementById('grade2LessonTitle').textContent='لعبة حسّوب: بطل المقارنة والترتيب';
+ document.getElementById('grade2LessonUnit').textContent='🎮 تحدّي الوحدة الثانية';
+ const qs=[['أي عدد أكبر؟',['398','389','308'],0],['العدد السابق لـ 700 هو:',['701','699','690'],1],['أي عدد زوجي؟',['125','237','348'],2],['قرّب 64 لأقرب عشرة:',['60','70','80'],1],['رتّب تصاعديًا: 510، 501، 150. ما العدد الأول؟',['150','501','510'],0]];
+ document.getElementById('grade2LessonText').innerHTML='<p class="goal">أجب عن الأسئلة الخمسة واجمع نجومك! ⭐</p>'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2game'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'<button class="mainbtn" onclick="gradeGrade2Unit2Game()">تحقّق من إجاباتي ⭐</button><div id="g2gameResult" class="intro-exam-result hide"></div>';
+ document.getElementById('grade2LessonStatus').innerHTML='🤖 حسّوب يشجّعك: اقرأ بهدوء، وكل محاولة تساعدك تتقدّم!';
+ window.scrollTo(0,section.offsetTop);
+}
+function gradeGrade2Unit2Game(){
+ const key=[0,1,2,1,0];let score=0,answered=0;
+ key.forEach((correct,i)=>{const a=document.querySelector('input[name="g2game'+i+'"]:checked');if(a){answered++;if(Number(a.value)===correct)score++;}});
+ const out=document.getElementById('g2gameResult');out.classList.remove('hide');out.innerHTML='<h3>جمعت '+score+' من 5 ⭐</h3><p>أجبت عن '+answered+' من 5 أسئلة.</p><p>'+(score===5?'🏆 بطل المقارنة! ممتاز!':score>=3?'👏 شاطر! راجع الأسئلة وحاول مرة ثانية.':'💛 لا تستسلم، راجع الدروس وجرب من جديد.')+'</p>';
+ if(score===5&&typeof celebrate==='function')celebrate();
 }
 const grade2Unit1Lessons=[
 {goal:'أفهم أن كل 10 عشرات تساوي 100، وأن 100 واحدة تسمّى مئة.',explain:'عندما نجمع 10 عشرات نحصل على 100. إذن: 10 عشرات = 100، و20 عشرة = 200، و30 عشرة = 300. مثال: 100 قطعة يمكن أن نمثلها بمئة واحدة، و600 تساوي 6 مئات أو 60 عشرة.',visual:'<div class="big">10 عشرات = 100</div><p>100 = مئة واحدة</p>',q:'كم عشرة في العدد 100؟',choices:['5 عشرات','10 عشرات','100 عشرة'],correct:1,why:'صحيح! 10 عشرات تساوي 100.',extra:'تخيّل 10 مجموعات، في كل مجموعة 10 قطع. كم قطعة لديك؟ 100.'},
