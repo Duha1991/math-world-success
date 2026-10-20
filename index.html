@@ -449,7 +449,7 @@ function gradeGrade2Game(unit){
  const keys=[[1,1,0,0,2],[0,1,2,1,0],[1,0,0,1,1],[1,0,0,0,0],[1,0,1,2,1]][unit];let score=0,answered=0;
  keys.forEach((k,i)=>{const a=document.querySelector('input[name="g2gameq'+i+'"]:checked');if(a){answered++;if(Number(a.value)===k)score++;}});
  const out=document.getElementById('grade2GameResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك '+score+' من 5 ⭐</h3><p>أجبت عن '+answered+' من 5 أسئلة.</p><p>'+(score===5?'🏆 ممتاز! أنت بطل الوحدة!':score>=3?'👏 أحسنت، اقتربت من الفوز!':'💛 حاول مرة ثانية، حسّوب معك!')+'</p>';
- if(score===5&&typeof celebrate==='function')celebrate();
+ if(typeof recordGrade2StarsOnce==='function')recordGrade2StarsOnce(out,score);if(score===5&&typeof awardBadge==='function')awardBadge('perfect_unit_'+(unit+1));if(score===5&&typeof celebrate==='function')celebrate();
  if(typeof speakHassoub==='function')speakHassoub(score===5?'رائع! فزت باللعبة!':'أحسنت، استمر بالمحاولة!');
 }
 function openGrade2Project(unit){
@@ -529,7 +529,7 @@ function renderGrade2Unit2Practice(d){
 let grade2CurrentLesson=0;
 function checkGrade2Unit2Question(qi,choice){
  const d=grade2Unit2Expanded[grade2CurrentLesson].questions[qi],out=document.getElementById('g2u2feedback'+qi);
- if(choice===d[2]){out.innerHTML='🌟 أحسنت! إجابة صحيحة. '+d[3];out.className='feedback good';if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('أحسنت! إجابة صحيحة!');}
+ if(choice===d[2]){if(out.dataset.starAwarded!=='true'){out.dataset.starAwarded='true';recordEarnedStar();}out.innerHTML='🌟 أحسنت! إجابة صحيحة. '+d[3];out.className='feedback good';if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('أحسنت! إجابة صحيحة!');}
  else{out.innerHTML='💛 حاول مرة ثانية. تذكّر: '+d[3];out.className='feedback bad';if(typeof speakHassoub==='function')speakHassoub('حاول مرة ثانية، أنت قادر!');}
 }
 
@@ -571,7 +571,7 @@ function renderGrade2Unit45Practice(unit,lesson){
 function checkGrade2Unit45Question(unit,lesson,qi,choice){
  const q=grade2Unit45Data[unit-3][lesson].questions[qi],out=document.getElementById('g2u45feedback_'+unit+'_'+lesson+'_'+qi);
  if(!out)return;
- if(choice===q[2]){out.innerHTML='🌟 أحسنت! إجابة صحيحة. '+q[3];out.className='feedback good';if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('أحسنت! إجابة صحيحة!');}
+ if(choice===q[2]){if(out.dataset.starAwarded!=='true'){out.dataset.starAwarded='true';recordEarnedStar();}out.innerHTML='🌟 أحسنت! إجابة صحيحة. '+q[3];out.className='feedback good';if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('أحسنت! إجابة صحيحة!');}
  else{out.innerHTML='💛 حاول مرة ثانية. تذكّر: '+q[3];out.className='feedback bad';if(typeof speakHassoub==='function')speakHassoub('حاول مرة ثانية، أنت قادر!');}
 }
 function openGrade2Lesson(unit,lesson){
@@ -611,13 +611,13 @@ function renderGrade2Unit3Practice(lesson){
 }
 function checkGrade2Unit3Question(lesson,qi,choice){
  const d=grade2Unit3Expanded[lesson].questions[qi],out=document.getElementById('g2u3feedback'+qi);
- if(choice===d[2]){out.innerHTML='🌟 أحسنت! إجابة صحيحة. '+d[3];out.className='feedback good';if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('أحسنت! إجابة صحيحة!');}
+ if(choice===d[2]){if(out.dataset.starAwarded!=='true'){out.dataset.starAwarded='true';recordEarnedStar();}out.innerHTML='🌟 أحسنت! إجابة صحيحة. '+d[3];out.className='feedback good';if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('أحسنت! إجابة صحيحة!');}
  else{out.innerHTML='💛 حاول مرة ثانية. تذكّر: '+d[3];out.className='feedback bad';if(typeof speakHassoub==='function')speakHassoub('حاول مرة ثانية، أنت قادر!');}
 }
 
 function checkGrade2Answer(unit,lesson,choice){
  const d=(unit===0?grade2Unit1Lessons:unit===1?grade2Unit2Lessons:grade2Unit3Lessons)[lesson],out=document.getElementById('grade2Feedback');
- if(choice===d.correct){out.innerHTML='🌟 أحسنت يا بطل! إجابة صحيحة! 🎉<div class="stars">⭐ ✨ ⭐</div>';out.className='feedback good';if(typeof speakHassoub==='function')speakHassoub('أحسنت يا بطل! إجابة صحيحة!');if(typeof celebrate==='function')celebrate();}
+ if(choice===d.correct){if(out.dataset.starAwarded!=='true'){out.dataset.starAwarded='true';recordEarnedStar();}out.innerHTML='🌟 أحسنت يا بطل! إجابة صحيحة! 🎉<div class="stars">⭐ ✨ ⭐</div>';out.className='feedback good';if(typeof speakHassoub==='function')speakHassoub('أحسنت يا بطل! إجابة صحيحة!');if(typeof celebrate==='function')celebrate();}
  else{out.innerHTML='💛 حاول مرة ثانية يا بطل. تذكّر: '+d.why;out.className='feedback bad';if(typeof speakHassoub==='function')speakHassoub('ولا يهمك، حاول مرة ثانية.');}
 }
 let grade2ExamUnit=0;
@@ -629,7 +629,7 @@ function openGrade2Exam(unit){
  section.classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent='اختبار نهاية '+grade2Units[unit].title;
  document.getElementById('grade2LessonUnit').textContent='📝 اختبار الوحدة';
- if(unit>2){document.getElementById('grade2LessonText').innerHTML='<p>اختبار هذه الوحدة قيد الإعداد حتى تُستكمل دروسها.</p>';document.getElementById('grade2LessonStatus').textContent='لن نعرض اختبارًا قبل تجهيز محتواه ومراجعته.';return;}
+ 
  const qs=unit===0?[
  ['10 عشرات تساوي:',['10','100','1000'],1],
  ['في العدد 243، رقم العشرات هو:',['2','4','3'],1],
@@ -664,8 +664,8 @@ function openGrade2Exam(unit){
  ['أي جملة صحيحة؟',['5 + 3 = 3 + 5','5 + 0 = 0','5 + 1 = 5'],0],
  ['34 + 16 =',['40','50','60'],1]
  ];
- if(unit===3)qs.push(['50 − 20 = ؟',['20','30','40'],1],['أفضل تقدير لـ 58 − 22؟',['نحو 40','نحو 10','نحو 80'],0],['586 − 243 = ؟',['343','353','333'],0],['51 − 26 = ؟',['25','35','15'],0],['453 − 128 = ؟',['325','335','315'],0],['400 − 125 = ؟',['275','285','375'],0],['700 − 358 = ؟',['352','342','362'],1],['120 − 35 − 20 = ؟',['65','75','85'],0],['604 − 278 = ؟',['336','326','316'],1],['500 − 263 = ؟',['237','247','257'],0]);
- if(unit===4)qs.push(['⭐⭐⭐ والمفتاح ⭐=4 طلاب، كم طالبًا؟',['7','12','16'],1],['أيهما أكثر: 9 صور أم 6 صور؟',['9 صور','6 صور','متساويان'],0],['تفاح، موز، تفاح، عنب، تفاح. كم مرة تكرر التفاح؟',['2','3','4'],1],['القراءة 7، الرسم 4، الرياضة 9. ما الأكثر؟',['القراءة','الرسم','الرياضة'],2],['أحمر 6، أزرق 2. كم يزيد الأحمر؟',['4','8','3'],0],['11 طالبًا و13 طالبًا، ما المجموع؟',['22','24','25'],1],['أي فئة أقل: 5 فراشات أم 8 طيور؟',['الفراشات','الطيور','متساويتان'],0],['جدول: 4 تفاح و6 موز. ما الأكثر؟',['التفاح','الموز','متساويان'],1],['صورتان والمفتاح لكل صورة 3 كرات. كم كرة؟',['5','6','9'],1],['إذا تكرر الأزرق مرتين والأحمر مرة، فما الأكثر؟',['الأزرق','الأحمر','متساويان'],0]);
+ if(unit===3){qs.splice(0,10);qs.push(['50 − 20 = ؟',['20','30','40'],1],['أفضل تقدير لـ 58 − 22؟',['نحو 40','نحو 10','نحو 80'],0],['586 − 243 = ؟',['343','353','333'],0],['51 − 26 = ؟',['25','35','15'],0],['453 − 128 = ؟',['325','335','315'],0],['400 − 125 = ؟',['275','285','375'],0],['700 − 358 = ؟',['352','342','362'],1],['120 − 35 − 20 = ؟',['65','75','85'],0],['604 − 278 = ؟',['336','326','316'],1],['500 − 263 = ؟',['237','247','257'],0]);}
+ if(unit===4){qs.splice(0,10);qs.push(['⭐⭐⭐ والمفتاح ⭐=4 طلاب، كم طالبًا؟',['7','12','16'],1],['أيهما أكثر: 9 صور أم 6 صور؟',['9 صور','6 صور','متساويان'],0],['تفاح، موز، تفاح، عنب، تفاح. كم مرة تكرر التفاح؟',['2','3','4'],1],['القراءة 7، الرسم 4، الرياضة 9. ما الأكثر؟',['القراءة','الرسم','الرياضة'],2],['أحمر 6، أزرق 2. كم يزيد الأحمر؟',['4','8','3'],0],['11 طالبًا و13 طالبًا، ما المجموع؟',['22','24','25'],1],['أي فئة أقل: 5 فراشات أم 8 طيور؟',['الفراشات','الطيور','متساويتان'],0],['جدول: 4 تفاح و6 موز. ما الأكثر؟',['التفاح','الموز','متساويان'],1],['صورتان والمفتاح لكل صورة 3 كرات. كم كرة؟',['5','6','9'],1],['إذا تكرر الأزرق مرتين والأحمر مرة، فما الأكثر؟',['الأزرق','الأحمر','متساويان'],0]);}
  document.getElementById('grade2LessonText').innerHTML='<p class="goal">اختبر فهمك للوحدة. اختر إجابة واحدة لكل سؤال، وحسّوب سيشجّعك بعد النتيجة! 🤖</p><form id="grade2ExamForm">'+qs.map((q,i)=>'<fieldset class="intro-exam-question"><legend>'+(i+1)+'. '+q[0]+'</legend>'+q[1].map((a,j)=>'<label class="intro-exam-option"><input type="radio" name="g2q'+i+'" value="'+j+'"> '+a+'</label>').join('')+'</fieldset>').join('')+'</form><button class="mainbtn" onclick="gradeGrade2Exam()">اعرض النتيجة ⭐</button><div id="grade2ExamResult" class="intro-exam-result hide"></div>';
  document.getElementById('grade2LessonStatus').innerHTML='🤖 <strong>حسّوب معك!</strong> اقرأ السؤال بهدوء، وبعد التصحيح ستظهر نتيجتك والإجابات الصحيحة.';
  window.scrollTo(0,section.offsetTop);
@@ -674,7 +674,7 @@ function gradeGrade2Exam(){
  const qs=grade2ExamUnit===0?[1,1,0,1,0,0,0,2,1,1]:grade2ExamUnit===1?[1,1,0,1,1,2,1,2,0,1]:grade2ExamUnit===2?[1,0,0,1,1,1,1,0,0,1]:grade2ExamUnit===3?[1,0,0,0,0,0,1,0,1,0]:[1,0,1,2,0,1,0,1,1,0];let score=0,answered=0,review='';
  qs.forEach((correct,i)=>{const c=document.querySelector('input[name="g2q'+i+'"]:checked');if(c){answered++;if(Number(c.value)===correct)score++;}const q=document.querySelector('input[name="g2q'+i+'"]')?.closest('fieldset');if(q){const labels=q.querySelectorAll('label');review+='<p>'+(i+1)+'. الإجابة الصحيحة: <strong>'+labels[correct].textContent.trim()+'</strong></p>';}});
  const out=document.getElementById('grade2ExamResult');out.classList.remove('hide');out.innerHTML='<h3>نتيجتك: '+score+' من 10</h3><p>أجبت عن '+answered+' من 10 أسئلة.</p><p>'+(score===10?'🏆 ممتاز! يا بطل، أتقنت الوحدة!':score>=7?'👏 رائع! راجع الأسئلة التي أخطأت فيها.':'💛 لا تستسلم، راجع الدروس ثم جرّب من جديد.')+'</p>'+review+'<p>🤖 حسّوب يقول: أنا فخور بمحاولتك، والتعلّم خطوة خطوة!</p>';
- if(score===10){if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('ممتاز يا بطل! حصلت على العلامة الكاملة!');}
+ if(typeof recordGrade2StarsOnce==='function')recordGrade2StarsOnce(out,score);if(score===10){if(typeof celebrate==='function')celebrate();if(typeof speakHassoub==='function')speakHassoub('ممتاز يا بطل! حصلت على العلامة الكاملة!');}
 }
 
 
@@ -740,6 +740,7 @@ function renderAchievementPanel(){const data=loadAchievementData();const total=d
 function awardBadge(id){const data=loadAchievementData();if(!ACHIEVEMENT_BADGE_INFO[id]||data.badges.includes(id))return;data.badges.push(id);saveAchievementData(data);renderAchievementPanel();const b=ACHIEVEMENT_BADGE_INFO[id];const tip=document.getElementById('hassoubTipText');if(tip)tip.textContent='مبروك! حصلت على وسام: '+b.title+' '+b.icon;}
 function recordEarnedStar(){const data=loadAchievementData();const previousStars=data.totalStars;data.totalStars++;saveAchievementData(data);if(data.totalStars>=1)awardBadge('first_star');if(data.totalStars>=10)awardBadge('stars_10');if(data.totalStars>=25)awardBadge('stars_25');if(data.totalStars>=50)awardBadge('stars_50');if(data.totalStars>=100)awardBadge('stars_100');if(previousStars<50&&data.totalStars>=50){const tip=document.getElementById('hassoubTipText');if(tip)tip.textContent='مبروك يا بطل! وصلت إلى 50 نجمة واستحققت شهادة إنجازك! افتح إنجازاتي واطبع شهادتك. 🏆';if(typeof speakHassoub==='function')speakHassoub('مبروك يا بطل! وصلت إلى خمسين نجمة واستحققت شهادة إنجازك!');}renderAchievementPanel();}
 function recordEarnedStars(count){for(let i=0;i<Math.max(0,Math.floor(Number(count)||0));i++)recordEarnedStar();}
+function recordGrade2StarsOnce(result,count){if(!result||result.dataset.starsAwarded==='true')return;result.dataset.starsAwarded='true';recordEarnedStars(count);}
 function recordQuizStarsOnce(result,count){if(!result||result.dataset.starsAwarded==='true')return;result.dataset.starsAwarded='true';recordEarnedStars(count);}
 function toggleAchievementPanel(){const panel=document.getElementById('achievementPanel');if(!panel)return;panel.classList.toggle('hide');renderAchievementPanel();if(!panel.classList.contains('hide'))panel.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function generateAchievementCertificate(){if(loadAchievementData().totalStars<50){renderAchievementPanel();alert('تحتاج إلى جمع 50 نجمة على الأقل لفتح شهادة الإنجاز. واصل المحاولة!');return;}const input=document.getElementById('certificateStudentName');const name=(input?.value||'').trim();if(!name){alert('اكتب اسم الطالب أولًا لنجهّز شهادة جميلة!');input?.focus();return;}const data=loadAchievementData();const units=[['perfect_intro','الوحدة التمهيدية'],['perfect_unit_1','الوحدة الأولى'],['perfect_unit_2','الوحدة الثانية'],['perfect_unit_3','الوحدة الثالثة'],['perfect_unit_4','الوحدة الرابعة'],['perfect_unit_5','الوحدة الخامسة']].filter(([id])=>data.badges.includes(id)).map(([,title])=>title);document.getElementById('certificateName').textContent=name;document.getElementById('certificateStars').textContent=String(data.totalStars);document.getElementById('certificateBadges').textContent=String(data.badges.length);document.getElementById('certificateUnits').textContent=units.length?'إنجازات العلامة الكاملة: '+units.join('، '):'نواصل التعلّم خطوة بخطوة نحو إنجازات جديدة!';document.getElementById('certificateDate').textContent=new Date().toLocaleDateString('ar-JO');document.getElementById('certificatePrint').classList.remove('hide');document.getElementById('certificatePrint').scrollIntoView({behavior:'smooth',block:'center'});}
