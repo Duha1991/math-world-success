@@ -499,9 +499,15 @@ const grade2Unit3Lessons=[
 {goal:'أستعمل خصائص الجمع لتسهيل الحساب.',explain:'من خصائص الجمع أن تبديل ترتيب العددين لا يغيّر الناتج: 3+5=5+3. وإضافة الصفر لا تغيّر العدد: 7+0=7. ويمكن جمع الأعداد بترتيب يسهل الحساب.',visual:'<div class="visual"><p>4 + 6 = 6 + 4</p><p>9 + 0 = 9</p></div>',q:'أي جملة تبيّن أن إضافة الصفر لا تغيّر العدد؟',choices:['8 + 0 = 8','8 + 1 = 8','8 + 0 = 0'],correct:0,why:'إضافة الصفر لا تغيّر قيمة العدد.',extra:'أكمل: 12 + 7 = 7 + ...'},
 {goal:'أحل مسألة باستعمال التخمين والتحقق.',explain:'أقرأ المسألة وأحدد المطلوب، ثم أخمّن إجابة مناسبة وأتحقق منها بإجراء الجمع. إذا لم تناسب الإجابة المعطيات أعدّل التخمين.',visual:'<div class="visual"><p>مع سارة 25 ملصقًا، وأعطتها صديقتها بعض الملصقات فأصبح معها 40.</p><p>التخمين: 10؟ نتحقق: 25 + 15 = 40.</p></div>',q:'كان مع ليث 18 كرة، وأصبح معه 30. كم كرة حصل عليها؟',choices:['10','12','48'],correct:1,why:'نبحث عن العدد الذي يضاف إلى 18 ليصبح 30؛ وهو 12.',extra:'معك 34 دينارًا وأصبح المجموع 50 دينارًا. كم أضيف؟'}
 ];
+function backGrade2ToUnits(){
+ document.getElementById('grade2Lesson').classList.add('hide');
+ document.querySelector('#grade2Page .grade-overview').classList.remove('hide');
+ window.scrollTo(0,0);
+}
 function openGrade2Lesson(unit,lesson){
  history.pushState({mathSiteView:'grade2-lesson'},'',location.pathname+'#grade2-lesson');
  const u=grade2Units[unit],name=u.lessons[lesson],box=document.getElementById('grade2LessonText');
+ document.querySelector('#grade2Page .grade-overview').classList.add('hide');
  document.getElementById('grade2Lesson').classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent='الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][lesson]+' : '+name;
  document.getElementById('grade2LessonUnit').textContent=u.title;
@@ -935,7 +941,7 @@ window.addEventListener('popstate',function(){
  const lesson1=document.getElementById('lessonArea');
  const overview1=document.getElementById('gradeOverview');
  if(page2&&!page2.classList.contains('hide')&&lesson2&&!lesson2.classList.contains('hide')){
-   lesson2.classList.add('hide');window.scrollTo(0,0);return;
+   if(typeof backGrade2ToUnits==='function')backGrade2ToUnits();window.scrollTo(0,0);return;
  }
  if(page1&&!page1.classList.contains('hide')&&lesson1&&!lesson1.classList.contains('hide')){
    if(typeof backToUnits==='function')backToUnits();window.scrollTo(0,0);return;
@@ -946,4 +952,4 @@ window.addEventListener('popstate',function(){
  if(page1&&!page1.classList.contains('hide')){goHome();return;}
  if(page2&&!page2.classList.contains('hide')){goHome();return;}
 });
-</script><div id="grade2Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثاني الأساسي</h2><p>الفصل الدراسي الأول • وفق فهرس كتاب الطالب الرسمي</p></div></div><section class="grade-overview"><h2>رحلتك في الصف الثاني 🌟</h2><p>اختاري الوحدة ثم الدرس. عناوين الدروس مرتبة حسب فهرس الكتاب.</p><div id="grade2Units"></div></section><section id="grade2Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="document.getElementById('grade2Lesson').classList.add('hide')">← العودة إلى الوحدات</button><p id="grade2LessonUnit" class="pill"></p><h2 id="grade2LessonTitle"></h2><div id="grade2LessonText"></div><div id="grade2LessonStatus" class="recap"></div></section></div></div></body></html>
+</script><div id="grade2Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثاني الأساسي</h2><p>الفصل الدراسي الأول • وفق فهرس كتاب الطالب الرسمي</p></div></div><section class="grade-overview"><h2>رحلتك في الصف الثاني 🌟</h2><p>اختاري الوحدة ثم الدرس. عناوين الدروس مرتبة حسب فهرس الكتاب.</p><div id="grade2Units"></div></section><section id="grade2Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="backGrade2ToUnits()">← العودة إلى الوحدات</button><p id="grade2LessonUnit" class="pill"></p><h2 id="grade2LessonTitle"></h2><div id="grade2LessonText"></div><div id="grade2LessonStatus" class="recap"></div></section></div></div></body></html>
