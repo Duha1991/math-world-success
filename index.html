@@ -576,6 +576,7 @@ function checkGrade2Unit45Question(unit,lesson,qi,choice){
 }
 function openGrade2Lesson(unit,lesson){
  history.pushState({mathSiteView:'grade2-lesson'},'',location.pathname+'#grade2-lesson');
+ ensureGrade2AchievementAccess();
  /* Reset per-question reward state when opening a different lesson. */
  const sharedFeedback=document.getElementById('grade2Feedback');if(sharedFeedback){sharedFeedback.dataset.starAwarded='false';sharedFeedback.innerHTML='';sharedFeedback.className='feedback';}
  const u=grade2Units[unit],name=u.lessons[lesson],box=document.getElementById('grade2LessonText');
@@ -626,6 +627,7 @@ function checkGrade2Answer(unit,lesson,choice){
 let grade2ExamUnit=0;
 function openGrade2Exam(unit){
  history.pushState({mathSiteView:'grade2-exam'},'',location.pathname+'#grade2-exam');
+ ensureGrade2AchievementAccess();
  grade2ExamUnit=unit;
  document.querySelector('#grade2Page .grade-overview').classList.add('hide');
  const section=document.getElementById('grade2Lesson');
@@ -747,7 +749,7 @@ function recordEarnedStar(){const data=loadAchievementData();const previousStars
 function recordEarnedStars(count){for(let i=0;i<Math.max(0,Math.floor(Number(count)||0));i++)recordEarnedStar();}
 function recordGrade2StarsOnce(result,count){if(!result||result.dataset.starsAwarded==='true')return;result.dataset.starsAwarded='true';recordEarnedStars(count);}
 function recordQuizStarsOnce(result,count){if(!result||result.dataset.starsAwarded==='true')return;result.dataset.starsAwarded='true';recordEarnedStars(count);}
-function toggleAchievementPanel(){const panel=document.getElementById('achievementPanel');if(!panel)return;panel.classList.toggle('hide');renderAchievementPanel();if(!panel.classList.contains('hide'))panel.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function ensureGrade2AchievementAccess(){const panel=document.getElementById('achievementPanel');if(panel&&panel.parentElement!==document.body)document.body.appendChild(panel);const host=document.getElementById('grade2LessonText');if(host&&!host.querySelector('.grade2-achievement-launcher')){const btn=document.createElement('div');btn.className='grade2-achievement-launcher';btn.innerHTML='<button type="button" class="mainbtn" style="display:block;width:100%;margin:12px 0;padding:16px;font-size:1.08rem;background:linear-gradient(135deg,#7c3aed,#db2777);color:white;border:3px solid #facc15;border-radius:16px;box-shadow:0 5px 0 #6d28d9;font-weight:800" onclick="toggleAchievementPanel()">🏆 ⭐ إنجازاتي ونجومي ⭐ 🏆</button>';host.insertBefore(btn,host.firstChild);}}\nfunction toggleAchievementPanel(){const panel=document.getElementById('achievementPanel');if(!panel)return;panel.classList.toggle('hide');renderAchievementPanel();if(!panel.classList.contains('hide'))panel.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function generateAchievementCertificate(){if(loadAchievementData().totalStars<50){renderAchievementPanel();alert('تحتاج إلى جمع 50 نجمة على الأقل لفتح شهادة الإنجاز. واصل المحاولة!');return;}const input=document.getElementById('certificateStudentName');const name=(input?.value||'').trim();if(!name){alert('اكتب اسم الطالب أولًا لنجهّز شهادة جميلة!');input?.focus();return;}const data=loadAchievementData();const units=[['perfect_intro','الوحدة التمهيدية'],['perfect_unit_1','الوحدة الأولى'],['perfect_unit_2','الوحدة الثانية'],['perfect_unit_3','الوحدة الثالثة'],['perfect_unit_4','الوحدة الرابعة'],['perfect_unit_5','الوحدة الخامسة']].filter(([id])=>data.badges.includes(id)).map(([,title])=>title);document.getElementById('certificateName').textContent=name;document.getElementById('certificateStars').textContent=String(data.totalStars);document.getElementById('certificateBadges').textContent=String(data.badges.length);document.getElementById('certificateUnits').textContent=units.length?'إنجازات العلامة الكاملة: '+units.join('، '):'نواصل التعلّم خطوة بخطوة نحو إنجازات جديدة!';document.getElementById('certificateDate').textContent=new Date().toLocaleDateString('ar-JO');document.getElementById('certificatePrint').classList.remove('hide');document.getElementById('certificatePrint').scrollIntoView({behavior:'smooth',block:'center'});}
 function printAchievementCertificate(){if(loadAchievementData().totalStars<50){renderAchievementPanel();alert('شهادة الإنجاز تُفتح عند جمع 50 نجمة. أنت تستطيع!');return;}const cert=document.getElementById('certificatePrint');if(!cert||cert.classList.contains('hide')){generateAchievementCertificate();if(cert?.classList.contains('hide'))return;}window.print();}
 function updateStars(){const el=document.getElementById('starCount');if(el)el.textContent='⭐ نجومي في الدرس: '+String(score);renderAchievementPanel();}
