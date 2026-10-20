@@ -396,7 +396,7 @@ function returnIntroLessons(){
  area.querySelector(':scope > .footer').classList.remove('hide');
 }
 function openUnit(){openLessonFromList(0,1)}
-function openLessonFromList(i,unit=1){activeUnit=unit;lessons=unit===0?introductoryLessons:(unit===2?unit2Lessons:(unit===3?unit3Lessons:(unit===4?unit4Lessons:(unit===5?unit5Lessons:unit1Lessons))));current=0;score=0;answered={};unit2Answered={};updateStars();document.getElementById('gradeOverview').classList.add('hide');startHassoubTimer();document.getElementById('lessonArea').classList.remove('hide');document.getElementById('gradeBreadcrumb').textContent='الفصل الدراسي الأول • '+(unit===0?'الوحدة التمهيدية: الأعداد حتى 10':unit===2?'الوحدة الثانية: مقارنة الأعداد وترتيبها':unit===3?'الوحدة الثالثة: الجمع':unit===4?'الوحدة الرابعة: الطرح':unit===5?'الوحدة الخامسة: معالجة البيانات':'الوحدة الأولى: لوحة الطرق الأربعة');show(i);window.scrollTo(0,0);}
+function openLessonFromList(i,unit=1){history.pushState({mathSiteView:'grade1-lesson'},'',location.pathname+'#grade1-lesson');activeUnit=unit;lessons=unit===0?introductoryLessons:(unit===2?unit2Lessons:(unit===3?unit3Lessons:(unit===4?unit4Lessons:(unit===5?unit5Lessons:unit1Lessons))));current=0;score=0;answered={};unit2Answered={};updateStars();document.getElementById('gradeOverview').classList.add('hide');startHassoubTimer();document.getElementById('lessonArea').classList.remove('hide');document.getElementById('gradeBreadcrumb').textContent='الفصل الدراسي الأول • '+(unit===0?'الوحدة التمهيدية: الأعداد حتى 10':unit===2?'الوحدة الثانية: مقارنة الأعداد وترتيبها':unit===3?'الوحدة الثالثة: الجمع':unit===4?'الوحدة الرابعة: الطرح':unit===5?'الوحدة الخامسة: معالجة البيانات':'الوحدة الأولى: لوحة الطرق الأربعة');show(i);window.scrollTo(0,0);}
 function backToUnits(){document.getElementById('lessonArea').classList.add('hide');closeHassoubTip();document.getElementById('gradeOverview').classList.remove('hide');document.getElementById('unitChooser').classList.remove('hide');window.scrollTo(0,0);}
 function openUnit1Game(){openLessonFromList(0,1);playFisherGame();}
 function startUnit1FinalExam(){openLessonFromList(0,1);const area=document.getElementById('lessonArea');area.querySelector('.counter').classList.add('hide');area.querySelector('.progress').classList.add('hide');area.querySelector('.layout').classList.add('hide');area.querySelector(':scope > .footer').classList.add('hide');const exam=document.getElementById('introFinalExam');exam.classList.remove('hide');renderUnit1FinalExam();window.scrollTo(0,0);}
@@ -404,6 +404,7 @@ function renderUnit1FinalExam(){const exam=document.getElementById('introFinalEx
 function submitUnit1FinalExam(){const key=['b','a','b','a','c','b','b','b','b','c','a','b','b','c','b'];let n=0,answeredCount=0;key.forEach((correct,i)=>{const chosen=document.querySelector('input[name="unit1Q'+i+'"]:checked');if(chosen){answeredCount++;if(chosen.value===correct)n++;}});const out=document.getElementById('unit1FinalExamResult');out.classList.remove('hide');if(answeredCount===15)recordQuizStarsOnce(out,n);const scoreOutOf10=Math.round((n/15)*100)/10;const bot='<div class="hassoub-celebration-bot" role="img" aria-label="حسّوب الروبوت يصفق" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:auto;min-height:112px;margin:12px auto;position:relative;overflow:visible"><span style="display:inline-block;font-size:42px;line-height:1;animation:hassoub-clap-left .28s ease-in-out infinite alternate">👏</span><span style="display:inline-block;font-size:78px;line-height:1;animation:hassoub-bounce .42s ease-in-out infinite alternate">🤖</span><span style="display:inline-block;font-size:42px;line-height:1;animation:hassoub-clap-right .28s ease-in-out infinite alternate">👏</span></div>';if(n===15&&answeredCount===15){awardBadge('perfect_unit_1');out.innerHTML='<div style="text-align:center;padding:20px 10px;border:3px solid #ffd34d;border-radius:22px;background:linear-gradient(135deg,#fff8d9,#fff0fa,#e6f7ff);overflow:hidden"><div style="font-size:42px">🎆 🌟 🎊 🌟 🎆</div>'+bot+'<h2>يا سلام! العلامة الكاملة! 🏆</h2><p style="font-size:24px;font-weight:900">10 من 10 ⭐</p><p>حسّوب يصفّق لك! 👏👏👏</p><p>🎁 وسام بطل الرياضيات 🥇</p></div>';celebrate();if(soundOn)say('يا سلام! العلامة الكاملة! عشرة من عشرة!');}else{out.innerHTML='<h3>نتيجتك في اختبار الوحدة الأولى</h3><p>أجبت عن '+answeredCount+' من 15 سؤالًا.</p><p style="font-size:22px;font-weight:900">علامتك: '+scoreOutOf10+' من 10</p><p>'+(answeredCount<15?'أكمل الأسئلة المتبقية لتحصل على نتيجة أدق. ':'')+(n>=11?'👏 أداء رائع!':'💛 أحسنت على المحاولة! راجع الدروس ثم حاول مرة أخرى.')+'</p>';if(soundOn)say('أحسنت على المحاولة! واصل التقدم.');}out.classList.add('show');out.scrollIntoView({behavior:'smooth',block:'center'});}
 function returnUnit1Lessons(){document.getElementById('introFinalExam').classList.add('hide');document.getElementById('lessonArea').querySelector('.counter').classList.remove('hide');document.getElementById('lessonArea').querySelector('.progress').classList.remove('hide');document.getElementById('lessonArea').querySelector('.layout').classList.remove('hide');document.getElementById('lessonArea').querySelector(':scope > .footer').classList.remove('hide');show(0);window.scrollTo(0,0);}
 function openGrade(n){
+ history.pushState({mathSiteView:'grade-'+n},'',location.pathname+'#grade-'+n);
  document.getElementById('homePage').classList.add('hide');
  if(n===1){document.getElementById('grade2Page').classList.add('hide');document.getElementById('gradePage').classList.remove('hide');}
  else if(n===2){document.getElementById('gradePage').classList.add('hide');document.getElementById('grade2Page').classList.remove('hide');renderGrade2Units();}
@@ -499,6 +500,7 @@ const grade2Unit3Lessons=[
 {goal:'أحل مسألة باستعمال التخمين والتحقق.',explain:'أقرأ المسألة وأحدد المطلوب، ثم أخمّن إجابة مناسبة وأتحقق منها بإجراء الجمع. إذا لم تناسب الإجابة المعطيات أعدّل التخمين.',visual:'<div class="visual"><p>مع سارة 25 ملصقًا، وأعطتها صديقتها بعض الملصقات فأصبح معها 40.</p><p>التخمين: 10؟ نتحقق: 25 + 15 = 40.</p></div>',q:'كان مع ليث 18 كرة، وأصبح معه 30. كم كرة حصل عليها؟',choices:['10','12','48'],correct:1,why:'نبحث عن العدد الذي يضاف إلى 18 ليصبح 30؛ وهو 12.',extra:'معك 34 دينارًا وأصبح المجموع 50 دينارًا. كم أضيف؟'}
 ];
 function openGrade2Lesson(unit,lesson){
+ history.pushState({mathSiteView:'grade2-lesson'},'',location.pathname+'#grade2-lesson');
  const u=grade2Units[unit],name=u.lessons[lesson],box=document.getElementById('grade2LessonText');
  document.getElementById('grade2Lesson').classList.remove('hide');
  document.getElementById('grade2LessonTitle').textContent='الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع'][lesson]+' : '+name;
@@ -541,6 +543,7 @@ function checkGrade2Answer(unit,lesson,choice){
 }
 let grade2ExamUnit=0;
 function openGrade2Exam(unit){
+ history.pushState({mathSiteView:'grade2-exam'},'',location.pathname+'#grade2-exam');
  grade2ExamUnit=unit;
  const section=document.getElementById('grade2Lesson');
  section.classList.remove('hide');
@@ -923,4 +926,24 @@ function playAdventureTone(correct){
 }
 
 updateStars();show(0);
+
+/* Keep the browser Back button inside the learning journey. */
+window.addEventListener('popstate',function(){
+ const lesson2=document.getElementById('grade2Lesson');
+ const page2=document.getElementById('grade2Page');
+ const page1=document.getElementById('gradePage');
+ const lesson1=document.getElementById('lessonArea');
+ const overview1=document.getElementById('gradeOverview');
+ if(page2&&!page2.classList.contains('hide')&&lesson2&&!lesson2.classList.contains('hide')){
+   lesson2.classList.add('hide');window.scrollTo(0,0);return;
+ }
+ if(page1&&!page1.classList.contains('hide')&&lesson1&&!lesson1.classList.contains('hide')){
+   if(typeof backToUnits==='function')backToUnits();window.scrollTo(0,0);return;
+ }
+ if(page1&&!page1.classList.contains('hide')&&overview1&&overview1.classList.contains('hide')){
+   if(typeof backToUnits==='function')backToUnits();window.scrollTo(0,0);return;
+ }
+ if(page1&&!page1.classList.contains('hide')){goHome();return;}
+ if(page2&&!page2.classList.contains('hide')){goHome();return;}
+});
 </script><div id="grade2Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثاني الأساسي</h2><p>الفصل الدراسي الأول • وفق فهرس كتاب الطالب الرسمي</p></div></div><section class="grade-overview"><h2>رحلتك في الصف الثاني 🌟</h2><p>اختاري الوحدة ثم الدرس. عناوين الدروس مرتبة حسب فهرس الكتاب.</p><div id="grade2Units"></div></section><section id="grade2Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="document.getElementById('grade2Lesson').classList.add('hide')">← العودة إلى الوحدات</button><p id="grade2LessonUnit" class="pill"></p><h2 id="grade2LessonTitle"></h2><div id="grade2LessonText"></div><div id="grade2LessonStatus" class="recap"></div></section></div></div></body></html>
