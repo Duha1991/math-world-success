@@ -512,10 +512,35 @@ function checkGrade3ProjectAnswer(btn,unitIndex,questionIndex,choiceIndex){
 }
 function openGrade3UnitExam(unitIndex){
  const u=grade3Units[unitIndex];if(!u)return;
- openGrade3Project(unitIndex);
+ document.getElementById('grade3Overview').classList.add('hide');document.getElementById('grade3Lesson').classList.remove('hide');
+ document.getElementById('grade3LessonUnit').textContent=u.title+' • اختبار نهاية الوحدة';
  document.getElementById('grade3LessonTitle').textContent='📝 اختبار نهاية '+u.title;
- document.getElementById('grade3LessonUnit').textContent='اختبار نهاية الوحدة • '+u.title;
- document.getElementById('grade3LessonStatus').textContent='اختبار تدريبي من 4 أسئلة. أجب عن كل سؤال لتحصل على نجمة لكل إجابة صحيحة.';
+ const officialUnit1=[
+  ['سؤال من اختبار الكتاب: قارن 7,413 و7,431. اختر الرمز الصحيح.',['>','<','='],1,'نقارن الألوف ثم المئات؛ وعند العشرات 1 أصغر من 3، إذن 7,413 < 7,431.'],
+  ['سؤال من اختبار الكتاب: رتّب تصاعديًا 6,108 و6,280 و6,208.',['6,108، 6,208، 6,280','6,280، 6,208، 6,108','6,208، 6,108، 6,280'],0,'نبدأ بالألوف المتساوية، ثم المئات: 1 ثم 2؛ وبين 6,208 و6,280 نقارن العشرات.'],
+  ['سؤال من اختبار الكتاب: قرّب 7,619 إلى أقرب ألف.',['7,000','8,000','7,600'],1,'ننظر إلى منزلة المئات: 6 أكبر من أو تساوي 5، فنزيد الألوف واحدًا: 8,000.'],
+  ['سؤال من اختبار الكتاب: قرّب 3,099 إلى أقرب ألف.',['3,000','4,000','3,100'],0,'منزلة المئات هي 0، وهي أقل من 5، لذلك نبقي الألوف كما هي: 3,000.'],
+  ['سؤال من اختبار الكتاب: ما العدد الأكبر؟',['5,176','5,167','5,761','1,567'],2,'5,761 هو الأكبر؛ لأن منزلة المئات فيه 7، بينما في العددين الأولين 1، والعدد الأخير ألوفه 1.'],
+  ['سؤال من اختبار الكتاب: رتّب تصاعديًا 109، 347، 794، 616، 918.',['109، 347، 616، 794، 918','918، 794، 616، 347، 109','109، 616، 347، 794، 918'],0,'نبدأ من الأصغر: 109 ثم 347 ثم 616 ثم 794 ثم 918.'],
+  ['سؤال من اختبار الكتاب: ما العدد السابق مباشرةً للعدد 630؟',['629','631','620'],0,'العدد السابق أقل بواحد: 630 − 1 = 629.'],
+  ['سؤال من اختبار الكتاب: أكمل 307 + ___ = 387.',['70','80','90'],1,'نوجد الفرق: 387 − 307 = 80، إذن العدد الناقص 80.'],
+  ['سؤال من اختبار الكتاب: أكمل 781 − ___ = 700.',['71','81','91'],1,'نوجد الفرق بين 781 و700: 781 − 700 = 81، إذن العدد الناقص 81.']
+ ];
+ const practice=(grade3ProjectQuestions[unitIndex]||grade3ProjectQuestions[0]).map((q,i)=>[q[0],q[1],q[2], 'راجع شرح الدرس المرتبط بهذا السؤال، ثم جرّب مرة أخرى.']);
+ const qs=unitIndex===0?officialUnit1:practice;
+ document.getElementById('grade3LessonText').innerHTML='<div class="recap"><div class="hassoub-cheer"><span class="hassoub-face">🤖</span><div><h3>أنا حسّوب، وسأساعدك في الاختبار!</h3><p>'+(unitIndex===0?'هذه أسئلة من اختبار نهاية الوحدة الأولى في الكتاب، مع توضيح طريقة الحل.':'هذا اختبار تدريبي منفصل عن مشروع الوحدة. سنضيف أسئلة اختبار الكتاب بعد مراجعة صفحاته بدقة.')+'</p></div></div><p>اختر إجابة كل سؤال، وستظهر لك النتيجة والتفسير فورًا.</p></div>'+qs.map((q,i)=>'<div class="unit-card"><h4>السؤال '+(i+1)+' من '+qs.length+'</h4><p>'+q[0]+'</p><div class="choices">'+q[1].map((v,j)=>'<button onclick="checkGrade3ExamAnswer(this,'+unitIndex+','+i+','+j+')">'+v+'</button>').join('')+'</div><p id="g3examfb'+i+'" aria-live="polite"></p></div>').join('')+'<div class="recap" id="g3ExamFinish">بالتوفيق يا بطل! تذكّر أن تفكّر بهدوء. ⭐</div>';
+ document.getElementById('grade3LessonStatus').textContent=unitIndex===0?'اختبار نهاية الوحدة الأولى • أسئلة من الكتاب مع تفسير الحل':'اختبار تدريبي منفصل عن مشروع الوحدة • ستضاف أسئلة الكتاب بعد التحقق منها';
+ window.scrollTo(0,0);if(typeof say==='function'&&soundOn)say('بالتوفيق يا بطل! اقرأ السؤال جيدًا وفكّر بهدوء.');
+ window.grade3ActiveExam=unitIndex;window.grade3ExamQuestions=qs;
+}
+function checkGrade3ExamAnswer(btn,unitIndex,questionIndex,choiceIndex){
+ const qs=window.grade3ExamQuestions||[],q=qs[questionIndex],fb=document.getElementById('g3examfb'+questionIndex);if(!q||!fb||fb.dataset.done)return;
+ if(choiceIndex===q[2]){
+  fb.innerHTML='🎉 أحسنت! إجابة صحيحة. '+q[3]+' ⭐';fb.dataset.done='1';
+  try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}
+  refreshGrade3Stars();btn.closest('.unit-card').querySelectorAll('button').forEach(b=>b.disabled=true);
+  if(typeof celebrate==='function')celebrate();if(typeof say==='function'&&soundOn)say('ممتاز! إجابة صحيحة يا بطل!');
+ }else{fb.textContent='💛 حاول مرة أخرى. '+q[3];if(typeof say==='function'&&soundOn)say('حاول مرة أخرى، اقرأ السؤال بهدوء.');}
 }
 function openGrade3Lesson(unitIndex,lessonIndex){
  const u=grade3Units[unitIndex],l=u&&u.lessons[lessonIndex];if(!l)return;
