@@ -448,7 +448,73 @@ const grade3Units=[
 function grade3Stars(){try{return Number(localStorage.getItem('mathWorldGrade3Stars')||0)}catch(e){return 0}}
 function renderGrade3Units(){
  const root=document.getElementById('grade3Units');if(!root)return;
- root.innerHTML='<div class="achievement-panel"><div class="achievement-panel-head"><div><h3>⭐ إنجازات الصف الثالث</h3><p>نجوم الصف الثالث محفوظة بشكل مستقل عن بقية الصفوف.</p></div><strong style="font-size:24px">⭐ '+grade3Stars()+'</strong></div><p>هدفنا الأول: جمع 50 نجمة للحصول على شهادة التميّز.</p></div>'+grade3Units.map((u,i)=>'<article class="unit-card"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس • '+u.project+'</p></div><details class="lesson-dropdown"><summary>عرض الدروس بالترتيب</summary><div class="dropdown-lessons">'+u.lessons.map((l,j)=>'<button class="secondary" onclick="openGrade3Lesson('+i+','+j+')">📘 الدرس '+(j+1)+': '+l[0]+' <small>(ص '+l[1]+')</small></button>').join('')+'</div></details><div class="unit-actions"><button onclick="openGrade3Lesson('+i+',0)">ابدأ الوحدة 🚀</button><button class="secondary" onclick="alert(&quot;اختبار نهاية الوحدة قيد الإعداد وفق أسئلة الكتاب.&quot;)">📝 اختبار نهاية الوحدة</button></div></article>').join('');
+ root.innerHTML='<div class="achievement-panel"><div class="achievement-panel-head"><div><h3>⭐ إنجازات الصف الثالث</h3><p>نجوم الصف الثالث محفوظة بشكل مستقل عن بقية الصفوف.</p></div><strong style="font-size:24px">⭐ '+grade3Stars()+'</strong></div><p>هدفنا الأول: جمع 50 نجمة للحصول على شهادة التميّز.</p></div>'+grade3Units.map((u,i)=>'<article class="unit-card"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس • '+u.project+'</p></div><details class="lesson-dropdown"><summary>عرض الدروس بالترتيب</summary><div class="dropdown-lessons">'+u.lessons.map((l,j)=>'<button class="secondary" onclick="openGrade3Lesson('+i+','+j+')">📘 الدرس '+(j+1)+': '+l[0]+' <small>(ص '+l[1]+')</small></button>').join('')+'</div></details><div class="unit-actions"><button onclick="openGrade3Lesson('+i+',0)">ابدأ الوحدة 🚀</button><button class="secondary" onclick="openGrade3Project('+i+')">🧩 مشروع الوحدة</button><button class="secondary" onclick="openGrade3UnitExam('+i+')">📝 اختبار نهاية الوحدة</button></div></article>').join('');
+}
+const grade3ProjectQuestions=[
+[
+['في 1,000، كم مئة؟',['1','10','100'],1,'الألف الواحد يساوي 10 مئات.'],
+['ما قيمة الرقم 7 في 7,245؟',['7','700','7,000'],2,'الرقم 7 في منزلة الألوف، فقيمته 7,000.'],
+['أي عدد أكبر؟',['3,450','3,540','كلاهما متساويان'],1,'3,540 أكبر لأن رقم المئات 5 أكبر من 4.'],
+['قرّب 6,420 إلى أقرب ألف.',['6,000','6,400','7,000'],0,'420 أقل من 500، فنقرّب إلى 6,000.']
+],
+[
+['300 + 400 = ؟',['700','70','3,400'],0,'3 مئات + 4 مئات = 7 مئات.'],
+['قدّر 248 + 321 لأقرب مئة.',['500','600','700'],1,'248 تقارب 200 و321 تقارب 300، والمجموع 500.'], 
+['47 + 25 = ؟',['62','72','82'],1,'7 + 5 = 12، نكتب 2 ونضيف العشرة إلى العشرات: 72.'],
+['560 + 230 = ؟',['690','790','890'],1,'560 + 200 = 760 ثم +30 = 790.']
+],
+[
+['900 - 400 = ؟',['300','500','700'],1,'9 مئات - 4 مئات = 5 مئات.'],
+['قدّر 682 - 291 لأقرب مئة.',['300','400','500'],1,'682 تقارب 700 و291 تقارب 300، والفرق 400.'],
+['73 - 28 = ؟',['45','55','51'],0,'نطرح 28 من 73 فنحصل على 45.'],
+['600 - 275 = ؟',['325','425','375'],0,'600 - 200 = 400، ثم نطرح 75 فيبقى 325.']
+],
+[
+['2 × 4 = ؟',['6','8','10'],1,'مجموعتان في كل منهما 4 تساويان 8.'],
+['5 × 3 = ؟',['8','15','20'],1,'5 + 5 + 5 = 15.'],
+['10 × 6 = ؟',['16','60','600'],1,'عشرة مضروبة في 6 تساوي 60.'],
+['إذا كان 4 × 3 = 12، فكم 3 × 4؟',['7','12','16'],1,'تبديل العاملين لا يغيّر ناتج الضرب.']
+],
+[
+['12 ÷ 3 = ؟',['3','4','6'],1,'12 مقسومة إلى 3 مجموعات متساوية، في كل مجموعة 4.'],
+['15 ÷ 5 = ؟',['3','5','10'],0,'لأن 5 × 3 = 15.'],
+['أي جملة ضرب تساعد على حل 18 ÷ 2؟',['2 × 9 = 18','2 × 8 = 18','9 × 9 = 18'],0,'نستخدم حقيقة الضرب 2 × 9 = 18.'],
+['عند تقسيم 14 قطعة على 4 أطفال بالتساوي، كم يتبقى؟',['1','2','3'],1,'كل طفل يأخذ 3 قطع، ويتبقى قطعتان.']
+],
+[
+['ما الشكل الذي له نقطة بداية ويمتد في اتجاه واحد؟',['النقطة','الشعاع','المستقيم'],1,'الشعاع له نقطة بداية ويمتد في اتجاه واحد.'],
+['الزاوية القائمة قياسها؟',['45°','90°','180°'],1,'الزاوية القائمة قياسها 90 درجة.'],
+['أي مستقيمين لا يلتقيان مهما امتدا في المستوى؟',['متوازيان','متعامدان','متقاطعان'],0,'المستقيمان المتوازيان لا يلتقيان.'],
+['النمط 2، 4، 6، 8، ... ما العدد التالي؟',['9','10','12'],1,'نضيف 2 في كل مرة، فالعدد التالي 10.']
+]
+];
+function openGrade3Project(unitIndex){
+ const u=grade3Units[unitIndex];if(!u)return;
+ document.getElementById('grade3Overview').classList.add('hide');document.getElementById('grade3Lesson').classList.remove('hide');
+ document.getElementById('grade3LessonUnit').textContent=u.title+' • '+u.project;
+ document.getElementById('grade3LessonTitle').textContent='🧩 مشروع الوحدة مع حسّوب';
+ const qs=grade3ProjectQuestions[unitIndex]||grade3ProjectQuestions[0];
+ document.getElementById('grade3LessonText').innerHTML='<div class="recap"><div class="hassoub-cheer"><span class="hassoub-face">🤖</span><div><h3>مرحبًا يا بطل الرياضيات!</h3><p>أنا حسّوب، سننجز مشروع الوحدة معًا. اقرأ كل سؤال وفكّر قبل الاختيار.</p></div></div><h3>'+u.project+'</h3><p>أجب عن المهام الأربع، وستحصل على نجمة عن كل إجابة صحيحة.</p></div>'+qs.map((q,i)=>'<div class="unit-card"><h4>المهمة '+(i+1)+' من 4</h4><p>'+q[0]+'</p><div class="choices">'+q[1].map((v,j)=>'<button onclick="checkGrade3ProjectAnswer(this,'+unitIndex+','+i+','+j+')">'+v+'</button>').join('')+'</div><p id="g3projfb'+i+'" aria-live="polite"></p></div>').join('')+'<div class="recap" id="g3ProjectFinish">حسّوب يشجّعك: حاول إكمال المهام الأربع! ⭐</div>';
+ document.getElementById('grade3LessonStatus').textContent='مشروع تفاعلي • 4 مهام • نجوم مستقلة للصف الثالث';
+ if(typeof say==='function'&&soundOn)say('هيا ننجز مشروع الوحدة معًا! أنا حسّوب وسأشجعك.');
+ window.scrollTo(0,0);
+}
+function checkGrade3ProjectAnswer(btn,unitIndex,questionIndex,choiceIndex){
+ const q=grade3ProjectQuestions[unitIndex][questionIndex],fb=document.getElementById('g3projfb'+questionIndex);if(!fb||fb.dataset.done)return;
+ if(choiceIndex===q[2]){
+  fb.innerHTML='🎉 صحيح يا بطل! '+q[3]+' ⭐';fb.dataset.done='1';
+  try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}
+  btn.closest('.unit-card').querySelectorAll('button').forEach(b=>b.disabled=true);
+  if(typeof celebrate==='function')celebrate();if(typeof say==='function'&&soundOn)say('أحسنت! إجابة صحيحة!'); 
+ }else{fb.textContent='💛 حاول مرة أخرى. اقرأ السؤال بهدوء يا بطل.';if(typeof say==='function'&&soundOn)say('حاول مرة أخرى، أنت تستطيع!');}
+ const finish=document.getElementById('g3ProjectFinish');if(finish&&document.querySelectorAll('[id^="g3projfb"][data-done="1"]').length===4)finish.innerHTML='🎆 أحسنت! أنهيت مشروع الوحدة! حسّوب يصفّق لك! 🤖👏 النجوم التي جمعتها محفوظة للصف الثالث.';
+}
+function openGrade3UnitExam(unitIndex){
+ const u=grade3Units[unitIndex];if(!u)return;
+ openGrade3Project(unitIndex);
+ document.getElementById('grade3LessonTitle').textContent='📝 اختبار نهاية '+u.title;
+ document.getElementById('grade3LessonUnit').textContent='اختبار نهاية الوحدة • '+u.title;
+ document.getElementById('grade3LessonStatus').textContent='اختبار تدريبي من 4 أسئلة. أجب عن كل سؤال لتحصل على نجمة لكل إجابة صحيحة.';
 }
 function openGrade3Lesson(unitIndex,lessonIndex){
  const u=grade3Units[unitIndex],l=u&&u.lessons[lessonIndex];if(!l)return;
@@ -465,8 +531,8 @@ function openGrade3Lesson(unitIndex,lessonIndex){
 }
 function checkGrade3Starter(btn,correct){
  const fb=document.getElementById('grade3StarterFeedback');if(!fb)return;
- if(correct){fb.innerHTML='🎉 أحسنت! إجابة صحيحة. 10 مئات تساوي ألفًا واحدًا.';if(!fb.dataset.starAwarded){try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}fb.dataset.starAwarded='1';if(typeof celebrate==='function')celebrate();}}
- else fb.textContent='💛 حاول مرة أخرى يا بطل! تذكّر أن 10 مئات تكوّن ألفًا واحدًا.';
+ if(correct){fb.innerHTML='🎉 أحسنت! إجابة صحيحة. 10 مئات تساوي ألفًا واحدًا.';if(!fb.dataset.starAwarded){try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}fb.dataset.starAwarded='1';if(typeof celebrate==='function')celebrate();if(typeof say==='function'&&soundOn)say('أحسنت! عشرة مئات تساوي ألفًا واحدًا.');}}
+ else {fb.textContent='💛 حاول مرة أخرى يا بطل! تذكّر أن 10 مئات تكوّن ألفًا واحدًا.';if(typeof say==='function'&&soundOn)say('حاول مرة أخرى يا بطل!');}
 }
 function backGrade3ToUnits(){document.getElementById('grade3Lesson').classList.add('hide');document.getElementById('grade3Overview').classList.remove('hide');renderGrade3Units();window.scrollTo(0,0)}
 function goHome(){
