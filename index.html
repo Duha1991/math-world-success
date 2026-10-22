@@ -433,12 +433,46 @@ function openGrade(n){
  document.getElementById('homePage').classList.add('hide');
  if(n===1){document.getElementById('grade2Page').classList.add('hide');document.getElementById('gradePage').classList.remove('hide');}
  else if(n===2){document.getElementById('gradePage').classList.add('hide');document.getElementById('grade2Page').classList.remove('hide');renderGrade2Units();}
- else {document.getElementById('homePage').classList.remove('hide');alert('محتوى هذا الصف سيُضاف لاحقًا. الصفان الأول والثاني قيد التجهيز.');}
+ else if(n===3){document.getElementById('gradePage').classList.add('hide');document.getElementById('grade2Page').classList.add('hide');document.getElementById('grade3Page').classList.remove('hide');renderGrade3Units();}
+ else {document.getElementById('homePage').classList.remove('hide');alert('محتوى هذا الصف سيُضاف لاحقًا.');}
  window.scrollTo(0,0);
 }
+const grade3Units=[
+{title:'الوحدة 1: الأعداد',project:'مشروع الوحدة: القيمة المنزلية',lessons:[['الألوف',8],['القيمة المنزلية ضمن الألوف',10],['مقارنة الأعداد',12],['ترتيب الأعداد',14],['تقريب الأعداد',16],['العد القفزي',18],['الأرقام الهندية',20]]},
+{title:'الوحدة 2: الجمع',project:'مشروع الوحدة: جمع الأعداد',lessons:[['جمع مضاعفات 10 و100 و1000',28],['تقدير ناتج الجمع',30],['الجمع بإعادة التجميع (1)',32],['الجمع بإعادة التجميع (2)',34],['الجمع مع الفواصل',36]]},
+{title:'الوحدة 3: الطرح',project:'مشروع الوحدة: حقائق الطرح',lessons:[['طرح مضاعفات 10 و100 و1000',42],['تقدير ناتج الطرح',44],['الطرح بإعادة التجميع',46],['الطرح مع وجود أصفار',48],['الطرح مع الاستلاف',50]]},
+{title:'الوحدة 4: حقائق الضرب',project:'مشروع الوحدة: عدّ الكائنات الحية',lessons:[['الضرب في 2',56],['الضرب في 5',58],['الضرب في 10',60],['الضرب في 3',62],['المضاعفة',64],['الضرب في 4',66],['الضرب في 6 و9',68],['الضرب في 7 و8',70],['خواص الضرب',72]]},
+{title:'الوحدة 5: حقائق القسمة',project:'مشروع الوحدة: أصمّم لعبة قسمة',lessons:[['مفهوم القسمة',80],['علاقة القسمة بالضرب',82],['الحقائق المترابطة',84],['خواص القسمة',86],['الباقي',88]]},
+{title:'الوحدة 6: الهندسة والأنماط',project:'مشروع الوحدة: مدينة الهندسة',lessons:[['النقطة والمستقيم والشعاع',96],['الزوايا',98],['مستقيمات خاصة',100]]}
+];
+function grade3Stars(){try{return Number(localStorage.getItem('mathWorldGrade3Stars')||0)}catch(e){return 0}}
+function renderGrade3Units(){
+ const root=document.getElementById('grade3Units');if(!root)return;
+ root.innerHTML='<div class="achievement-panel"><div class="achievement-panel-head"><div><h3>⭐ إنجازات الصف الثالث</h3><p>نجوم الصف الثالث محفوظة بشكل مستقل عن بقية الصفوف.</p></div><strong style="font-size:24px">⭐ '+grade3Stars()+'</strong></div><p>هدفنا الأول: جمع 50 نجمة للحصول على شهادة التميّز.</p></div>'+grade3Units.map((u,i)=>'<article class="unit-card"><div class="unit-card-heading"><h4>'+u.title+'</h4><p>'+u.lessons.length+' دروس • '+u.project+'</p></div><details class="lesson-dropdown"><summary>عرض الدروس بالترتيب</summary><div class="dropdown-lessons">'+u.lessons.map((l,j)=>'<button class="secondary" onclick="openGrade3Lesson('+i+','+j+')">📘 الدرس '+(j+1)+': '+l[0]+' <small>(ص '+l[1]+')</small></button>').join('')+'</div></details><div class="unit-actions"><button onclick="openGrade3Lesson('+i+',0)">ابدأ الوحدة 🚀</button><button class="secondary" onclick="alert("اختبار نهاية الوحدة قيد الإعداد وفق أسئلة الكتاب.")">📝 اختبار نهاية الوحدة</button></div></article>').join('');
+}
+function openGrade3Lesson(unitIndex,lessonIndex){
+ const u=grade3Units[unitIndex],l=u&&u.lessons[lessonIndex];if(!l)return;
+ document.getElementById('grade3Overview').classList.add('hide');
+ const panel=document.getElementById('grade3Lesson');panel.classList.remove('hide');
+ document.getElementById('grade3LessonUnit').textContent=u.title;
+ document.getElementById('grade3LessonTitle').textContent=l[0];
+ const isFirst=unitIndex===0&&lessonIndex===0;
+ document.getElementById('grade3LessonText').innerHTML=isFirst
+ ? '<div class="recap"><h3>🎯 هدفنا اليوم</h3><p>سنتعرّف إلى الألوف، ونربطها بالمئات والعشرات والآحاد.</p><p>تذكّر: كل 10 مئات تكوّن ألفًا واحدًا، والعدد 1,000 يتكوّن من ألف واحد.</p></div><div class="unit-card"><h4>مثال مع حسّوب 🤖</h4><p>إذا جمعنا 10 مجموعات، في كل مجموعة 100 مكعّب، فلدينا 1,000 مكعّب.</p><p><strong>1,000 = 10 مئات = 1 ألف</strong></p></div><div class="unit-card"><h4>جرّب بنفسك ⭐</h4><p>كم مئة نحتاج لتكوين ألف واحد؟</p><div class="choices"><button onclick="checkGrade3Starter(this,false)">5 مئات</button><button onclick="checkGrade3Starter(this,true)">10 مئات</button><button onclick="checkGrade3Starter(this,false)">100 مئة</button></div><p id="grade3StarterFeedback" aria-live="polite"></p></div>'
+ : '<div class="recap"><h3>📘 '+l[0]+'</h3><p>هذا الدرس محدد حسب فهرس كتاب الطالب الرسمي، صفحة '+l[1]+'. نكمل الآن بناء شرحه وأمثلته وأسئلته التفاعلية من صفحات الدرس نفسها حتى تكون مطابقة للكتاب.</p><p>رح نضيف الشرح خطوة بخطوة مع حسّوب، والتصحيح الفوري، والنجوم، ولعبة واختبار للوحدة.</p></div>';
+ document.getElementById('grade3LessonStatus').textContent=isFirst?'أحسنت! ابدأ بالمثال ثم أجب عن السؤال لتحصل على نجمة عند الإجابة الصحيحة.':'الدرس مثبت في ترتيب الكتاب الرسمي، ومحتواه التفصيلي قيد الإعداد.';
+ window.scrollTo(0,0);
+}
+function checkGrade3Starter(btn,correct){
+ const fb=document.getElementById('grade3StarterFeedback');if(!fb)return;
+ if(correct){fb.innerHTML='🎉 أحسنت! إجابة صحيحة. 10 مئات تساوي ألفًا واحدًا.';if(!fb.dataset.starAwarded){try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}fb.dataset.starAwarded='1';if(typeof celebrate==='function')celebrate();}}
+ else fb.textContent='💛 حاول مرة أخرى يا بطل! تذكّر أن 10 مئات تكوّن ألفًا واحدًا.';
+}
+function backGrade3ToUnits(){document.getElementById('grade3Lesson').classList.add('hide');document.getElementById('grade3Overview').classList.remove('hide');renderGrade3Units();window.scrollTo(0,0)}
 function goHome(){
  document.getElementById('gradePage').classList.add('hide');
  document.getElementById('grade2Page').classList.add('hide');
+ const g3=document.getElementById('grade3Page');if(g3)g3.classList.add('hide');
  document.getElementById('homePage').classList.remove('hide');
  window.scrollTo(0,0);
 }
@@ -1150,4 +1184,4 @@ window.addEventListener('popstate',function(){
  if(page1&&!page1.classList.contains('hide')){goHome();return;}
  if(page2&&!page2.classList.contains('hide')){goHome();return;}
 });
-</script><div id="grade2Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثاني الأساسي</h2><p>الفصل الدراسي الأول • وفق فهرس كتاب الطالب الرسمي</p></div></div><section class="grade-overview"><h2>رحلتك في الصف الثاني 🌟</h2><p>اختاري الوحدة ثم الدرس. عناوين الدروس مرتبة حسب فهرس الكتاب.</p><div id="grade2Units"></div></section><section id="grade2Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="backGrade2ToUnits()">← العودة إلى الوحدات</button><p id="grade2LessonUnit" class="pill"></p><h2 id="grade2LessonTitle"></h2><div id="grade2LessonText"></div><div id="grade2LessonStatus" class="recap"></div></section></div></div></body></html>
+</script><div id="grade2Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثاني الأساسي</h2><p>الفصل الدراسي الأول • وفق فهرس كتاب الطالب الرسمي</p></div></div><section class="grade-overview"><h2>رحلتك في الصف الثاني 🌟</h2><p>اختاري الوحدة ثم الدرس. عناوين الدروس مرتبة حسب فهرس الكتاب.</p><div id="grade2Units"></div></section><section id="grade2Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="backGrade2ToUnits()">← العودة إلى الوحدات</button><p id="grade2LessonUnit" class="pill"></p><h2 id="grade2LessonTitle"></h2><div id="grade2LessonText"></div><div id="grade2LessonStatus" class="recap"></div></section><div id="grade3Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثالث الأساسي</h2><p>الفصل الدراسي الأول • بحسب فهرس كتاب الطالب الرسمي المرفق</p></div></div><section id="grade3Overview" class="grade-overview"><h2>رحلتك في الصف الثالث 🌟</h2><p>اختَر الوحدة ثم الدرس. ترتيب الوحدات والدروس مطابق لفهرس الكتاب، وسنضيف الشرح التفاعلي بالتتابع.</p><div id="grade3Units"></div></section><section id="grade3Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="backGrade3ToUnits()">← العودة إلى الوحدات</button><p id="grade3LessonUnit" class="pill"></p><h2 id="grade3LessonTitle"></h2><div id="grade3LessonText"></div><div id="grade3LessonStatus" class="recap"></div></section></div></div></div></div></body></html>
