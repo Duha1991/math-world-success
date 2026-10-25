@@ -446,6 +446,7 @@ const grade3Units=[
 {title:'الوحدة 6: الهندسة والأنماط',project:'مشروع الوحدة: مدينة الهندسة',lessons:[['النقطة والمستقيم والشعاع',96],['الزوايا',98],['مستقيمات خاصة',100]]}
 ];
 function grade3Stars(){try{return Number(localStorage.getItem('mathWorldGrade3Stars')||0)}catch(e){return 0}}
+function recordGrade3Star(){const n=grade3Stars()+1;try{localStorage.setItem('mathWorldGrade3Stars',String(n));const store=loadAchievementStore();const d=store.grades[3]||{totalStars:0,badges:[]};const previous=d.totalStars;d.totalStars=n;d.badges=Array.isArray(d.badges)?d.badges:[];if(n>=1&&!d.badges.includes('first_star'))d.badges.push('first_star');for(const threshold of [10,25,50,100,150]){const id='stars_'+threshold;if(n>=threshold&&!d.badges.includes(id))d.badges.push(id);}store.grades[3]=d;localStorage.setItem(ACHIEVEMENT_STORAGE_KEY,JSON.stringify(store));if([50,100,150].includes(n)&&previous<n&&typeof celebrateHassoubMilestone==='function')celebrateHassoubMilestone(n);}catch(e){}const oldGrade=activeAchievementGrade;activeAchievementGrade=3;renderAchievementPanel();activeAchievementGrade=oldGrade;return n;}
 function renderGrade3Units(){
  const root=document.getElementById('grade3Units');if(!root)return;
  root.innerHTML='<div class="achievement-panel"><div class="achievement-panel-head"><div><h3>⭐ إنجازاتي في الصف الثالث</h3><p>نجومي محفوظة لهذا الصف فقط.</p></div><strong style="font-size:24px">⭐ '+grade3Stars()+'</strong></div><p>اجمع 50 نجمة لتحصل على شهادة التميّز.</p></div>'+grade3Units.map((u,i)=>'<section class="unit-card" style="margin:12px 0"><div class="unit-card-heading"><h3>'+u.title+'</h3><p>'+u.lessons.length+' دروس</p></div><ol style="padding-right:24px;margin:12px 0">'+u.lessons.map((l,j)=>'<li style="margin:8px 0"><button class="toggle" style="margin:4px;max-width:100%;text-align:right" onclick="openGrade3Lesson('+i+','+j+')"><strong>الدرس '+['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع'][j]+'</strong>: '+l[0]+' <small>(ص '+l[1]+')</small></button></li>').join('')+'</ol><p><strong>مشروع الوحدة:</strong> '+u.project.replace('مشروع الوحدة: ','')+'</p><button class="mainbtn secondary" onclick="openGrade3Project('+i+')">🧩 مشروع الوحدة</button> <button class="mainbtn" onclick="openGrade3UnitExam('+i+')">📝 اختبار نهاية الوحدة</button></section>').join('');
@@ -503,7 +504,7 @@ function checkGrade3ProjectAnswer(btn,unitIndex,questionIndex,choiceIndex){
  const q=grade3ProjectQuestions[unitIndex][questionIndex],fb=document.getElementById('g3projfb'+questionIndex);if(!fb||fb.dataset.done)return;
  if(choiceIndex===q[2]){
   fb.innerHTML='🎉 صحيح يا بطل! '+q[3]+' ⭐';fb.dataset.done='1';
-  try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}
+  recordGrade3Star();
   refreshGrade3Stars();
   btn.closest('.unit-card').querySelectorAll('button').forEach(b=>b.disabled=true);
   if(typeof celebrate==='function')celebrate();if(typeof say==='function'&&soundOn)say('أحسنت! إجابة صحيحة!'); 
@@ -601,7 +602,7 @@ function checkGrade3LessonQuestion(btn,correct,feedbackId,explanation){
 }
 function checkGrade3Starter(btn,correct){
  const fb=document.getElementById('grade3StarterFeedback');if(!fb)return;
- if(correct){fb.innerHTML='🎉 أحسنت! إجابة صحيحة. 10 مئات تساوي ألفًا واحدًا.';if(!fb.dataset.starAwarded){try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}fb.dataset.starAwarded='1';refreshGrade3Stars();if(typeof celebrate==='function')celebrate();if(typeof say==='function'&&soundOn)say('أحسنت! عشرة مئات تساوي ألفًا واحدًا.');}}
+ if(correct){fb.innerHTML='🎉 أحسنت! إجابة صحيحة. 10 مئات تساوي ألفًا واحدًا.';if(!fb.dataset.starAwarded){recordGrade3Star();fb.dataset.starAwarded='1';refreshGrade3Stars();if(typeof celebrate==='function')celebrate();if(typeof say==='function'&&soundOn)say('أحسنت! عشرة مئات تساوي ألفًا واحدًا.');}}
  else {fb.textContent='💛 حاول مرة أخرى يا بطل! تذكّر أن 10 مئات تكوّن ألفًا واحدًا.';if(typeof say==='function'&&soundOn)say('حاول مرة أخرى يا بطل!');}
 }
 function backGrade3ToUnits(){document.getElementById('grade3Lesson').classList.add('hide');document.getElementById('grade3Overview').classList.remove('hide');renderGrade3Units();window.scrollTo(0,0)}
