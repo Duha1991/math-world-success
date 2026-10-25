@@ -632,7 +632,7 @@ function checkGrade3LessonQuestion(btn,correct,feedbackId,explanation){
  const fb=document.getElementById(feedbackId);if(!fb||fb.dataset.done)return;
  if(correct){
   fb.innerHTML='🎉 أحسنت! إجابة صحيحة. '+explanation+' ⭐';fb.dataset.done='1';
-  try{localStorage.setItem('mathWorldGrade3Stars',String(grade3Stars()+1))}catch(e){}
+  recordGrade3Star();
   refreshGrade3Stars();
   const holder=btn.closest('.recap');if(holder)holder.querySelectorAll('button').forEach(b=>b.disabled=true);
   if(typeof celebrate==='function')celebrate();if(typeof say==='function'&&soundOn)say('أحسنت! إجابة صحيحة يا بطل!');
