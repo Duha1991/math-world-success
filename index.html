@@ -160,12 +160,17 @@
 /* تبقى حركة حسّوب ظاهرة حتى عند تفعيل تقليل الحركة في الجهاز */
 
 .certificate-tools{margin-top:18px;padding:14px;border:1px dashed #d9b84d;border-radius:16px;background:#fffdf3}.certificate-tools input{width:100%;max-width:360px;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit}.certificate-preview{margin-top:16px;padding:24px;border:8px double #d8ad27;border-radius:14px;background:#fffdf5;text-align:center;color:#19324d}.certificate-preview h2{font-size:30px;color:#1876c9;margin:8px 0}.certificate-preview .cert-name{font-size:27px;font-weight:bold;color:#18877e;margin:12px 0}.certificate-preview .cert-stars{font-size:20px;font-weight:bold;color:#9a7411}.certificate-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.certificate-preview.hide{display:none}@media print{body *{visibility:hidden!important}#certificatePrint,#certificatePrint *{visibility:visible!important}#certificatePrint{display:block!important;position:absolute!important;inset:0!important;width:100%!important;margin:0!important;padding:24px!important;border:8px double #d8ad27!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}#certificatePrint.hide{display:block!important}@page{size:A4 landscape;margin:12mm}} .grade3-certificate-tools{margin-top:18px;padding:16px;border:2px dashed #b9a4ef;border-radius:18px;background:#fbf9ff}.grade3-certificate-tools h4{font-size:20px;color:#49317f}.grade3-certificate-tools input{box-sizing:border-box;width:100%;padding:15px;border:2px solid #ddd3f5;border-radius:14px;font:inherit;background:white}.grade3-certificate-preview{margin-top:16px;padding:28px 20px;border:9px double #b79aeb;border-radius:14px;background:#fffdf8;text-align:center;color:#263454}.grade3-certificate-preview h2{font-size:30px;color:#6043a5;margin:10px 0}.grade3-certificate-preview h3{color:#243454}.grade3-certificate-preview .grade3-cert-name{font-size:28px;font-weight:800;color:#218578;margin:18px 0;overflow-wrap:anywhere}.grade3-certificate-preview .grade3-cert-stars{font-size:20px;font-weight:800;color:#9a7411}.grade3-certificate-preview.hide{display:none}@media print{body *{visibility:hidden!important}#grade3CertificatePreview,#grade3CertificatePreview *{visibility:visible!important}#grade3CertificatePreview{display:block!important;position:absolute!important;inset:0!important;width:auto!important;margin:0!important;padding:24px!important;border:8px double #b79aeb!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}#grade3CertificatePreview.hide{display:block!important}@page{size:A4 landscape;margin:12mm}}@keyframes g3Clap{from{transform:rotate(-8deg) scale(1)}to{transform:rotate(8deg) scale(1.12)}}
-.site-breadcrumb{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 14px;padding:10px 14px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px #17324d08;font-size:14px}.site-breadcrumb button{border:0;background:transparent;color:var(--blue);font:inherit;font-weight:700;cursor:pointer;padding:2px}.site-breadcrumb button:hover{text-decoration:underline}.site-breadcrumb span{color:#8aa0b4}.site-breadcrumb strong{color:var(--ink)}@media(max-width:600px){.site-breadcrumb{font-size:13px;gap:6px;padding:8px 10px}}</style></head>
+.site-breadcrumb{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 14px;padding:10px 14px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px #17324d08;font-size:14px}.site-breadcrumb button{border:0;background:transparent;color:var(--blue);font:inherit;font-weight:700;cursor:pointer;padding:2px}.site-breadcrumb button:hover{text-decoration:underline}.site-breadcrumb span{color:#8aa0b4}.site-breadcrumb strong{color:var(--ink)}@media(max-width:600px){.site-breadcrumb{font-size:13px;gap:6px;padding:8px 10px}}.site-breadcrumb-global{position:sticky;top:0;z-index:50;margin:0 auto;max-width:1050px;border-radius:0 0 14px 14px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);box-shadow:0 4px 14px #17324d12;padding:9px 18px}.site-breadcrumb-global button{border:0;background:transparent;color:var(--blue);font:inherit;font-weight:700;cursor:pointer;padding:2px}.site-breadcrumb-global button:hover{text-decoration:underline}.site-breadcrumb-global strong{color:var(--ink)}.site-breadcrumb-global span{color:#8aa0b4}@media(max-width:600px){.site-breadcrumb-global{font-size:13px;padding:8px 12px}}</style></head>
 <body>
 <header class="hero">
   <h1>عالم الرياضيات في امتحان النجاح</h1>
   <p class="site-subtitle">بوابتك للتعلّم والتميّز في الرياضيات ⭐</p>
 </header>
+<nav class="site-breadcrumb site-breadcrumb-global" aria-label="مسار التنقل">
+ <button type="button" onclick="goHome()">الصفحة الرئيسية</button><span>‹</span>
+ <button type="button" onclick="goToGrades()">الصفوف</button><span id="breadcrumbSep">‹</span>
+ <strong id="breadcrumbCurrent">الرئيسية</strong>
+</nav>
 <main class="home-wrap" id="homePage">
   <section class="welcome">
     <div class="welcome-symbol">∑</div>
@@ -180,7 +185,7 @@
     <button class="video-hub-button" onclick="openVideos()"><span><strong>الفيديوهات المجانية والمدفوعة</strong><small>اختر الصف وشاهد الفيديوهات المتاحة أو تعرّف إلى الدروس المدفوعة</small></span><span class="play-icon">▶️</span></button>
   </section>
 
-  <div class="grades-heading"><div><h2>اختاري الصف الدراسي</h2><p>لكل صف رحلته ودروسه الخاصة</p></div><span class="grade-count">12 صفًا</span></div>
+  <div class="grades-heading" id="gradesHeading"><div><h2>اختاري الصف الدراسي</h2><p>لكل صف رحلته ودروسه الخاصة</p></div><span class="grade-count">12 صفًا</span></div>
   <section class="grades-grid" aria-label="الصفوف الدراسية">
     <button class="grade-card color-1" onclick="openGrade(1)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">01</span></span><span class="grade-name">الصف الأول<br>الأساسي</span><span class="grade-watermark">01</span><span class="grade-action">ابدئي التعلّم <b>←</b></span></button>
     <button class="grade-card color-2" onclick="openGrade(2)"><span class="grade-meta"><span>أساسي</span><span class="grade-number">02</span></span><span class="grade-name">الصف الثاني<br>الأساسي</span><span class="grade-watermark">02</span><span class="grade-action">ابدئي التعلّم <b>←</b></span></button>
@@ -335,8 +340,24 @@ function showParentAccount(mode){
 function hideParentAccount(){document.getElementById('parentAccountPanel').classList.add('hide');}
 function previewParentAction(event,mode){event.preventDefault();const state=document.getElementById('accountState');state.textContent=mode==='register'?'تم اختبار شكل نموذج التسجيل فقط. لم يُنشأ حساب بعد؛ سنربطه بخدمة آمنة في مرحلة التطوير التالية.':'تم اختبار شكل نموذج الدخول فقط. تسجيل الدخول غير متصل بحسابات حقيقية حتى الآن.';state.classList.add('show');}
 
-function openVideos(){document.getElementById('homePage').classList.add('hide');document.getElementById('gradePage').classList.add('hide');document.getElementById('videoPage').classList.remove('hide');window.scrollTo(0,0);}
-function closeVideos(){document.getElementById('videoPage').classList.add('hide');document.getElementById('homePage').classList.remove('hide');window.scrollTo(0,0);}
+function updateSiteBreadcrumb(){
+ const visible=id=>{const el=document.getElementById(id);return !!el&&!el.classList.contains('hide');};
+ let label='الرئيسية';
+ if(visible('videoPage'))label='مكتبة الفيديوهات';
+ else if(visible('gradePage'))label='الصف الأول';
+ else if(visible('grade2Page'))label='الصف الثاني';
+ else if(visible('grade3Page'))label='الصف الثالث';
+ const current=document.getElementById('breadcrumbCurrent');
+ const sep=document.getElementById('breadcrumbSep');
+ if(current)current.textContent=label;
+ if(sep)sep.style.display=label==='الرئيسية'?'none':'inline';
+}
+function goToGrades(){
+ goHome();
+ setTimeout(()=>{const target=document.getElementById('gradesHeading');if(target)target.scrollIntoView({behavior:'smooth',block:'start'});},30);
+}
+function openVideos(){document.getElementById('homePage').classList.add('hide');document.getElementById('gradePage').classList.add('hide');document.getElementById('grade2Page').classList.add('hide');document.getElementById('grade3Page').classList.add('hide');document.getElementById('videoPage').classList.remove('hide');updateSiteBreadcrumb();window.scrollTo(0,0);}
+function closeVideos(){document.getElementById('videoPage').classList.add('hide');document.getElementById('homePage').classList.remove('hide');updateSiteBreadcrumb();window.scrollTo(0,0);}
 function videoNotice(message){alert(message);}
 function updateSubscriptionPreview(){
  const grade=document.getElementById('videoGradeSelect').value;
@@ -436,6 +457,7 @@ function openGrade(n){
  else if(n===2){document.getElementById('gradePage').classList.add('hide');document.getElementById('grade2Page').classList.remove('hide');renderGrade2Units();}
  else if(n===3){document.getElementById('gradePage').classList.add('hide');document.getElementById('grade2Page').classList.add('hide');document.getElementById('grade3Page').classList.remove('hide');renderGrade3Units();}
  else {document.getElementById('homePage').classList.remove('hide');alert('محتوى هذا الصف سيُضاف لاحقًا.');}
+ updateSiteBreadcrumb();
  window.scrollTo(0,0);
 }
 const grade3Units=[
@@ -652,6 +674,7 @@ function goHome(){
  document.getElementById('grade2Page').classList.add('hide');
  const g3=document.getElementById('grade3Page');if(g3)g3.classList.add('hide');
  document.getElementById('homePage').classList.remove('hide');
+ updateSiteBreadcrumb();
  window.scrollTo(0,0);
 }
 const grade2Units=[
@@ -1387,7 +1410,7 @@ function playAdventureTone(correct){
  try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;const ctx=new AudioCtx();const notes=correct?[523.25,659.25,783.99]:[260,220];notes.forEach((hz,i)=>{const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type='sine';osc.frequency.value=hz;gain.gain.setValueAtTime(.0001,ctx.currentTime+i*.11);gain.gain.exponentialRampToValueAtTime(.12,ctx.currentTime+i*.11+.02);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+i*.11+.16);osc.connect(gain);gain.connect(ctx.destination);osc.start(ctx.currentTime+i*.11);osc.stop(ctx.currentTime+i*.11+.18)});setTimeout(()=>ctx.close(),700)}catch(e){}
 }
 
-updateStars();show(0);
+updateStars();show(0);updateSiteBreadcrumb();
 
 /* Keep the browser Back button inside the learning journey. */
 window.addEventListener('popstate',function(){
@@ -1415,4 +1438,4 @@ window.addEventListener('popstate',function(){
  if(page3&&!page3.classList.contains('hide')){goHome();return;}
 });
 </script><div id="grade2Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثاني الأساسي</h2><p>الفصل الدراسي الأول • وفق فهرس كتاب الطالب الرسمي</p></div></div><section class="grade-overview"><h2>رحلتك في الصف الثاني 🌟</h2><p>اختاري الوحدة ثم الدرس. عناوين الدروس مرتبة حسب فهرس الكتاب.</p><div id="grade2Units"></div></section><section id="grade2Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="backGrade2ToUnits()">← العودة إلى الوحدات</button><p id="grade2LessonUnit" class="pill"></p><h2 id="grade2LessonTitle"></h2><div id="grade2LessonText"></div><div id="grade2LessonStatus" class="recap"></div></section></div></div>
-<div id="grade3Page" class="hide"><div class="wrap"><nav class="site-breadcrumb" aria-label="مسار التنقل"><button type="button" onclick="goHome()">الصفحة الرئيسية</button><span>‹</span><button type="button" onclick="goHome()">الصفوف</button><span>‹</span><strong>الصف الثالث</strong></nav><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثالث الأساسي</h2><p>الفصل الدراسي الأول • بحسب فهرس كتاب الطالب الرسمي المرفق</p></div></div><section id="grade3Overview" class="grade-overview"><h2>رحلتك في الصف الثالث 🌟</h2><p>اختاري الوحدة ثم الدرس. ترتيب الوحدات والدروس حسب فهرس الكتاب.</p><div id="grade3Units"></div></section><section id="grade3Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="backGrade3ToUnits()">← العودة إلى الوحدات</button><p id="grade3LessonUnit" class="pill"></p><h2 id="grade3LessonTitle"></h2><div id="grade3LessonText"></div><div id="grade3LessonStatus" class="recap"></div></section></div></div></body></html>
+<div id="grade3Page" class="hide"><div class="wrap"><div class="grade-page-head"><button class="toggle" onclick="goHome()">← العودة إلى الصفوف</button><div class="grade-page-title"><h2>الصف الثالث الأساسي</h2><p>الفصل الدراسي الأول • بحسب فهرس كتاب الطالب الرسمي المرفق</p></div></div><section id="grade3Overview" class="grade-overview"><h2>رحلتك في الصف الثالث 🌟</h2><p>اختاري الوحدة ثم الدرس. ترتيب الوحدات والدروس حسب فهرس الكتاب.</p><div id="grade3Units"></div></section><section id="grade3Lesson" class="lesson hide" style="margin-top:16px"><button class="toggle" onclick="backGrade3ToUnits()">← العودة إلى الوحدات</button><p id="grade3LessonUnit" class="pill"></p><h2 id="grade3LessonTitle"></h2><div id="grade3LessonText"></div><div id="grade3LessonStatus" class="recap"></div></section></div></div></body></html>
