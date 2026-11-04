@@ -484,7 +484,6 @@ function openGrade3Game(unitIndex){
  ]:unitIndex>=2?grade3UnitQuestionSet(unitIndex).filter((q,i)=>i%4===0).slice(0,5):[
  ['قيمة الرقم 8 في 1,836؟',['8','80','800'],2,'الرقم 8 في منزلة المئات، فقيمته 800.'],['ما ناتج 300 + 400؟',['70','700','3,400'],1,'3 مئات + 4 مئات = 7 مئات.'],['ما ناتج 9 × 3؟',['12','27','36'],1,'9 × 3 = 27.'],['ما ناتج 18 ÷ 2؟',['8','9','10'],1,'18 ÷ 2 = 9.'],['الزاوية القائمة قياسها؟',['45°','90°','180°'],1,'قياسها 90 درجة.']
  ];
- ];
  document.getElementById('grade3LessonText').innerHTML='<div class="hassoub-cheer"><span class="hassoub-face">🤖</span><div><h3>حسّوب جاهز للتحدّي!</h3><p>اختر الإجابة الصحيحة؛ ستظهر لك التغذية الراجعة فورًا.</p></div></div>'+qs.map((q,i)=>'<div class="unit-card"><h4>التحدي '+(i+1)+' من 5</h4><p>'+q[0]+'</p><div class="choices">'+q[1].map((a,j)=>'<button onclick="checkGrade3GameAnswer(this,'+unitIndex+','+i+','+j+')">'+a+'</button>').join('')+'</div><p id="g3gamefb'+i+'" aria-live="polite"></p></div>').join('')+'<div class="recap" id="g3GameFinish">أجب عن التحديات الخمسة يا بطل! ⭐</div>';
  window.grade3GameQuestions=qs;document.getElementById('grade3LessonStatus').textContent='🎮 لعبة حسّوب • 5 تحديات • نجوم الصف الثالث';window.scrollTo(0,0);
 }
