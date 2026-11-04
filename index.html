@@ -614,12 +614,16 @@ const grade3ExtraLessonBank=[[["اطرح مضاعفات 10 و100 و1000","نطر
 function renderGrade3ExtraUnitLesson(unitIndex,lessonIndex){
  const row=grade3ExtraLessonBank[unitIndex-2]&&grade3ExtraLessonBank[unitIndex-2][lessonIndex];if(!row)return false;
  const [title,explain,examples,questions]=row;
- const html='<div class="recap"><div class="hassoub-cheer"><span class="hassoub-face">🤖</span><div><h3>أهلًا بك يا بطل! أنا حسّوب</h3><p>سنفهم الفكرة خطوة خطوة، ثم نحلّ أمثلة ونتدرّب معًا.</p></div></div><h3>🎯 هدف الدرس: '+title+'</h3><p>'+explain+'</p></div><div class="unit-card"><h4>📘 أمثلة محلولة</h4><p>'+examples+'</p><p>تذكّر: اقرأ السؤال، وحدد العملية المناسبة، ثم راجع إجابتك.</p></div><h3>⭐ تدرّب مع حسّوب</h3>'+questions.map((q,i)=>'<div class="recap"><p><strong>السؤال '+(i+1)+' من 4:</strong> '+q[0]+'</p><div class="choices">'+q[1].map((v,j)=>'<button type="button" onclick="checkGrade3LessonQuestion(this,'+(j===q[2])+',\'g3extra_'+unitIndex+'_'+lessonIndex+'_'+i+'\',\''+q[3].replace(/'/g,"’")+'\')">'+v+'</button>').join('')+'</div><p id="g3extra_'+unitIndex+'_'+lessonIndex+'_'+i+'" aria-live="polite"></p></div>').join('')+'<p class="small-note">هذه تدريبات تعليمية إضافية أُعدّت للموقع لتثبيت مهارات الدرس.</p>';
+ const html='<div class="recap"><div class="hassoub-cheer"><span class="hassoub-face">🤖</span><div><h3>أهلًا بك يا بطل! أنا حسّوب</h3><p>سنفهم الفكرة خطوة خطوة، ثم نحلّ أمثلة ونتدرّب معًا.</p></div></div><h3>🎯 هدف الدرس: '+title+'</h3><p>'+explain+'</p></div><div class="unit-card"><h4>📘 أمثلة محلولة</h4><p>'+examples+'</p><p>تذكّر: اقرأ السؤال، وحدد العملية المناسبة، ثم راجع إجابتك.</p></div><h3>⭐ تدرّب مع حسّوب</h3>'+questions.map((raw,i)=>{const q=grade3RotateQuestion(raw,i);return '<div class="recap"><p><strong>السؤال '+(i+1)+' من 4:</strong> '+q[0]+'</p><div class="choices">'+q[1].map((v,j)=>'<button type="button" onclick="checkGrade3LessonQuestion(this,'+(j===q[2])+',\'g3extra_'+unitIndex+'_'+lessonIndex+'_'+i+'\',\''+q[3].replace(/'/g,"’")+'\')">'+v+'</button>').join('')+'</div><p id="g3extra_'+unitIndex+'_'+lessonIndex+'_'+i+'" aria-live="polite"></p></div>';}).join('')+'<p class="small-note">هذه تدريبات تعليمية إضافية أُعدّت للموقع لتثبيت مهارات الدرس.</p>';
  document.getElementById('grade3LessonText').innerHTML=html;renderGrade3LessonControls(unitIndex,lessonIndex);return true;
+}
+function grade3RotateQuestion(q,index){
+ const shift=index%q[1].length,choices=q[1].map((_,j)=>q[1][(j+shift)%q[1].length]);
+ return [q[0],choices,(q[2]-shift+q[1].length)%q[1].length,q[3]];
 }
 function grade3UnitQuestionSet(unitIndex){
  const rows=grade3ExtraLessonBank[unitIndex-2]||[];
- return rows.flatMap(row=>row[3]).map(q=>[q[0],q[1],q[2],q[3]]);
+ return rows.flatMap(row=>row[3]).map((q,i)=>grade3RotateQuestion(q,i));
 }
 
 function openGrade3Lesson(unitIndex,lessonIndex){
